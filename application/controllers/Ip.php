@@ -38,7 +38,10 @@ class Ip extends CI_Controller{
             redirect('ip/index');
         }
         else
-        {            
+        {
+			$this->load->model('Hebergement_model');
+			$data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
+            
             $data['_view'] = 'ip/add';
             $this->load->view('layouts/main',$data);
         }
@@ -66,6 +69,9 @@ class Ip extends CI_Controller{
             }
             else
             {
+				$this->load->model('Hebergement_model');
+				$data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
+
                 $data['_view'] = 'ip/edit';
                 $this->load->view('layouts/main',$data);
             }

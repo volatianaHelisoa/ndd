@@ -52,6 +52,7 @@
 main.dashboard-container {
     flex: 1;
     height: 100vh;
+    padding-left: 230px;
 }
 .topbar-head {
     min-height: 62px;

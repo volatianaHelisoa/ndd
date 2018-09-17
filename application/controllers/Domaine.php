@@ -126,5 +126,27 @@ class Domaine extends CI_Controller{
         else
             show_error('The t_domaine you are trying to delete does not exist.');
     }
+
+    function get_autocomplete_theme(){
+    
+        if (isset($_GET['term'])) {
+            $this->load->model('Theme_model');
+            $result = $this->Theme_model->suggested_theme($_GET['term']);
+           
+            echo json_encode($result);
+            
+        }
+    }
+
+    function get_select_ip(){
+    
+        if (isset($_GET['term'])) {
+            $this->load->model('Theme_model');
+            $result = $this->Theme_model->suggested_theme($_GET['term']);
+           
+            echo json_encode($result);
+            
+        }
+    }
     
 }
