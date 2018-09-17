@@ -4,8 +4,8 @@
 }
 .nav-panel {
     background: #080718;
-	position:fixed;
-	height:100%;
+	/* position:fixed;
+	height:100%; */
 }
 
 .nav-panel .logo {
@@ -52,7 +52,8 @@
 main.dashboard-container {
     flex: 1;
     height: 100vh;
-	padding-left:230px;
+    padding: 40px;
+    overflow-y: scroll 
 }
 .topbar-head {
     min-height: 62px;
@@ -69,7 +70,7 @@ main.dashboard-container {
     border-bottom: none;
     background-color: #f15e53;
     color: white;
-    padding: 10px 0;
+    padding: 10px 12px;
 }
 td.thematique .tag {
     display: block;
