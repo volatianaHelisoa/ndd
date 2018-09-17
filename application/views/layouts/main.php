@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/base.css">	
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/layout.css">
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery-ui.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js" type="text/javascript"></script>
 	</head>
 
 	<body>
@@ -41,7 +42,6 @@
 	</div>
 	</body>
 	<!-- JS Libs -->	 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js" type="text/javascript"></script>
 	<script type="text/javascript"
 	src="<?php echo base_url(); ?>assets/JS/jquery-ui-1.12.1.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
