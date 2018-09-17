@@ -37,9 +37,10 @@
 							?>
 						</select>
                         </div>
-						<div class="field addr-ip" >
+						<div class="field div-addr-ip" >
                         	<label for="">Adresse IP :</label>
-                        	<input type="text" id="ip" >
+                        	<select id="addr-id" >
+							</select>
                         </div>
                         <div class="field">
                         	<label for="">Registrar :</label>
@@ -109,6 +110,19 @@
                         <input type="submit" class="btn submit" value="Ajouter">
 						
                 </div>
+			</div>
+			<div class="modal fade" id="exampleModalCenter">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-body">
+                        <div class="confirmation-wrap">
+                            <div class="title-ended">Terminé</div>
+                            <p>Nom de domaine ajouter avec succès</p>
+                            <a href="#" class="submit">OK</a>
+                       </div>
+                      </div>
+                    </div>
+                  </div>
             </div>
   
 
@@ -117,7 +131,7 @@
  <script type="text/javascript">
         $(document).ready(function(){
 			$(".preference" ).hide();	
-			$(".addr-ip").hide();	
+			$(".div-addr-ip").hide();	
 
 		// auto complete
 		$( "#theme" ).autocomplete({
@@ -151,35 +165,41 @@
 				minLength: 2
 		});
 
-		// auto complete
-		$( "#id_heberg" ).change({
-				source: function(request, response) {	
-					$.ajax({
-						//q: request.term,
-						url: "<?=site_url('domaine/get_autocomplete_theme')?>",
-						data: { term: $("#theme").val()},
-						dataType: "json",
-						type: "GET",
-						success: function(data) {
-							console.info(data);
-							//response(data);
-							response($.map(data, function (val, item) {
-								return {
-									value: val.label,
-									text: val.value
-								}
-							}))
-						}
+
+		$("#id_heberg").change(function(){
+			var dID = $(this).val();
+
+			$.ajax({
+				type: "POST",
+				url: "<?=site_url('domaine/get_autocomplete_theme')?>",
+				data: { 'carId': dID  },
+				success: function(data){
+					var select = $("#addr-ip");				
+					select.empty();
+					select.append($('<option/>', {
+						value: 0,
+						text: "Selectionner IP"
+					}));
+					$.each(data, function (index, itemData) {
+						select.append($('<option/>', {
+							value: itemData.Value,
+							text: itemData.Text
+						}));
 					});
-				},
-				select: function (event, ui) {
-					//event.preventDefault();
-                    $("#theme").val(ui.item.text);
-                    console.log($("#theme").val(ui.item.text));
-                },
-				minLength: 2
+
+					$(".div-addr-ip").show();	
+				
+				}			
+        	});			
 		});
 			
+			
+		$(".content-chips span").click(function(){
+				var hideChip = $(this).parent(".content-chips li");
+				hideChip.hide();
+			});
+
+
 
         });
     </script>

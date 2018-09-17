@@ -45,7 +45,7 @@ body {
 }
 a {
     color: #f15e53;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 p {
