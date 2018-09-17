@@ -96,5 +96,7 @@ class Ip extends CI_Controller{
         else
             show_error('The t_ip you are trying to delete does not exist.');
     }
+
+   
     
 }

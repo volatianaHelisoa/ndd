@@ -53,4 +53,36 @@ class Ip_model extends CI_Model
     {
         return $this->db->delete('t_ip',array('id'=>$id));
     }
+
+     /*
+     * Get t_ip by id_hebergement
+     */
+    function get_by_id_hebergement($id_hebergement)
+    {
+        $this->load->database();       
+
+        $this->db->select( "*" );
+        $this->db->from( 't_ip' );
+        $this->db->like( 'id_heberg', $id_hebergement );
+        $this->db->order_by('id_heberg', 'asc');
+        $query = $this->db->get();
+        $ip_data = $query->result();
+        
+        $ips = array();
+        foreach($ip_data as $key):
+            
+            $a = array(
+                'id' => trim($key->id),
+                'label' => trim($key->adresse),
+                'value' => trim($key->adresse)
+            );
+
+            $ips[] = $a;
+        endforeach;
+        
+        echo json_encode($ips);
+        die;
+
+       
+    }
 }

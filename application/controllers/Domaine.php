@@ -29,21 +29,64 @@ class Domaine extends CI_Controller{
     {   
         if(isset($_POST) && count($_POST) > 0)     
         {   
-            $params = array(
-				'id_cms' => $this->input->post('id_cms'),
-				'id_registrar' => $this->input->post('id_registrar'),
-				'id_heberg' => $this->input->post('id_heberg'),
-				'ftp_login' => $this->input->post('ftp_login'),
-				'ftp_password' => $this->input->post('ftp_password'),
-				'ftp_server' => $this->input->post('ftp_server'),
-				'admin_url' => $this->input->post('admin_url'),
-				'admin_login' => $this->input->post('admin_login'),
-				'admin_password' => $this->input->post('admin_password'),
-				'nom' => $this->input->post('nom'),
-				'date_creation' => $this->input->post('date_creation'),
-            );
-            
+            // $params = array(
+			// 	'id_cms' => $this->input->post('id_cms'),
+			// 	'id_registrar' => $this->input->post('id_registrar'),
+			// 	'id_heberg' => $this->input->post('id_heberg'),
+			// 	'ftp_login' => $this->input->post('ftp_login'),
+			// 	'ftp_password' => $this->input->post('ftp_password'),
+			// 	'ftp_server' => $this->input->post('ftp_server'),
+			// 	'admin_url' => $this->input->post('admin_url'),
+			// 	'admin_login' => $this->input->post('admin_login'),
+			// 	'admin_password' => $this->input->post('admin_password'),
+			// 	'nom' => $this->input->post('nom'),
+			// 	'date_creation' => $this->input->post('date_creation'),
+            // );
+
+            $today = date("Y-m-d"); 
+            $id_heberg = $this->input->post('id_heberg');
+           
+            if($id_heberg == ""){
+                $params = array(
+                    'nom' => $this->input->post('nom'),
+                    'id_registrar' => $this->input->post('id_registrar'),		
+                    'date_creation' =>  $today,
+                );
+            }
+            else{
+                $params = array(
+                    'nom' => $this->input->post('nom'),                   
+                    'id_registrar' => $this->input->post('id_registrar'),
+                    'id_heberg' => $this->input->post('id_heberg'),
+                    'id_cms' => $this->input->post('id_cms'),
+                    'ftp_login' => $this->input->post('ftp_login'),
+                    'ftp_password' => $this->input->post('ftp_password'),
+                    'ftp_server' => $this->input->post('ftp_server'),
+                    'admin_url' => $this->input->post('admin_url'),
+                    'admin_login' => $this->input->post('admin_login'),
+                    'admin_password' => $this->input->post('admin_password'),                   
+                    'date_creation' =>  $today,
+                );              
+            }         
+          
             $t_domaine_id = $this->Domaine_model->add_t_domaine($params);
+
+
+            /**ajout ip */
+            $this->load->model('Domaine_theme_ip_model');
+            $theme = $this->input->post('id_theme');
+           
+            $theme = $this->Theme_model->get_t_theme_by_name($theme);
+
+            $params_ip = array(
+				'id_domaine' => $t_domaine_id,
+				'id_ip' => $this->input->post('id_ip'),
+				'id_theme' => $theme->id_theme,
+            );
+            $this->load->model('Domaine_theme_ip_model');
+           
+           $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);
+
             redirect('domaine/index');
         }
         else
@@ -140,12 +183,12 @@ class Domaine extends CI_Controller{
 
     function get_select_ip(){
     
-        if (isset($_GET['term'])) {
-            $this->load->model('Theme_model');
-            $result = $this->Theme_model->suggested_theme($_GET['term']);
+        if (isset($_GET['id_heberg'])) {
+            $this->load->model('Ip_model');
+            $result = $this->Ip_model->get_by_id_hebergement($_GET['id_heberg']);
            
             echo json_encode($result);
-            
+           
         }
     }
     

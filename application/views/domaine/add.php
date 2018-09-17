@@ -11,7 +11,7 @@
 				<div class="filter">
 					
 				</div>
-                <div class="card wrap-field">
+                <div class="card wrap-field info-gen">
 					<div class="title-field">Information général</div>
                    
                     	<div class="field">
@@ -20,7 +20,7 @@
                         </div>
                         <div class="field">
                         	<label for="">Thématique :</label>
-                        	<input type="text" id="theme" >
+                        	<input type="text" id="theme" value="<?php echo $this->input->post('theme'); ?>">
                         </div>
                         
                         <div class="field">
@@ -39,7 +39,7 @@
                         </div>
 						<div class="field div-addr-ip" >
                         	<label for="">Adresse IP :</label>
-                        	<select id="addr-id" >
+                        	<select id="addr-id"  value="<?php echo $this->input->post('id_ip'); ?>" >
 							</select>
                         </div>
                         <div class="field">
@@ -56,8 +56,8 @@
 								?>
 							</select>
                         </div>
-                        <input type="button" class="btn submit" value="Suivant">
-                    
+                        <input type="button" class="btn submit btn-next" value="Suivant">
+						<input type="submit" class="btn submit btn-save-first" value="Ajouter">
                 </div>
                 <div class="card wrap-field preference">
 					<div class="title-field ">Préférences</div>
@@ -105,12 +105,14 @@
                         <div class="sub-title">Plugin</div>
                         <div class="content-chips">
 							
-                        </div>
-                        
-                        <input type="submit" class="btn submit" value="Ajouter">
+						</div>
 						
+						<input type="button" class="btn submit btn-previous" value="Precedent">
+						<input type="submit" class="btn submit btn-save" value="Ajouter">
                 </div>
 			</div>
+			
+						
 			<div class="modal fade" id="exampleModalCenter">
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -132,7 +134,7 @@
         $(document).ready(function(){
 			$(".preference" ).hide();	
 			$(".div-addr-ip").hide();	
-
+			$(".btn-next").hide();	
 		// auto complete
 		$( "#theme" ).autocomplete({
 				source: function(request, response) {
@@ -146,7 +148,7 @@
 						dataType: "json",
 						type: "GET",
 						success: function(data) {
-							console.info(data);
+							console.log(data);
 							//response(data);
 							response($.map(data, function (val, item) {
 								return {
@@ -160,6 +162,7 @@
 				select: function (event, ui) {
 					//event.preventDefault();
                     $("#theme").val(ui.item.text);
+				
                     console.log($("#theme").val(ui.item.text));
                 },
 				minLength: 2
@@ -168,38 +171,60 @@
 
 		$("#id_heberg").change(function(){
 			var dID = $(this).val();
-
-			$.ajax({
-				type: "POST",
-				url: "<?=site_url('domaine/get_autocomplete_theme')?>",
-				data: { 'carId': dID  },
+			
+			if(dID != ""){
+				$.ajax({
+				type: "GET",
+				url: "<?=site_url('domaine/get_select_ip')?>",
+				data: { id_heberg: dID},
+				dataType: "json",
 				success: function(data){
-					var select = $("#addr-ip");				
+					var select = $("#addr-id");				
 					select.empty();
 					select.append($('<option/>', {
 						value: 0,
 						text: "Selectionner IP"
 					}));
 					$.each(data, function (index, itemData) {
-						select.append($('<option/>', {
-							value: itemData.Value,
-							text: itemData.Text
-						}));
-					});
-
-					$(".div-addr-ip").show();	
-				
+						
+						select
+							.append($('<option>', { value : index })
+							.text(itemData.value));
+						});			
+					
+					$(".div-addr-ip").show();		
+					$(".btn-next").show();
+					$(".btn-save-first").hide();
 				}			
-        	});			
-		});
-			
+        	});	
+			}
+			else{
+				$(".div-addr-ip").hide();	
+				$(".preference").hide();	
+				$(".btn-save-first").show();		
+				$( ".btn-next").hide();
+			}
+				
+		});			
 			
 		$(".content-chips span").click(function(){
 				var hideChip = $(this).parent(".content-chips li");
 				hideChip.hide();
-			});
+		});
 
+		$( ".btn-next" ).click(function() {
+			$(".info-gen").hide();			
+			$(".preference").show();	
+		});
 
+		$( ".btn-previous" ).click(function() {
+			$(".info-gen").show();	
+			var $popInput = $('.preference input[type="text"]');	
+			$popInput.val("");
+			$(".preference select option").val("");
+			$(".preference").hide();	
+
+		});
 
         });
     </script>

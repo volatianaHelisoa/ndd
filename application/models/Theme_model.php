@@ -55,15 +55,12 @@ class Theme_model extends CI_Model
     }
 
      /*
-     * Get t_theme by id
+     * Get t_theme by term
      */
     function suggested_theme($term)
     {
-        $this->load->database();
-            //$query = "SELECT id,name FROM t_theme WHERE name LIKE '{$term}%' LIMIT 10";
-
-           // $theme_data = $this->crud->run_query($query);
-
+            $this->load->database();
+         
             $this->db->select( "*" );
             $this->db->from( 't_theme' );
             $this->db->like( 'name', $term );
@@ -85,5 +82,13 @@ class Theme_model extends CI_Model
           
             echo json_encode($themes);
             die;
+    }
+
+    /*
+     * Get t_theme by name
+     */
+    function get_t_theme_by_name($name)
+    {
+        return $this->db->get_where('t_theme',array('name'=>$name))->row_array();
     }
 }
