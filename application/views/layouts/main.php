@@ -13,25 +13,6 @@
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/base.css">	
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/layout.css">
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery-ui.css" />
-		<!-- JS Libs -->	 
-	
-
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js" type="text/javascript"></script>
-		<script type="text/javascript"
-		src="<?php echo base_url(); ?>assets/JS/jquery-ui-1.12.1.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
-	
-		
-
-		
-		<script type="text/javascript">
-			var base_url = '<?php echo base_url(); ?>';
-		</script>
-      
-	  
-	  
-
-	
 	</head>
 
 	<body>
@@ -41,7 +22,7 @@
             <nav class="menu">
                 <ul>
                     <li><a href="<?php echo site_url('dashboard'); ?>">Dashboard</a></li>
-                    <li class="current"><a href="<?php echo site_url('domaine/index'); ?>">Nom de domaine</a></li>
+                    <li><a href="<?php echo site_url('domaine/index'); ?>">Nom de domaine</a></li>
                     <li><a href="<?php echo site_url('hebergement/index'); ?>">Hebergement</a></li>
                     <li><a href="<?php echo site_url('ip/index'); ?>">IP</a></li>
                     <li><a href="<?php echo site_url('theme/index'); ?>">Gestion thématique</a></li>
@@ -58,4 +39,13 @@
       </main>
 	</div>
 	</body>
+	<!-- JS Libs -->	 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js" type="text/javascript"></script>
+	<script type="text/javascript"
+	src="<?php echo base_url(); ?>assets/JS/jquery-ui-1.12.1.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="<?php echo base_url(); ?>assets/JS/customscript.js"
+	<script type="text/javascript">
+		var base_url = '<?php echo base_url(); ?>';
+	</script>
 </html>
