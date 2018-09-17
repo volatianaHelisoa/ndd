@@ -20,7 +20,7 @@
                         </div>
                         <div class="field">
                         	<label for="">Thématique :</label>
-                        	<input type="text" id="theme" value="<?php echo $this->input->post('theme'); ?>">
+                        	<input type="text" id="theme" name="theme" >
                         </div>
                         
                         <div class="field">
@@ -39,7 +39,7 @@
                         </div>
 						<div class="field div-addr-ip" >
                         	<label for="">Adresse IP :</label>
-                        	<select id="addr-id"  value="<?php echo $this->input->post('id_ip'); ?>" >
+                        	<select id="addr-ip"   name="addr-ip" ?>" >
 							</select>
                         </div>
                         <div class="field">
@@ -151,6 +151,7 @@
 							console.log(data);
 							//response(data);
 							response($.map(data, function (val, item) {
+								
 								return {
 									value: val.label,
 									text: val.value
@@ -179,16 +180,16 @@
 				data: { id_heberg: dID},
 				dataType: "json",
 				success: function(data){
-					var select = $("#addr-id");				
+					var select = $("#addr-ip");				
 					select.empty();
 					select.append($('<option/>', {
 						value: 0,
 						text: "Selectionner IP"
 					}));
 					$.each(data, function (index, itemData) {
-						
+					
 						select
-							.append($('<option>', { value : index })
+							.append($('<option>', { value : itemData.id })
 							.text(itemData.value));
 						});			
 					

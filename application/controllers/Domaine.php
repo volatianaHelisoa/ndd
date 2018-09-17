@@ -73,20 +73,26 @@ class Domaine extends CI_Controller{
 
 
             /**ajout ip */
-            $this->load->model('Domaine_theme_ip_model');
-            $theme = $this->input->post('id_theme');
            
-            $theme = $this->Theme_model->get_t_theme_by_name($theme);
-
-            $params_ip = array(
-				'id_domaine' => $t_domaine_id,
-				'id_ip' => $this->input->post('id_ip'),
-				'id_theme' => $theme->id_theme,
-            );
-            $this->load->model('Domaine_theme_ip_model');
-           
-           $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);
-
+            $theme = $this->input->post('theme');
+            if($theme != ""){
+                $this->load->model('Theme_model');
+                $theme_obj = $this->Theme_model->get_t_theme_by_name($theme);
+    
+                $id_ip = $_POST['addr-ip'];
+               
+    
+                $params_ip = array(
+                    'id_domaine' => $t_domaine_id,
+                    'id_ip' =>  $id_ip,
+                    'id_theme' => $theme_obj['id'],
+                );
+                $this->load->model('Domaine_theme_ip_model');
+               
+                $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);
+    
+            }
+        
             redirect('domaine/index');
         }
         else
