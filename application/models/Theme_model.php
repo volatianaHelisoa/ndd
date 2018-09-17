@@ -67,7 +67,7 @@ class Theme_model extends CI_Model
             $this->db->select( "*" );
             $this->db->from( 't_theme' );
             $this->db->like( 'name', $term );
-          
+            $this->db->order_by('name', 'asc');
             $query = $this->db->get();
             $theme_data = $query->result();
            
@@ -84,5 +84,6 @@ class Theme_model extends CI_Model
             endforeach;
           
             echo json_encode($themes);
+            die;
     }
 }

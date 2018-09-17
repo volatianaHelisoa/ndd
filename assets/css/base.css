@@ -1,0 +1,116 @@
+@font-face {
+    font-family: 'RR';
+    src:
+        url('../fonts/Rr.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Rr.woff') format('woff'),
+        url('../fonts/Rr.ttf')  format('truetype'),
+        url('../fonts/Rr.svg#../../fonts/Rr') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'RL';
+    src:
+        url('../fonts/Rl.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Rl.woff') format('woff'),
+        url('../fonts/Rl.ttf')  format('truetype'),
+        url('../fonts/Rl.svg#../../fonts/Rl') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'RM';
+    src:
+        url('../fonts/Rm.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Rm.woff') format('woff'),
+        url('../fonts/Rm.ttf')  format('truetype'),
+        url('../fonts/Rm.svg#../../fonts/Rm') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #231f20;
+    font-family: "RL", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+a {
+    color: #f15e53;
+    text-decoration: none;
+}
+
+p {
+    margin: 0 0 20px;
+}
+.cust-btn {
+    background: #f15e53;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 3px;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+.flex-col-r {
+    flex-direction: column;
+}
+.flex-content {    
+    display: flex;
+}
+.flex-jcenter-acenter {
+    justify-content: center;
+    align-items: center;
+}
+.flex-jsbet-acenter {
+    justify-content: space-between;
+    align-items: center;
+}
+.flex-jsbet-astart {
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.centered-el {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.card {
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    background-color: white;
+    padding: 25px;
+    position: relative;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    border: 1px solid #eaeaea;
+    padding: 10px;
+    min-height: 45px;
+	font:normal 15px/21px Rl;
+	color:#231f20;
+}
+
+.title-l {
+    display: block;
+    color: #f15e53;
+    font-size: 30px;
+    text-transform: uppercase;
+}
+

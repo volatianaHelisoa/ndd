@@ -19,16 +19,8 @@ class Domaine extends CI_Controller{
         $data['t_domaine'] = $this->Domaine_model->get_all_t_domaine();
         
         $data['_view'] = 'domaine/index';
-       
-       
-        // $this->load->view('template/header');
-        // $this->load->view('domaine/index',$data);
-        // $this->load->view('template/footer');
         $this->load->view('layouts/main',$data);
-        
     }
-
-
 
     /*
      * Adding a new t_domaine
@@ -40,6 +32,7 @@ class Domaine extends CI_Controller{
             $params = array(
 				'id_cms' => $this->input->post('id_cms'),
 				'id_registrar' => $this->input->post('id_registrar'),
+				'id_heberg' => $this->input->post('id_heberg'),
 				'ftp_login' => $this->input->post('ftp_login'),
 				'ftp_password' => $this->input->post('ftp_password'),
 				'ftp_server' => $this->input->post('ftp_server'),
@@ -60,6 +53,9 @@ class Domaine extends CI_Controller{
 
 			$this->load->model('Registrar_model');
 			$data['all_t_registrar'] = $this->Registrar_model->get_all_t_registrar();
+
+			$this->load->model('Hebergement_model');
+			$data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
             
             $data['_view'] = 'domaine/add';
             $this->load->view('layouts/main',$data);
@@ -81,6 +77,7 @@ class Domaine extends CI_Controller{
                 $params = array(
 					'id_cms' => $this->input->post('id_cms'),
 					'id_registrar' => $this->input->post('id_registrar'),
+					'id_heberg' => $this->input->post('id_heberg'),
 					'ftp_login' => $this->input->post('ftp_login'),
 					'ftp_password' => $this->input->post('ftp_password'),
 					'ftp_server' => $this->input->post('ftp_server'),
@@ -101,6 +98,9 @@ class Domaine extends CI_Controller{
 
 				$this->load->model('Registrar_model');
 				$data['all_t_registrar'] = $this->Registrar_model->get_all_t_registrar();
+
+				$this->load->model('Hebergement_model');
+				$data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
 
                 $data['_view'] = 'domaine/edit';
                 $this->load->view('layouts/main',$data);
@@ -125,18 +125,6 @@ class Domaine extends CI_Controller{
         }
         else
             show_error('The t_domaine you are trying to delete does not exist.');
-    }
-
-
-    function get_autocomplete_theme(){
-        var_dump($_GET['term']);
-        if (isset($_GET['term'])) {
-            $this->load->model('Theme_model');
-            $result = $this->Theme_model->suggested_theme($_GET['term']);
-           
-            echo json_encode($result);
-            
-        }
     }
     
 }

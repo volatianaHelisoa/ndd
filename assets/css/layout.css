@@ -1,0 +1,75 @@
+.flex-wrapper-dashboard {
+    display: flex;
+    height: 100%;
+}
+.nav-panel {
+    background: #080718;
+	position:fixed;
+	height:100%;
+}
+
+.nav-panel .logo {
+    background-color: #141324;
+    display: block;
+    padding: 8px 40px;
+    min-height: 62px;
+}
+
+.nav-panel .logo > img { 
+    display: block;
+    max-width: 150px;
+    margin: 0 auto;
+}
+
+.menu ul,
+.menu li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu a {
+    text-transform: uppercase;
+    color: #bab8d7;
+    font-size: 14px;
+    display: block;
+    padding: 20px 30px;
+    border-bottom: 1px solid #1b1931;
+}
+
+.menu li.current a,
+.menu a:hover {
+    color: #f15e53;
+}
+
+.menu li:last-of-type > a { border-bottom: none;}
+
+/* MAIN */
+.main-wrapper {
+    padding: 40px;
+}
+
+main.dashboard-container {
+    flex: 1;
+    height: 100vh;
+}
+.topbar-head {
+    min-height: 62px;
+    background: white;
+    width: 100%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .1);
+    -webkit-box-shadow: 0 10px 40px rgba(0, 0, 0, .1);
+    -ms-box-shadow: 0 10px 40px rgba(0, 0, 0, .1);
+    -moz-box-shadow: 0 10px 40px rgba(0, 0, 0, .1);
+}
+
+/* TABLE STYLE */
+#ndd-list .customized-thead th {
+    border-bottom: none;
+    background-color: #f15e53;
+    color: white;
+    padding: 10px 0;
+}
+td.thematique .tag {
+    display: block;
+}

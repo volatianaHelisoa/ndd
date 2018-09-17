@@ -33,6 +33,22 @@
 		</div>
 	</div>
 	<div class="form-group">
+		<label for="id_heberg" class="col-md-4 control-label">T Hebergement</label>
+		<div class="col-md-8">
+			<select name="id_heberg" class="form-control">
+				<option value="">select t_hebergement</option>
+				<?php 
+				foreach($all_t_hebergement as $t_hebergement)
+				{
+					$selected = ($t_hebergement['id'] == $t_domaine['id_heberg']) ? ' selected="selected"' : "";
+
+					echo '<option value="'.$t_hebergement['id'].'" '.$selected.'>'.$t_hebergement['id'].'</option>';
+				} 
+				?>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
 		<label for="ftp_login" class="col-md-4 control-label">Ftp Login</label>
 		<div class="col-md-8">
 			<input type="text" name="ftp_login" value="<?php echo ($this->input->post('ftp_login') ? $this->input->post('ftp_login') : $t_domaine['ftp_login']); ?>" class="form-control" id="ftp_login" />

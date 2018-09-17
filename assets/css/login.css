@@ -1,0 +1,77 @@
+/* LOGIN PAGE */
+.login-page {
+    text-align: center;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.login-page::after {
+    content:"";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: url(../images/deco-login.svg) no-repeat left top;
+    background-size: contain;
+}
+
+.login-page .wrapper {
+    max-width: 406px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 20
+}
+.login-page .card {
+    overflow: hidden;
+    padding-top: 80px;
+    margin-top: 35px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, .15)
+}
+
+.login-page  .fixed-entet {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: #f15e53;
+    color: white;
+    padding: 15px 10px;
+}
+
+.login-page .title-l {
+    margin: 30px 0 0;
+}
+
+.login-page .card > input {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px
+}
+.login-page .SavePass, .login-page .link.forgotPass {
+    flex: 1;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.SavePass {
+    text-align: left;
+}
+
+.SavePass input {
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.link.forgotPass {
+    text-align: right;
+}
+
+.login-page .cust-btn {
+    margin-top: 23px;
+}

@@ -7,6 +7,7 @@
 		<th>ID</th>
 		<th>Id Cms</th>
 		<th>Id Registrar</th>
+		<th>Id Heberg</th>
 		<th>Ftp Login</th>
 		<th>Ftp Password</th>
 		<th>Ftp Server</th>
@@ -22,6 +23,7 @@
 		<td><?php echo $t['id']; ?></td>
 		<td><?php echo $t['id_cms']; ?></td>
 		<td><?php echo $t['id_registrar']; ?></td>
+		<td><?php echo $t['id_heberg']; ?></td>
 		<td><?php echo $t['ftp_login']; ?></td>
 		<td><?php echo $t['ftp_password']; ?></td>
 		<td><?php echo $t['ftp_server']; ?></td>
