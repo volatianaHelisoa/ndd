@@ -53,4 +53,36 @@ class Theme_model extends CI_Model
     {
         return $this->db->delete('t_theme',array('id'=>$id));
     }
+
+     /*
+     * Get t_theme by id
+     */
+    function suggested_theme($term)
+    {
+        $this->load->database();
+            //$query = "SELECT id,name FROM t_theme WHERE name LIKE '{$term}%' LIMIT 10";
+
+           // $theme_data = $this->crud->run_query($query);
+
+            $this->db->select( "*" );
+            $this->db->from( 't_theme' );
+            $this->db->like( 'name', $term );
+          
+            $query = $this->db->get();
+            $theme_data = $query->result();
+           
+            $themes = array();
+            foreach($theme_data as $key):
+              
+                $a = array(
+                    'id' => trim($key->id),
+                    'label' => trim($key->name),
+                    'value' => trim($key->name)
+                );
+
+                $themes[] = $a;
+            endforeach;
+          
+            echo json_encode($themes);
+    }
 }
