@@ -47,6 +47,9 @@
 /* MAIN */
 .main-wrapper {
     padding: 40px;
+    width:100%;		
+max-width:1457px;		
+	margin:0 auto;
 }
 
 main.dashboard-container {
