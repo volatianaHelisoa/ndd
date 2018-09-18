@@ -39,7 +39,16 @@ class Domaine_theme_ip extends CI_Controller{
             redirect('domaine_theme_ip/index');
         }
         else
-        {            
+        {
+			$this->load->model('Domaine_model');
+			$data['all_t_domaine'] = $this->Domaine_model->get_all_t_domaine();
+
+			$this->load->model('Ip_model');
+			$data['all_t_ip'] = $this->Ip_model->get_all_t_ip();
+
+			$this->load->model('Theme_model');
+			$data['all_t_theme'] = $this->Theme_model->get_all_t_theme();
+            
             $data['_view'] = 'domaine_theme_ip/add';
             $this->load->view('layouts/main',$data);
         }
@@ -68,6 +77,15 @@ class Domaine_theme_ip extends CI_Controller{
             }
             else
             {
+				$this->load->model('Domaine_model');
+				$data['all_t_domaine'] = $this->Domaine_model->get_all_t_domaine();
+
+				$this->load->model('Ip_model');
+				$data['all_t_ip'] = $this->Ip_model->get_all_t_ip();
+
+				$this->load->model('Theme_model');
+				$data['all_t_theme'] = $this->Theme_model->get_all_t_theme();
+
                 $data['_view'] = 'domaine_theme_ip/edit';
                 $this->load->view('layouts/main',$data);
             }

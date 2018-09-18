@@ -6,29 +6,44 @@
 	<input type="text" class="searchInTable">
 	<label>
 		Registrar
-		<select>
-			<option value="toutes">Toutes</option>
-			<option value="ovh">OVH</option>
-			<option value="bookmyname">BookMyName</option>
-			<option value="filnet">Filnet</option>
-		</select>
+		<select name="select_registrar" >
+				<option value="">Tous</option>
+				<?php 
+				foreach($all_t_registrar as $t_registrar)
+				{
+					$selected = ($t_registrar['id'] == $t_domaine['id_registrar']) ? ' selected="selected"' : "";
+
+					echo '<option value="'.$t_registrar['id'].'" '.$selected.'>'.$t_registrar['name'].'</option>';
+				} 
+				?>
+			</select>
 	</label>
 	<label>
 		Hébergement
-		<select>
-			<option value="toutes">Toutes</option>
-			<option value="plesk">Plesk</option>
-			<option value="archive-host">Archive-Host</option>
-			<option value="A-a-hebergement">A-a-hebergement</option>
-		</select>
+		<select name="select_heberg" >
+				<option value="">Tous</option>
+				<?php 
+				foreach($all_t_hebergement as $t_hebergement)
+				{
+					$selected = ($t_hebergement['id'] == $t_domaine['id_heberg']) ? ' selected="selected"' : "";
+
+					echo '<option value="'.$t_hebergement['id'].'" '.$selected.'>'.$t_hebergement['name'].'</option>';
+				} 
+				?>
+			</select>
 	</label>
 	<label>
 		Thématique
-		<select>
-			<option value="toutes">Aucun</option>
-			<option value="plesk">Décoration maison</option>
-			<option value="archive-host">Crédit</option>
-			<option value="A-a-hebergement">Voyage</option>
+		<select name="select_theme" >
+				<option value="">Toutes</option>
+				<?php 
+				foreach($all_t_theme as $t_theme)
+				{
+					$selected = $t_theme['id'] != null  ? ' selected="selected"' : "";
+
+					echo '<option value="'.$t_theme['id'].'" '.$selected.'>'.$t_theme['name'].'</option>';
+				} 
+				?>
 		</select>
 	</label>
 	<label>
@@ -51,22 +66,27 @@
 		</tr>
 	</thead>
 	<tbody>
-	<?php foreach($t_domaine as $t){ ?>
+	<?php foreach($t_domaine as $t){  ?> 
 		<tr>
-			<td><?php echo $t['nom']; ?></td>
-			<td><?php echo $t['id_registrar']; ?></td>
-			<td>OVH</td>
-			<td>100. 25. 62.01</td>
+			<td><?php echo $t->domaine; ?></td>
+			<td><?php echo $t->registrar; ?></td>
+			<td><?php echo $t->heberg; ?></td>
+			<td><?php   if($t->ip != null ) echo $t->ip["ip"]; ?></td>
 			<td class="thematique">
-				<span class="tag">Décoration Maison</span>
-				<span class="tag">Crédit</span>
-				<span class="tag">Voyage</span>
+				<?php if($t->theme != null ) {?>
+					<span class="tag"><?php echo $t->theme["name"]; ?></span>	
+				<?php }?>
 			</td>
-			<td><?php echo $t['id_cms']; ?></td>
-			<td><button class="cust-btn dark-btn small-btn">VOIR</button></td>
+			<td><?php echo $t->cms; ?></td>
+			<td>
+			<?php  if($t->techno != null ) foreach($t->techno as $plug){  ?> 
+				echo $plug->techno;
+			<?php } ?>
+			<button class="cust-btn dark-btn small-btn">VOIR</button>
+			</td>
 			<td class="actions">
-				<a href="<?php echo site_url('domaine/edit/'.$t['id']); ?>" class="btn btn-info btn-xs">Edit</a> 
-				<a href="<?php echo site_url('domaine/remove/'.$t['id']); ?>" class="btn btn-danger btn-xs">Delete</a>
+				<a href="<?php echo site_url('domaine/edit/'.$t->id); ?>" class="btn btn-info btn-xs">Edit</a> 
+				<a href="<?php echo site_url('domaine/remove/'.$t->id); ?>" class="btn btn-danger btn-xs">Delete</a>
 			</td>
 		</tr>
 	<?php } ?>

@@ -53,4 +53,41 @@ class Domaine_theme_ip_model extends CI_Model
     {
         return $this->db->delete('t_domaine_theme_ip',array('id'=>$id));
     }
+
+     /*
+     * Get t_domaine_techno by id _domaine
+     */
+    function get_t_domaine_theme_ip_by_domaine($id_domaine)
+    {
+        $this->load->database();
+
+        $this->db->select(' t_ip.adresse as ip');
+        $this->db->from('t_domaine_theme_ip');
+        $this->db->join('t_domaine', 't_domaine_theme_ip.id_domaine = t_domaine.id', 'inner');
+        $this->db->join('t_ip', 't_domaine_theme_ip.id_ip = t_ip.id', 'inner');
+        $this->db->where( 't_domaine.id', $id_domaine );     
+       
+
+        $query = $this->db->get();
+        $domaine_ip = $query->row_array();
+        return $domaine_ip;
+    }
+
+       /*
+     * Get t_domaine_techno by id _domaine
+     */
+    function get_t_domaine_theme_ip_theme_by_domaine($id_domaine)
+    {
+        $this->load->database();
+
+        $this->db->select(' t_theme.name as name');
+        $this->db->from('t_domaine_theme_ip');
+        $this->db->join('t_domaine', 't_domaine_theme_ip.id_domaine = t_domaine.id', 'inner');
+        $this->db->join('t_theme', 't_domaine_theme_ip.id_theme = t_theme.id', 'inner');
+        $this->db->where( 't_domaine.id', $id_domaine );     
+       
+        $query = $this->db->get();
+        $domaine_theme = $query->row_array();
+        return $domaine_theme;
+    }
 }

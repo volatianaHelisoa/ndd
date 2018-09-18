@@ -15,8 +15,8 @@
 					<div class="title-field">Information général</div>
                    
                     	<div class="field">
-                        	<label for="">Nom de domaine :</label>
-                        	<input type="text" name="nom" value="<?php echo $this->input->post('nom'); ?>"  id="nom" />
+                        	<label for="">Nom de domaine (*) :</label>
+                        	<input type="text" name="nom" required value="<?php echo $this->input->post('nom'); ?>"  id="nom" />
                         </div>
                         <div class="field">
                         	<label for="">Thématique :</label>
@@ -43,8 +43,8 @@
 							</select>
                         </div>
                         <div class="field">
-                        	<label for="">Registrar :</label>
-                        	<select name="id_registrar" >
+                        	<label for="">Registrar (*) :</label>
+                        	<select name="id_registrar" required >
 								<option value="">Selectionner registrar</option>
 								<?php 
 								foreach($all_t_registrar as $t_registrar)
@@ -204,6 +204,9 @@
 				$(".preference").hide();	
 				$(".btn-save-first").show();		
 				$( ".btn-next").hide();
+				var $popInput = $('.preference input[type="text"]');	
+				$popInput.val("");
+				$(".preference select option").val("");
 			}
 				
 		});			
@@ -220,11 +223,7 @@
 
 		$( ".btn-previous" ).click(function() {
 			$(".info-gen").show();	
-			var $popInput = $('.preference input[type="text"]');	
-			$popInput.val("");
-			$(".preference select option").val("");
 			$(".preference").hide();	
-
 		});
 
         });

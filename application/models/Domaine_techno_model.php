@@ -18,6 +18,25 @@ class Domaine_techno_model extends CI_Model
     {
         return $this->db->get_where('t_domaine_techno',array('id'=>$id))->row_array();
     }
+
+      /*
+     * Get t_domaine_techno by id _domaine
+     */
+    function get_t_domaine_techno_by_domaine($id_domaine)
+    {
+        $this->load->database();
+
+        $this->db->select('t_techno.name as techno');
+        $this->db->from('t_domaine_techno');
+        $this->db->join('t_domaine', 't_domaine_techno.id_domaine = t_domaine.id', 'inner');
+        $this->db->join('t_techno', 't_domaine_techno.id_techno = t_techno.id', 'inner');
+        $this->db->where( 't_domaine.id', $id_domaine );     
+        $this->db->order_by('t_techno.name', 'asc');
+
+        $query = $this->db->get();
+        $domaine_techno = $query->result();
+        return $domaine_techno;
+    }
         
     /*
      * Get all t_domaine_techno

@@ -17,9 +17,84 @@ class Domaine extends CI_Controller{
     function index()
     {
         $data['t_domaine'] = $this->Domaine_model->get_all_t_domaine();
-        
+       
+        $res = array();
+        foreach($data['t_domaine'] as $row) {
+			$element = new stdClass();
+            $element->id = $row['id'];
+            $element->domaine =  $row['nom'];
+           
+                       
+            $this->load->model('Registrar_model');
+            $registrar_obj = $this->Registrar_model->get_t_registrar($row['id_registrar']);    
+            $element->registrar =  $registrar_obj['name'];
+		
+            
+            $element->heberg = "";
+            $element->ip = "";
+            $element->cms ="";
+            $element->techno = "";
+            $element->theme = "";         
+
+            if($row['id_heberg'] != "" && $row['id_heberg'] != null )
+            {
+                $this->load->model('Hebergement_model');
+                $heberg_obj = $this->Hebergement_model->get_t_hebergement($row['id_heberg']);    
+                $element->heberg =  $heberg_obj['name'];
+
+               
+                if($row['id_cms'] != "" && $row['id_cms'] != null )
+                {
+                    $this->load->model('Cms_model');
+                    $cms_obj = $this->Cms_model->get_t_cms($row['id_cms']);    
+                    $element->cms =  $cms_obj['type'];
+                }
+              
+                $element->ftp_login = $row['ftp_login'];
+                $element->ftp_password = $row['ftp_password'];
+                $element->ftp_server = $row['ftp_server'];
+                $element->admin_url =  $row['admin_url'];
+                $element->admin_login = $row['admin_login'];
+                $element->admin_password = $row['admin_password'];
+
+                /* plugins */               
+                $this->load->model('Domaine_techno_model');
+                $domaine_techno = $this->Domaine_techno_model->get_t_domaine_techno_by_domaine($row['id']);   
+                
+                if($domaine_techno != null )                
+                    $element->techno =  $domaine_techno;     
+                    
+                /**IP */               
+                $this->load->model('Domaine_theme_ip_model');
+                $domaine_ip = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_by_domaine($row['id']);   
+              
+                if($domaine_ip != null )                
+                    $element->ip =  $domaine_ip;  
+                
+                 /**IP */               
+                 $this->load->model('Domaine_theme_ip_model');
+                 $domaine_theme = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_theme_by_domaine($row['id']);   
+               
+                 if($domaine_theme != null )                
+                     $element->theme =  $domaine_theme;  
+            }           
+		
+            $res[] = $element;	
+        }
+
+        $this->load->model('Registrar_model');
+        $data['all_t_registrar'] = $this->Registrar_model->get_all_t_registrar();
+
+        $this->load->model('Hebergement_model');
+        $data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
+            
+
+        $this->load->model('Theme_model');
+        $data['all_t_theme'] = $this->Theme_model->get_all_t_theme();
+
+        $data['t_domaine'] = $res;  
         $data['_view'] = 'domaine/index';
-        $this->load->view('layouts/main',$data);
+        $this->load->view('layouts/main', $data);
     }
 
     /*
@@ -28,20 +103,7 @@ class Domaine extends CI_Controller{
     function add()
     {   
         if(isset($_POST) && count($_POST) > 0)     
-        {   
-            // $params = array(
-			// 	'id_cms' => $this->input->post('id_cms'),
-			// 	'id_registrar' => $this->input->post('id_registrar'),
-			// 	'id_heberg' => $this->input->post('id_heberg'),
-			// 	'ftp_login' => $this->input->post('ftp_login'),
-			// 	'ftp_password' => $this->input->post('ftp_password'),
-			// 	'ftp_server' => $this->input->post('ftp_server'),
-			// 	'admin_url' => $this->input->post('admin_url'),
-			// 	'admin_login' => $this->input->post('admin_login'),
-			// 	'admin_password' => $this->input->post('admin_password'),
-			// 	'nom' => $this->input->post('nom'),
-			// 	'date_creation' => $this->input->post('date_creation'),
-            // );
+        {              
 
             $today = date("Y-m-d"); 
             $id_heberg = $this->input->post('id_heberg');
@@ -74,23 +136,27 @@ class Domaine extends CI_Controller{
 
             /**ajout ip */
            
-            $theme = $this->input->post('theme');
-            if($theme != ""){
+            $id_theme = empty( $this->input->post('theme')) ? NULL :  $this->input->post('theme')   ;
+         
+            if(!empty( $this->input->post('theme'))){
+                $theme = $this->input->post('theme');
                 $this->load->model('Theme_model');
-                $theme_obj = $this->Theme_model->get_t_theme_by_name($theme);               
-                $id_ip = $_POST['addr-ip'];          
-                     
-                if(!_.isUndefined($theme_obj) ){
-                    $params_ip = array(
-                        'id_domaine' => $t_domaine_id,
-                        'id_ip' =>  $id_ip,
-                        'id_theme' => $theme_obj['id'],
-                    );
-                    $this->load->model('Domaine_theme_ip_model');
-                
-                    $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);
-                }
-            }
+                $theme_obj = $this->Theme_model->get_t_theme_by_name($theme);   
+                $id_theme  = $theme_obj['id'];       
+            }            
+            
+            $id_ip = empty($_POST['addr-ip']) ? NULL : $_POST['addr-ip'];   
+            
+            $params_ip = array(
+                'id_domaine' => $t_domaine_id,
+                'id_ip' =>  $id_ip,
+                'id_theme' => $id_theme,
+            );
+            $this->load->model('Domaine_theme_ip_model');
+        
+            $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);
+            
+        
             $_SESSION['formSubmitted'] = true;
 
             if(isset($_SESSION['formSubmitted']) && $_SESSION['formSubmitted'] === true) {
