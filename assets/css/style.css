@@ -103,3 +103,5 @@ table.custom-styled_wrapper .toolbar {float: left; }
 .field2.other-field label{ width:calc(100% - 158px);width:-webkit-calc(100% - 158px);width:-moz-calc(100% - 158px);}
 
 span.info-bill { background: #f5f5f5; display: block; padding: 15px 10px; }
+
+input[type="button"]{ background: #00a1e4;}

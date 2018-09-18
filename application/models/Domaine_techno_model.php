@@ -26,15 +26,38 @@ class Domaine_techno_model extends CI_Model
     {
         $this->load->database();
 
-        $this->db->select('t_techno.name as techno');
+        $this->db->select('t_techno.name as techno ');
         $this->db->from('t_domaine_techno');
         $this->db->join('t_domaine', 't_domaine_techno.id_domaine = t_domaine.id', 'inner');
         $this->db->join('t_techno', 't_domaine_techno.id_techno = t_techno.id', 'inner');
+     
         $this->db->where( 't_domaine.id', $id_domaine );     
         $this->db->order_by('t_techno.name', 'asc');
 
         $query = $this->db->get();
-        $domaine_techno = $query->result();
+        $domaine_techno = $query->result_array();
+      
+        return $domaine_techno;
+    }
+
+     /*
+     * Get get_t_domaine_cms_by_domaine by id _domaine
+     */
+    function get_t_domaine_cms_by_domaine($id_domaine)
+    {
+        $this->load->database();
+
+        $this->db->select('t_techno.name as techno, t_domaine.* ');
+        $this->db->from('t_domaine_techno');
+        $this->db->join('t_domaine', 't_domaine_techno.id_domaine = t_domaine.id', 'inner');
+        $this->db->join('t_techno', 't_domaine_techno.id_techno = t_techno.id', 'inner');
+     
+        $this->db->where( 't_domaine.id', $id_domaine );     
+        $this->db->order_by('t_techno.name', 'asc');
+
+        $query = $this->db->get();
+        $domaine_techno = $query->result_array();
+      
         return $domaine_techno;
     }
         

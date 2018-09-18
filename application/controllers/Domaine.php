@@ -60,7 +60,7 @@ class Domaine extends CI_Controller{
                 /* plugins */               
                 $this->load->model('Domaine_techno_model');
                 $domaine_techno = $this->Domaine_techno_model->get_t_domaine_techno_by_domaine($row['id']);   
-                
+               
                 if($domaine_techno != null )                
                     $element->techno =  $domaine_techno;     
                     
@@ -91,6 +91,8 @@ class Domaine extends CI_Controller{
 
         $this->load->model('Theme_model');
         $data['all_t_theme'] = $this->Theme_model->get_all_t_theme();
+
+       
 
         $data['t_domaine'] = $res;  
         $data['_view'] = 'domaine/index';
@@ -132,8 +134,6 @@ class Domaine extends CI_Controller{
             }         
           
             $t_domaine_id = $this->Domaine_model->add_t_domaine($params);
-
-
             /**ajout ip */
            
             $id_theme = empty( $this->input->post('theme')) ? NULL :  $this->input->post('theme')   ;
@@ -156,12 +156,20 @@ class Domaine extends CI_Controller{
         
             $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);
             
-        
-            $_SESSION['formSubmitted'] = true;
-
-            if(isset($_SESSION['formSubmitted']) && $_SESSION['formSubmitted'] === true) {
-                echo "<script>$('#nddModalCenter').modal('show')</script>"; // Show modal
-                unset($_SESSION['formSubmitted']);
+            $techno_array = empty($_POST['select_ml_techno']) ? NULL : $_POST['select_ml_techno'];   
+            if(isset($techno_array) && count($techno_array) > 0)     
+            { 
+                $this->load->model('Domaine_techno_model');
+                foreach($techno_array as $key){
+                   
+                    $params = array(
+                        'id_domaine' => $t_domaine_id,
+                        'id_techno' => $key,
+                    );
+                    var_dump( $params);
+                   $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);
+                   
+                }
             }
         
             redirect('domaine/index');
@@ -175,7 +183,10 @@ class Domaine extends CI_Controller{
 			$data['all_t_registrar'] = $this->Registrar_model->get_all_t_registrar();
 
 			$this->load->model('Hebergement_model');
-			$data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
+            $data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
+            
+            $this->load->model('Techno_model');
+            $data['all_t_techno'] = $this->Techno_model->get_all_t_techno();
             
             $data['_view'] = 'domaine/add';
             $this->load->view('layouts/full',$data);
@@ -208,7 +219,8 @@ class Domaine extends CI_Controller{
 					'date_creation' => $this->input->post('date_creation'),
                 );
 
-                $this->Domaine_model->update_t_domaine($id,$params);            
+                $this->Domaine_model->update_t_domaine($id,$params);          
+               
                 redirect('domaine/index');
             }
             else
@@ -265,6 +277,35 @@ class Domaine extends CI_Controller{
             $result = $this->Ip_model->get_by_id_hebergement($_GET['id_heberg']);
            
             echo json_encode($result);
+           
+        }
+    }
+
+    
+    function get_techno_by_domaine(){
+   
+        if (isset($_GET['id'])) {
+
+            /* plugins */               
+            $this->load->model('Domaine_techno_model');
+            $domaine_techno = $this->Domaine_techno_model->get_t_domaine_cms_by_domaine($_GET['id']);  
+            $technos = array();
+           
+            echo json_encode( $domaine_techno);
+            die;
+           
+        }
+    }
+
+    function get_ip_info_by_domaine(){
+   
+        if (isset($_GET['id'])) {
+            $ip_addresse = trim($_GET['id']);
+            $this->load->model('Domaine_theme_ip_model');
+            $domaine_theme = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_theme_by_ip($ip_addresse);   
+           
+            echo json_encode($domaine_theme);
+            die;
            
         }
     }

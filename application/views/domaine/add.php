@@ -1,10 +1,11 @@
 <?php echo form_open('domaine/add',array("class"=>"form-horizontal")); ?>
-            
-            <div class="main-wrapper">
+
                 <div class="head-section centered-el">
-                    <span class="title-l">Ajouter NDD</span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla laoreet mauriss</p>
+                    <span class="title-l">Nom de domaine</span>
+                    <p>Vous avez 1000 nom de domaines</p>
                 </div>
+				
+				
                 <div class="card wrap-field info-gen">
 					<div class="title-field">Information général</div>
                    
@@ -38,7 +39,7 @@
                         </div>
                         <div class="field">
                         	<label for="">Registrar (*) :</label>
-                        	<select name="id_registrar" required >
+                        	<select name="id_registrar" required  >
 								<option value="">Selectionner registrar</option>
 								<?php 
 								foreach($all_t_registrar as $t_registrar)
@@ -98,13 +99,23 @@
                         </div>
                         <div class="sub-title">Plugin</div>
                         <div class="content-chips">
+						<select name="select_ml_techno[]"  data-live-search="true" multiple class="select_techno" >
 							
+							<?php 
+							foreach($all_t_techno as $t_techno)
+							{
+								$selected = $t_techno['id'] != null  ? ' selected="selected"' : "";
+
+								echo '<option value="'.$t_techno['id'].'" '.$selected.'>'.$t_techno['name'].'</option>';
+							} 
+							?>
+						</select>
 						</div>
 						
 						<input type="button" class="btn submit btn-previous" value="Precedent">
 						<input type="submit" class="btn submit btn-save" value="Ajouter">
                 </div>
-			</div>
+		
 			
 						
 			<div class="modal fade" id="nddModalCenter">
@@ -114,7 +125,8 @@
                         <div class="confirmation-wrap">
                             <div class="title-ended">Terminé</div>
                             <p>Nom de domaine ajouter avec succès</p>
-                            <a href="#" class="submit">OK</a>
+							<a href="#" class="submit">OK</a>
+							<a href="#" class="submit">Créer</a>
                        </div>
                       </div>
                     </div>
@@ -125,10 +137,18 @@
 <?php echo form_close(); ?>
 
  <script type="text/javascript">
-        $(document).ready(function(){
-			$(".preference" ).hide();	
-			$(".div-addr-ip").hide();	
-			$(".btn-next").hide();	
+        $(document).ready(function(){ 	
+		$('.select_techno').multiselect({
+                includeSelectAllOption: true,
+                nSelectedText: 'selection',
+                nonSelectedText: 'Aucune selection',
+                selectAllText: 'Tous',
+                allSelectedText: 'Selections'
+        });
+
+		$(".preference" ).hide();	
+		$(".div-addr-ip").hide();	
+		$(".btn-next").hide();	
 		// auto complete
 		$( "#theme" ).autocomplete({
 				source: function(request, response) {
