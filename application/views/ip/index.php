@@ -4,22 +4,26 @@
 
 <table id="ipList" class="display compact custom-styled" style="width:100%">
 	<thead class="customized-thead">
-		<th>ID</th>
-		<th>Id Heberg</th>
-		<th>Adresse</th>
-		<th>Actions</th>
+		<th>Liste IP</th>
+		<th>Hébergement</th>
+		<th>Reverse IP</th>
+		<th>Nombre de site</th>
+		<th>Action</th>
     </thead>
+	<tbody>
 	<?php foreach($t_ip as $t){ ?>
     <tr>
-		<td><?php echo $t['id']; ?></td>
-		<td><?php echo $t['id_heberg']; ?></td>
-		<td><?php echo $t['adresse']; ?></td>
+		<td>100.25.62.01</td>
+		<td>Plesk</td>
+		<td>ip00e-cs-123-456::00</td>
+		<td>25</td>
 		<td>
             <a href="<?php echo site_url('ip/edit/'.$t['id']); ?>" class="btn btn-info btn-xs">Edit</a> 
             <a href="<?php echo site_url('ip/remove/'.$t['id']); ?>" class="btn btn-danger btn-xs">Delete</a>
         </td>
     </tr>
 	<?php } ?>
+	</tbody>
 </table>
 <script>
 	$(document).ready(function() {

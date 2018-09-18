@@ -178,7 +178,7 @@ class Domaine extends CI_Controller{
 			$data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
             
             $data['_view'] = 'domaine/add';
-            $this->load->view('layouts/main',$data);
+            $this->load->view('layouts/full',$data);
         }
     }  
 
@@ -223,7 +223,7 @@ class Domaine extends CI_Controller{
 				$data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
 
                 $data['_view'] = 'domaine/edit';
-                $this->load->view('layouts/main',$data);
+                $this->load->view('layouts/full',$data);
             }
         }
         else
