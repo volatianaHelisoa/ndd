@@ -38,7 +38,7 @@
                     <li><a href="<?php echo site_url('theme/index'); ?>">Gestion thématique</a></li>
                     <li><a href="<?php echo site_url('registrar/index'); ?>">Registrar</a></li>
                     <li><a href="<?php echo site_url('user/index'); ?>">Utilisateurs</a></li>
-                    <li><a href="#">Mon compte</a></li>
+                    <li><a href="<?php echo site_url('user/detail'); ?>">Mon compte</a></li>
                 </ul>
             </nav>
 		</aside>

@@ -4,7 +4,7 @@
 		<label for="id_role" class="col-md-4 control-label">T Role</label>
 		<div class="col-md-8">
 			<select name="id_role" class="form-control">
-				<option value="">select t_role</option>
+				<option value="">Rôle de l'utilisateur</option>
 				<?php 
 				foreach($all_t_role as $t_role)
 				{

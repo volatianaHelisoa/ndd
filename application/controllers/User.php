@@ -186,7 +186,27 @@ class User extends CI_Controller{
 			redirect( 'authentificationfailed' );
 			return FALSE;
 		}
-	}
+    }
+    
+    function detail($id)
+   {
+
+       // check if the t_user exists before trying to edit it
+       $data['t_user'] = $this->User_model->get_t_user($id);
+       $id_role = $data['t_user']['id_role'];
+       $this->load->model('Role_model');
+       $data['t_role'] = $this->Role_model->get_t_role($id_role)['type'];
+       if(isset($data['t_user']['id']))
+       {
+                $this->load->model('Role_model');
+               $data['all_t_role'] = $this->Role_model->get_all_t_role();
+
+               $data['_view'] = 'user/detail';
+               $this->load->view('layouts/main',$data);
+       }
+       else
+           show_error('The t_user you are trying to edit does not exist.');
+   }
 
     
 }
