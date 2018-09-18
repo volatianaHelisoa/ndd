@@ -5,24 +5,16 @@
 		<title></title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- JS Libs -->	
 		
-		<script type="text/javascript"	src="<?php echo base_url(); ?>assets/JS/jquery-3.1.1.js"></script>
-		<script type="text/javascript"	src="<?php echo base_url(); ?>assets/JS/jquery-ui-1.12.1.js"></script>
-		<script src="<?php echo base_url(); ?>assets/JS/bootstrap.min.js" type="text/javascript"></script>
-		<script type="text/javascript" src="<?php echo base_url(); ?>assets/JS/jquery.dataTables.js"></script>
-		<script type="text/javascript" src="<?php echo base_url(); ?>assets/JS/dataTables.js"></script>
-		<script src="<?php echo base_url(); ?>assets/JS/customscript.js"> </script>
-
 		<!-- CSS styles -->
-		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery.auto-complete.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/datatables/datatables.min.css"/>
-		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery-ui.css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/base.css">	
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/layout.css">
-
+		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery-ui.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js" type="text/javascript"></script>
 	</head>
 
 	<body>
@@ -49,12 +41,15 @@
 					$this->load->view($_view);
 				?>
 			</div>
-     	</main>
+        </main>
 	</div>
 	</body>
 	<!-- JS Libs -->	 
-
-	    
+	<script type="text/javascript"
+	src="<?php echo base_url(); ?>assets/JS/jquery-ui-1.12.1.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>assets/datatables/datatables.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/JS/customscript.js"
 	<script type="text/javascript">
 		var base_url = '<?php echo base_url(); ?>';
 	</script>

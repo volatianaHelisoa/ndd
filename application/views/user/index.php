@@ -1,8 +1,8 @@
-<div class="pull-right">
-	<a href="<?php echo site_url('user/add'); ?>" class="btn btn-success">Add</a> 
+<div style="margin: 20px 0; text-align: right;">
+	<a href="<?php echo site_url('user/add'); ?>" class="cust-btn dark-btn add">Add</a> 
 </div>
 
-<table class="table table-striped table-bordered">
+<table id="userList" class="display compact custom-styled" style="width:100%">
     <tr>
 		<th>ID</th>
 		<th>Id Role</th>

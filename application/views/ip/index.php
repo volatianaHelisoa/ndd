@@ -1,14 +1,14 @@
-<div class="pull-right">
-	<a href="<?php echo site_url('ip/add'); ?>" class="btn btn-success">Add</a> 
+<div style=" margin: 20px 0; text-align: right;">
+	<a href="<?php echo site_url('ip/add'); ?>" class="cust-btn dark-btn add">Ajouter IP</a> 
 </div>
 
-<table class="table table-striped table-bordered">
-    <tr>
+<table id="ipList" class="display compact custom-styled" style="width:100%">
+	<thead class="customized-thead">
 		<th>ID</th>
 		<th>Id Heberg</th>
 		<th>Adresse</th>
 		<th>Actions</th>
-    </tr>
+    </thead>
 	<?php foreach($t_ip as $t){ ?>
     <tr>
 		<td><?php echo $t['id']; ?></td>
@@ -21,3 +21,12 @@
     </tr>
 	<?php } ?>
 </table>
+<script>
+	$(document).ready(function() {
+		$('#ipList').DataTable( {
+			"dom": 'frtip',
+			"info":"Affichage de _START_ de _END_ of _TOTAL_ entrées",
+			"bFilter": false
+		});
+	})
+</script>

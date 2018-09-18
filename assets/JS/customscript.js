@@ -1,7 +1,8 @@
 $(document).ready(function() {
     $('#ndd-list').DataTable( {
         "dom": '<"toolbar">frtip',
-        "info":"Showing _START_ to _END_ of _TOTAL_ entries"
+        "info":"Showing _START_ to _END_ of _TOTAL_ entries",
+        "bFilter": false
     });
     $("div.toolbar").html();
     var nddList = $('#ndd-list').DataTable();

@@ -1,40 +1,27 @@
-<main class="wrapperpages">
+<div class="login-page">
+	<div class="wrapper">
+		<img src="<?php echo base_url(); ?>assets/images/logo.png" alt="My NDD" srcset="">
+		<span class="title-l">Bienvenue</span>
+		<p>Lorem ipsum dolor sit amet, Nunc posuere libero id auctor efficitur. Aenean posuere leo quis dolor iaculis </p>
+		<?php echo validation_errors(); ?>      		
+		<?php echo form_open('user/verifyUser',array('class' => 'card small')); ?>
+		<form method="post">
+			<div class="fixed-entet">Connexion</div>
+			<input type="email" name="email" id="username" required placeholder="E-mail" value="<?php echo (isset($sess['username'])) ? $sess['username'] : ''; ?>">
+			<input type="password" name="password" value="<?php echo (isset($sess['password'])) ? $sess['password'] : ''; ?>" id="password" placeholder="Mot de passe" require>
 
-	<div class="page" id="Loginpage">
-			<div class="login-container">
-				<div class="top">
-				</div>				
-					<div class="item-container">	
-				
-					<div class="center_blclogin">	
-					<?php echo validation_errors(); ?>      		
-					<?php echo form_open('user/verifyUser',array('class' => 'formfields')); ?>
-					<form class="formfields"  method="post">
-						<fieldset>
-						<h3>Login</h3>
-							<input type="text" placeholder="Email" value="<?php echo (isset($sess['username'])) ? $sess['username'] : ''; ?>" name="email" autofocus="" class="input" required>
-							<input type="password" id="passwd"  value="<?php echo (isset($sess['password'])) ? $sess['password'] : ''; ?>" placeholder="Mot de passe"  name="password" autofocus required class="input">
-							<div class="remind">
-								<input id= "check_session" type="checkbox" name="check_session"></input>
-								<p>Remember me on this computer ?</p>
-							</div>
-							<div class="btn-submit"><button type="submit" value="Login" class="btn btn-primary">Connexion</button></div>					
-						</fieldset>
-					</form>
-
-				<div class="a-forgot-pass">
-                    <a href="<?php echo base_url(); ?>SendResetPassword">Mot de passe oublié ?</a>
-                </div>
-			
-				</div>
-			
+			<div class="flex-content flex-jcenter-acenter save-content">
+				<span class="SavePass">
+					<input type="checkbox" id="SavePass" name="check_session">
+					Se souvenir de moi
+				</span>                            
+				<a href="" class="link forgotPass">Mot de passe oublié ?</a>
 			</div>
-				</div>
-		
-		</div>		
-	</div>
 
-</main>
+			<button type="submit" class="cust-btn">Connexion</button>
+		</form>
+	</div>
+</div>
 
 </body>
 </html>

@@ -52,7 +52,6 @@
 main.dashboard-container {
     flex: 1;
     height: 100vh;
-    padding: 40px;
     overflow-y: scroll 
 }
 .topbar-head {
@@ -63,15 +62,4 @@ main.dashboard-container {
     -webkit-box-shadow: 0 10px 40px rgba(0, 0, 0, .1);
     -ms-box-shadow: 0 10px 40px rgba(0, 0, 0, .1);
     -moz-box-shadow: 0 10px 40px rgba(0, 0, 0, .1);
-}
-
-/* TABLE STYLE */
-#ndd-list .customized-thead th {
-    border-bottom: none;
-    background-color: #f15e53;
-    color: white;
-    padding: 10px 12px;
-}
-td.thematique .tag {
-    display: block;
 }
