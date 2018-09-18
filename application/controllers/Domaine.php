@@ -77,20 +77,25 @@ class Domaine extends CI_Controller{
             $theme = $this->input->post('theme');
             if($theme != ""){
                 $this->load->model('Theme_model');
-                $theme_obj = $this->Theme_model->get_t_theme_by_name($theme);
-    
-                $id_ip = $_POST['addr-ip'];
-               
-    
-                $params_ip = array(
-                    'id_domaine' => $t_domaine_id,
-                    'id_ip' =>  $id_ip,
-                    'id_theme' => $theme_obj['id'],
-                );
-                $this->load->model('Domaine_theme_ip_model');
-               
-                $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);
-    
+                $theme_obj = $this->Theme_model->get_t_theme_by_name($theme);               
+                $id_ip = $_POST['addr-ip'];          
+                     
+                if(!_.isUndefined($theme_obj) ){
+                    $params_ip = array(
+                        'id_domaine' => $t_domaine_id,
+                        'id_ip' =>  $id_ip,
+                        'id_theme' => $theme_obj['id'],
+                    );
+                    $this->load->model('Domaine_theme_ip_model');
+                
+                    $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);
+                }
+            }
+            $_SESSION['formSubmitted'] = true;
+
+            if(isset($_SESSION['formSubmitted']) && $_SESSION['formSubmitted'] === true) {
+                echo "<script>$('#nddModalCenter').modal('show')</script>"; // Show modal
+                unset($_SESSION['formSubmitted']);
             }
         
             redirect('domaine/index');

@@ -113,7 +113,7 @@
 			</div>
 			
 						
-			<div class="modal fade" id="exampleModalCenter">
+			<div class="modal fade" id="nddModalCenter">
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                       <div class="modal-body">
@@ -148,7 +148,7 @@
 						dataType: "json",
 						type: "GET",
 						success: function(data) {
-							console.log(data);
+							// console.log(data);
 							//response(data);
 							response($.map(data, function (val, item) {
 								
