@@ -58,7 +58,6 @@
 
 <table id="ndd-list" class="display compact custom-styled" style="width:100%">
 	<thead class="customized-thead">
-		<tr>
 			<th>Nom de domaine</th>
 			<th>Registrar</th>
 			<th>Hébergement</th>
@@ -67,7 +66,6 @@
 			<th>CMS</th>
 			<th>Techno</th>
 			<th>Action</th>
-		</tr>
 	</thead>
 	<tbody>
 	<?php foreach($t_domaine as $t){  ?> 
