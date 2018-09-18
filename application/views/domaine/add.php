@@ -1,14 +1,10 @@
 <?php echo form_open('domaine/add',array("class"=>"form-horizontal")); ?>
-            <div class="topbar-head"></div>
+            
             <div class="main-wrapper">
                 <div class="head-section centered-el">
-                    <span class="title-l">Nom de domaine</span>
-                    <p>Vous avez 1000 nom de domaines</p>
+                    <span class="title-l">Ajouter NDD</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla laoreet mauriss</p>
                 </div>
-				
-				<div class="filter">
-					
-				</div>
                 <div class="card wrap-field info-gen">
 					<div class="title-field">Information général</div>
                    

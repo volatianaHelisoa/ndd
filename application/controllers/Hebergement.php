@@ -42,7 +42,7 @@ class Hebergement extends CI_Controller{
         else
         {            
             $data['_view'] = 'hebergement/add';
-            $this->load->view('layouts/main',$data);
+            $this->load->view('layouts/full',$data);
         }
     }  
 

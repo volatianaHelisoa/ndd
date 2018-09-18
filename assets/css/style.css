@@ -1,5 +1,6 @@
 
 [class^="wrap-field"] { max-width:488px; margin:0 auto;overflow: hidden; text-align:center}
+.wrap-field {max-width:488px; margin: 0 auto}
 .wrap-field-compte { max-width:806px; margin-top:40px}
 .title-field { text-transform:uppercase; text-align:center; padding:15px 25px; background:#141324; color:#f15e53; font:normal 18px/21px RL; margin:-25px -25px 20px; min-height:51px}
 .wrap-field-compte .title-field { margin-bottom: 0}
