@@ -1,9 +1,9 @@
-<div class="pull-right">
-	<a href="<?php echo site_url('domaine/add'); ?>" class="btn btn-success">Add</a> 
+<div class="head-section centered-el">
+	<span class="title-l">Nom de domaine</span>
+	<p>Vous avez 1000 Nom de domaines</p>
 </div>
-
 <div class="filter">
-	<input type="text" class="searchInTable">
+	<input type="text" class="searchInTable" placeholder="Rechercher">
 	<label>
 		Registrar
 		<select name="select_registrar" >
@@ -52,7 +52,11 @@
 	</label>
 </div>
 
-<table id="ndd-list" class="display compact" style="width:100%">
+<div style=" margin: 20px 0; text-align: right;">
+	<a href="<?php echo site_url('domaine/add'); ?>" class="cust-btn dark-btn add">Ajouter ndd</a> 
+</div>
+
+<table id="ndd-list" class="display compact custom-styled" style="width:100%">
 	<thead class="customized-thead">
 		<tr>
 			<th>Nom de domaine</th>

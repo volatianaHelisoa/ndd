@@ -1,6 +1,4 @@
 <?php echo form_open('domaine/add',array("class"=>"form-horizontal")); ?>
-
-
             <div class="topbar-head"></div>
             <div class="main-wrapper">
                 <div class="head-section centered-el">
