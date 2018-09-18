@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">    
+    <link rel="stylesheet" type="text/css" href="assets/datatables/datatables.min.css"/>
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <title>Ndd | Listes</title>
+</head>
+<body>
+    <div class="flex-wrapper-dashboard">
+        <aside class="nav-panel">
+            <a class="logo" href=""><img src="assets/images/logo_light.png" alt="Mon Ndd" srcset=""></a>
+            <nav class="menu">
+                <ul>
+                    <li><a href="">Dashboard</a></li>
+                    <li class="current"><a href="">Nom de domaine</a></li>
+                    <li><a href="">Hebergement</a></li>
+                    <li><a href="">IP</a></li>
+                    <li><a href="">Gestion thématique</a></li>
+                    <li><a href="">Registrar</a></li>
+                    <li><a href="">Utilisateurs</a></li>
+                    <li><a href="">Mon compte</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="dashboard-container">
+            <div class="topbar-head"></div>
+            <div class="main-wrapper">
+                <div class="head-section centered-el">
+                    <span class="title-l">Nom de domaine</span>
+                    <p>Vous avez 1000 nom de domaines</p>
+                </div>
+				
+				<div class="filter">
+					
+				</div>
+                <div class="card">
+                    <table id="ndd-list" class="display compact" style="width:100%">
+                        <thead class="customized-thead">
+                            <tr>
+                                <th>Nom de domaine</th>
+                                <th>Registrar</th>
+                                <th>Hébergement</th>
+                                <th>IP</th>
+                                <th>Thématique</th>
+                                <th>Métriques</th>
+                                <th>CMS</th>
+                                <th>Techno</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Lorem-Deco.com</td>
+                                <td>OVH</td>
+                                <td>Plesk</td>
+                                <td>100. 25. 62.01</td>
+                                <td class="thematique">
+                                    <span class="tag">Décoration Maison</span>
+                                    <span class="tag">Crédit</span>
+                                    <span class="tag">Voyage</span>
+                                </td>
+                                <td><button>VOIR</button></td>
+                                <td>Wordpress</td>
+                                <td><button>VOIR</button></td>
+                                <td class="actions">Editer</td>
+                            </tr>
+                            <tr>
+                                <td>Lorem-Deco.com</td>
+                                <td>OVH</td>
+                                <td>Plesk</td>
+                                <td>100. 25. 62.01</td>
+                                <td class="thematique">
+                                    <span class="tag">Décoration Maison</span>
+                                    <span class="tag">Crédit</span>
+                                    <span class="tag">Voyage</span>
+                                </td>
+                                <td><button>VOIR</button></td>
+                                <td>Wordpress</td>
+                                <td><button>VOIR</button></td>
+                                <td class="actions">Editer</td>
+                            </tr>
+                            <tr>
+                                <td>Lorem-Deco.com</td>
+                                <td>OVH</td>
+                                <td>Plesk</td>
+                                <td>100. 25. 62.01</td>
+                                <td class="thematique">
+                                    <span class="tag">Décoration Maison</span>
+                                    <span class="tag">Crédit</span>
+                                    <span class="tag">Voyage</span>
+                                </td>
+                                <td><button>VOIR</button></td>
+                                <td>Wordpress</td>
+                                <td><button>VOIR</button></td>
+                                <td class="actions">Editer</td>
+                            </tr>
+                            <tr>
+                                <td>Lorem-Deco.com</td>
+                                <td>OVH</td>
+                                <td>Plesk</td>
+                                <td>100. 25. 62.01</td>
+                                <td class="thematique">
+                                    <span class="tag">Décoration Maison</span>
+                                    <span class="tag">Crédit</span>
+                                    <span class="tag">Voyage</span>
+                                </td>
+                                <td><button>VOIR</button></td>
+                                <td>Wordpress</td>
+                                <td><button>VOIR</button></td>
+                                <td class="actions">Editer</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#ndd-list').DataTable();
+        } );
+    </script>
+</body>
+</html>
