@@ -1,8 +1,6 @@
 <div class="login-page">
 	<div class="wrapper">
 		<img src="<?php echo base_url(); ?>assets/images/logo.png" alt="My NDD" srcset="">
-		<span class="title-l">Bienvenue</span>
-		<p>Lorem ipsum dolor sit amet, Nunc posuere libero id auctor efficitur. Aenean posuere leo quis dolor iaculis </p>
 		<?php echo validation_errors(); ?>      		
 		<?php echo form_open('user/access',array('class' => 'carte small')); ?>
 			<div class="fixed-entet">Connexion</div>
