@@ -1,7 +1,9 @@
 <div style=" margin: 20px 0; text-align: right;">
 	<a href="<?php echo site_url('ip/add'); ?>" class="cust-btn dark-btn add">Ajouter IP</a> 
 </div>
-
+<div class="filter">
+	<input type="text" class="searchInTable" placeholder="Rechercher">
+</div>
 <table id="ipList" class="display compact custom-styled" style="width:100%">
 	<thead class="customized-thead">
 		<th>Liste IP</th>
@@ -32,5 +34,9 @@
 			"info":"Affichage de _START_ de _END_ of _TOTAL_ entrées",
 			"bFilter": false
 		});
+		var ipList = $('#ipList').DataTable();
+		$('.searchInTable').keyup(function(){
+			ipList.search($(this).val()).draw() ;
+		})
 	})
 </script>

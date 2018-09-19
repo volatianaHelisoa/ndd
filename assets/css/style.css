@@ -60,8 +60,8 @@ select:focus option,
 
 /* TABLE STYLE */
 .filter { box-shadow: 0px 5px 20px rgba(0, 0, 0, .1); -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, .1); -ms-box-shadow: 0px 5px 20px rgba(0, 0, 0, .1); -moz-box-shadow: 0px 5px 20px rgba(0, 0, 0, .1); background: white; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
-.filter input.searchInTable { flex: 1; max-width: 230px; background: url(../images/search_icon.png) no-repeat 15px center; }
-.filter input.searchInTable::placeholder { padding-left: 40px;}
+.filter input.searchInTable { padding: 0 0 0 50px; flex: 1; max-width: 230px; background: url(../images/search_icon.png) no-repeat 15px center; }
+.filter input.searchInTable::placeholder {}
 .filter label { font-size: 12px; padding: 0; width: inherit; }
 .filter input,
 .filter select { border-radius: 40px; }
