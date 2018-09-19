@@ -32,6 +32,7 @@
     margin-top: 35px;
     box-shadow: 0px 5px 20px rgba(0, 0, 0, .15);
     position: relative;
+    min-width: 406px;
 }
 
 .login-page  .fixed-entet {
