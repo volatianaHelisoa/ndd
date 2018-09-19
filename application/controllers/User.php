@@ -16,8 +16,26 @@ class User extends CI_Controller{
      */
     function index()
     {
-       
         $data['t_user'] = $this->User_model->get_all_t_user();
+        $res = array();
+        foreach($data['t_user'] as $row) {
+			$element = new stdClass();
+            $element->id = $row['id'];
+            $element->name =  $row['name'];
+            $element->firstname =  $row['firstname'];
+            $element->email =  $row['email'];
+            $element->password =  $row['password']; 
+
+            $this->load->model('Role_model');
+            $t_role = $this->Role_model->get_t_role($row['id_role']);
+          
+            $element->role =  $t_role['type'];
+		
+            $res[] = $element;	
+        }
+
+        $data['t_user'] = $res;        
+      
         
         $data['_view'] = 'user/index';
         $this->load->view('layouts/main',$data);

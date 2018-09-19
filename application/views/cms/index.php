@@ -1,5 +1,5 @@
-<div class="pull-right">
-	<a href="<?php echo site_url('cms/add'); ?>" class="btn btn-success">Add</a> 
+<div style=" margin: 20px 0; text-align: right;">
+	<a href="<?php echo site_url('cms/add'); ?>" class="cust-btn dark-btn add">Ajouter CMS</a> 
 </div>
 
 <table id="cmsList" class="display compact custom-styled" style="width:100%">

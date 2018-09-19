@@ -1,5 +1,5 @@
 <div style=" margin: 20px 0; text-align: right;">
-	<a href="<?php echo site_url('hebergement/add'); ?>" class="cust-btn dark-btn add">Ajouter</a> 
+	<a href="<?php echo site_url('hebergement/add'); ?>" class="cust-btn dark-btn add">Ajouter hébergement</a> 
 </div>
 
 <table id="hebergement" class="display compact custom-styled" style="width:100%">

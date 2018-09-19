@@ -20,7 +20,7 @@
 			<?php 
 			foreach($all_t_role as $t_role)
 			{				
-				$selected = ($t_role['id'] == $this->input->post('id_role')) ? ' selected="selected"' : "";
+				$selected = ($t_role['id'] ==  $t_user['id_role']) ? ' selected="selected"' : "";
 				echo '<option value="'.$t_role['id'].'" '.$selected.'>'.$t_role['type'].'</option>';
 			} 
 			?>

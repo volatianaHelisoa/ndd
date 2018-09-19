@@ -5,25 +5,11 @@
 		<label for="nom">Nom</label>
 		<input type="text" name="nom" value="<?php echo ($this->input->post('nom') ? $this->input->post('nom') : $t_domaine['nom']); ?>" class="form-control" id="nom" />
 	</div>
+	
 	<div class="field">
-		<label for="date_creation">Date Creation</label>
-		<input type="text" name="date_creation" value="<?php echo ($this->input->post('date_creation') ? $this->input->post('date_creation') : $t_domaine['date_creation']); ?>" class="form-control" id="date_creation" />
-	</div>
-	<div class="field">
-		<label for="id_cms">Cms</label>
-		
-		<select name="id_cms" class="form-control">
-			<option value="">Sélectionner</option>
-			<?php 
-			foreach($all_t_cms as $t_cms)
-			{
-				$selected = ($t_cms['id'] == $t_domaine['id_cms']) ? ' selected="selected"' : "";
-
-				echo '<option value="'.$t_cms['id'].'" '.$selected.'>'.$t_cms['id'].'</option>';
-			} 
-			?>
-		</select>
-	</div>
+                        	<label for="">Thématique :</label>
+                        	<input type="text" id="theme" name="theme" >
+                        </div>
 	<div class="field">
 		<label for="id_registrar">Registrar</label>
 		
@@ -39,23 +25,49 @@
 			?>
 		</select>
 	</div>
-	<div class="field">
-		<label for="id_heberg">Hebergement</label>
+
+
+<div class="field">
+	<label for="">Hébegement :</label>
+	<select name="id_heberg"  id="id_heberg">
+	<option value="">Selectionner hebergement</option>
+	<?php 
+	foreach($all_t_hebergement as $t_hebergement)
+	{
+		$selected = ($t_hebergement['id'] == $t_domaine['id_heberg']) ? ' selected="selected"' : "";
+
+		echo '<option value="'.$t_hebergement['id'].'" '.$selected.'>'.$t_hebergement['url'].'</option>';
+	} 
+	?>
+</select>
+</div>
+<div class="field div-addr-ip" >
+		<label for="">Adresse IP :</label>
+		<select id="addr-ip"   name="addr-ip" ?>" >
+		</select>
+</div>
+
+
+
+
+
+</div>
+<div class="wrap-field info-gen carte">
+<div class="field">
+		<label for="id_cms">Cms</label>
 		
-		<select name="id_heberg" class="form-control">
+		<select name="id_cms" class="form-control">
 			<option value="">Sélectionner</option>
 			<?php 
-			foreach($all_t_hebergement as $t_hebergement)
+			foreach($all_t_cms as $t_cms)
 			{
-				$selected = ($t_hebergement['id'] == $t_domaine['id_heberg']) ? ' selected="selected"' : "";
+				$selected = ($t_cms['id'] == $t_domaine['id_cms']) ? ' selected="selected"' : "";
 
-				echo '<option value="'.$t_hebergement['id'].'" '.$selected.'>'.$t_hebergement['id'].'</option>';
+				echo '<option value="'.$t_cms['id'].'" '.$selected.'>'.$t_cms['id'].'</option>';
 			} 
 			?>
 		</select>
 	</div>
-</div>
-<div class="wrap-field info-gen carte">
 	<div class="ttl-infos clearfix">
 		<span>Serveur et administration</span>
 	</div>

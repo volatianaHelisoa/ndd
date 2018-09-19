@@ -220,7 +220,7 @@ class Domaine extends CI_Controller{
                 $this->Domaine_model->update_t_domaine($id,$params);          
                
                 redirect('domaine/index');
-            }
+            } 
             else
             {
 				$this->load->model('Cms_model');
