@@ -22,7 +22,15 @@
 		</div>
 		<div class="field">
 			<label for="adresse">Adresse IP (*)</label>
-			<input type="text" name="adresse" value="<?php echo $this->input->post('adresse'); ?>" id="adresse" required/>
+			<input
+				type="text"
+				name="adresse"
+				value="<?php echo $this->input->post('adresse'); ?>"
+				id="adresse"
+				required
+				placeholder="192.168.0.255"
+				pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"
+			/>
 		</div>
 		<div class="field">
 		<label for="reverseip">Reverse IP</label>		
