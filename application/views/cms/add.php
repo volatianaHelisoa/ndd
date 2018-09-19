@@ -1,16 +1,12 @@
 <?php echo form_open('cms/add',array("class"=>"form-horizontal")); ?>
-
-	<div class="form-group">
-		<label for="type" class="col-md-4 control-label">Type</label>
-		<div class="col-md-8">
-			<input type="text" name="type" value="<?php echo $this->input->post('type'); ?>" class="form-control" id="type" />
+	<div class="wrap-field info-gen carte">
+		<div class="title-field">Ajouter CMS</div>
+		<div class="field">
+			<label for="type">Type (*)</label>
+			<input type="text" name="type" value="<?php echo $this->input->post('type'); ?>" id="type" required/>
 		</div>
-	</div>
-	
-	<div class="form-group">
-		<div class="col-sm-offset-4 col-sm-8">
-			<button type="submit" class="btn btn-success">Save</button>
-        </div>
+		
+		<button type="submit" class="btn submit">Ajouter</button>
 	</div>
 
 <?php echo form_close(); ?>
