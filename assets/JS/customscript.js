@@ -38,6 +38,28 @@ $(document).ready(function() {
             }
         }
     });
+    ('#do_filter').click( function() {
+        table.draw();
+    } );
+    $('#reset_filter').click(function () {
+        $("#filter-registar" ).val("tous");
+        table.draw();
+    });
+
+
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            registrarVal = $('#filter-registar').val();
+            is_valid = true;
+
+            if(registrarVal != '' &&  registrarVal != "tous" && is_valid){
+                is_valid = false;                
+                if (data[0] == registrarVal) is_valid = true;                         
+            }
+            return is_valid;
+        }
+    );
+    
     $("div.toolbar").html();
     var nddList = $('#ndd-list').DataTable();
     $('.searchInTable').keyup(function(){
@@ -46,6 +68,7 @@ $(document).ready(function() {
      
     var password = $("#the-user-password-detail").text().replace(/./g, '*');
     console.log(password);
-    $("#the-user-password-detail").text(password)
+    $("#the-user-password-detail").text(password);
+    
 } );
 
