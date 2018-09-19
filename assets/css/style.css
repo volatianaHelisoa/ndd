@@ -9,7 +9,6 @@ form { padding:20px 0}
 input:not([type="submit"]),input:not([type="button"]) { width:100%;}
 .field { padding-bottom:20px; text-align:left}
 .field select { border: 1px solid #eaeaea;padding: 10px;min-height: 45px;font:normal 15px/21px Rl;olor:#231f20; width:100%}
-.submit { text-transform: uppercase;color: #fff; font: normal 15px/21px Rr; border: none; background: #f15e53; border-radius: 4px; padding: 12px 27px 9px;cursor: pointer; margin-top:14px}
 select:focus option,
 :focus { outline:none}
 .sub-title {color:#f15e53; font:normal 18px/21px RL; background:#f8f8f8; text-transform:uppercase; padding:10px 25px; margin:0 -25px 10px}

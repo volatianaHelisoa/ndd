@@ -56,6 +56,7 @@ p { margin: 0 0 20px; }
 .cust-btn.small-btn { font-size: 10px; padding: 10px 14px;}
 .cust-btn.add { padding-left: 40px; text-transform: uppercase; }
 .cust-btn.add::before { content: "+"; width: 20px; height: 20px; line-height: 20px; color: #141324; background: white; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; text-align: center; position: absolute; top: 50%; margin-top: -10px; left: 10px; font-family: 'Rr'; font-weight: bold }
+.submit { text-transform: uppercase;color: #fff; font: normal 15px/21px Rr; border: none; background: #f15e53; border-radius: 4px; padding: 12px 27px 9px;cursor: pointer; margin-top:14px}
 
 .flex-col { flex-direction: column; }
 .flex-col-r { flex-direction: column; }

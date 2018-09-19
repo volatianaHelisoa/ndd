@@ -17,7 +17,7 @@
 				<a href="" class="link forgotPass">Mot de passe oublié ?</a>
 			</div>
 
-			<button type="submit" class="cust-btn">Connexion</button>
+			<button type="submit" class="cust-btn submit">Connexion</button>
 	</div>
 </div>
 

@@ -7,7 +7,7 @@
 		</div>
 		
 		<div class="field">
-			<button type="submit" class="btn btn-success">Ajouter</button>
+			<button type="submit" class="btn submit">Ajouter</button>
 		</div>
 	</div>
 <?php echo form_close(); ?>
