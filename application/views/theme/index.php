@@ -11,11 +11,11 @@
 	<tbody>
 	<?php foreach($t_theme as $t){ ?>
     <tr>
-		<td><?php echo $t['name']; ?></td>
-		<td>07</td>
+		<td><?php echo $t->name; ?></td>
+		<td><?php echo $t->nb_site; ?></td>
 		<td>
-            <a href="<?php echo site_url('theme/edit/'.$t['id']); ?>" class="btn btn-info btn-xs">Edit</a> 
-            <a href="<?php echo site_url('theme/remove/'.$t['id']); ?>" class="btn btn-danger btn-xs">Delete</a>
+            <a href="<?php echo site_url('theme/edit/'.$t->id); ?>" class="btn btn-info btn-xs">Edit</a> 
+            <a href="<?php echo site_url('theme/remove/'.$t->id); ?>" class="btn btn-danger btn-xs">Delete</a>
         </td>
     </tr>
 	<?php } ?>

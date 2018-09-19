@@ -73,7 +73,7 @@
 				dataType: "json",
 				type: "GET",                  
 				success: function(data){   
-					console.log(data);
+					//console.log(data);
 						$("#heberg_res").text(data["name"]);
 						$("#url_res").text(data["url"]);	
 						$("#login_res").text(data["login"]);	

@@ -16,6 +16,7 @@ class User extends CI_Controller{
      */
     function index()
     {
+       
         $data['t_user'] = $this->User_model->get_all_t_user();
         
         $data['_view'] = 'user/index';
@@ -73,7 +74,7 @@ class User extends CI_Controller{
                 $md5pass  = md5( $pass );
                 $sha1pass = sha1( $md5pass );
                 $password = crypt( $sha1pass, $md5pass );
-            
+             
                 $params = array(
 					'id_role' => $this->input->post('id_role'),
 					'name' => $this->input->post('name'),
@@ -130,27 +131,36 @@ class User extends CI_Controller{
     /**
 	 * Acces page d'adminstration
 	 */
-	public function access(  ) {
-        var_dump($this);
-		$this->form_validation->set_rules( 'email', 'Login', 'required' );
-		$this->form_validation->set_rules( 'password', 'Password', 'required|callback_verifyUser' );
+	public function access( ) {
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('form_validation');
 
+		$this->form_validation->set_rules( 'email', 'email', 'required' );
+		$this->form_validation->set_rules( 'password', 'password', 'required|callback_verifyUser' );
+               
 		if ( $this->form_validation->run() == FALSE ) {
+           
 			$this->load->view( 'template/head' );
 			$this->load->view( 'user/login' );
 		} else {
 			$remember = $this->input->post( 'check_session' );
-
+           
 			$tname = $this->input->post( 'email' );
 			$name  = str_replace( ' ', '', $tname );
 			$this->load->model( 'User_model' );
-			$fname     = $this->User_model->get_fname( $name );
+            $fname     = $this->User_model->get_fname( $name );
+           
 			$lname     = $this->User_model->get_lname( $name );
-			$nameadmin = $fname . " " . $lname;
+            $nameadmin = $fname . " " . $lname;
+            
+            $user = $this->User_model->get_t_user_id($tname);
+            $current_id = $user["id"];
 
 			$sessiondata = array(
 				'checksession' => $this->input->post( 'check_session' ),
-				'login'        => $nameadmin,
+                'login'        => $nameadmin,
+                'username'        => $tname,
+                'token'  => $current_id,
 				'loginuser'    => TRUE
 			);
 
@@ -161,8 +171,9 @@ class User extends CI_Controller{
 				$sessiondata['username'] = $tname;
 			}
 
-			$this->session->set_userdata( 'sessiondata', $sessiondata );
-			redirect( 'users' );
+            $this->session->set_userdata( 'sessiondata', $sessiondata );
+          
+			redirect( 'dashboard' );	
 		}
     }
     
@@ -170,43 +181,52 @@ class User extends CI_Controller{
 	 * Callback qui verifie si login/password existe
 	 */
 	public function verifyUser() {
-		$tlogin   = $this->input->post( 'email' );
-		$login    = str_replace( ' ', '', $tlogin );
+       
+        $tlogin   = $this->input->post( 'email' );       
+        $login    = str_replace( ' ', '', $tlogin );
+       
 		$tpass    = $this->input->post( 'password' );
-		$pass     = str_replace( ' ', '', $tpass );
+        $pass     = str_replace( ' ', '', $tpass );
+       
 		$md5pass  = md5( $pass );
 		$sha1pass = sha1( $md5pass );
-		 $password = crypt( $sha1pass, $md5pass );
-
-
+		$password = crypt( $sha1pass, $md5pass );
+       
 		$this->load->model( 'User_model' );
 		if ( $this->User_model->get_admin( $login, $password ) ) {
-			redirect( 'dashboard' );
+			return TRUE;
 		} else {
-			redirect( 'authentificationfailed' );
+			redirect( 'pages/authentificationfailed' );
 			return FALSE;
 		}
     }
     
-    function detail($id)
-   {
+      function logout()  
+      {  
+           $this->session->unset_userdata('username');  
+           redirect(base_url() . 'main/login');  
+      }  
 
+    
+    function detail($id)
+    {      
        // check if the t_user exists before trying to edit it
        $data['t_user'] = $this->User_model->get_t_user($id);
        $id_role = $data['t_user']['id_role'];
        $this->load->model('Role_model');
        $data['t_role'] = $this->Role_model->get_t_role($id_role)['type'];
+
        if(isset($data['t_user']['id']))
        {
-                $this->load->model('Role_model');
-               $data['all_t_role'] = $this->Role_model->get_all_t_role();
+            $this->load->model('Role_model');
+            $data['all_t_role'] = $this->Role_model->get_all_t_role();
 
-               $data['_view'] = 'user/detail';
-               $this->load->view('layouts/main',$data);
+            $data['_view'] = 'user/detail';
+            $this->load->view('layouts/main',$data);
        }
        else
            show_error('The t_user you are trying to edit does not exist.');
-   }
+    }
 
     
 }

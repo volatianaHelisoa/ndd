@@ -13,6 +13,12 @@ class Dashboard extends CI_Controller{
 
     function index()
     {
+        // $current_user = $this->session->userdata('sessiondata');  
+        // $this->load->model( 'User_model' );
+        // $user = $this->User_model->get_t_user_id($current_user['username']);
+        // $current_id = $user["id"];
+
+        // $data['t_dashboard'] = $current_id;
         $data['_view'] = 'dashboard';
         $this->load->view('layouts/full',$data);
     }

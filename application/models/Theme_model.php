@@ -76,7 +76,7 @@ class Theme_model extends CI_Model
                     'label' => trim($key->name),
                     'value' => trim($key->name)
                 );
-
+ 
                 $themes[] = $a;
             endforeach;
           
@@ -91,4 +91,6 @@ class Theme_model extends CI_Model
     {
         return $this->db->get_where('t_theme',array('name'=>$name))->row_array();
     }
+
+ 
 }

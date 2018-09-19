@@ -94,5 +94,17 @@ class Registrar extends CI_Controller{
         else
             show_error('The t_registrar you are trying to delete does not exist.');
     }
+
+    function get_info_by_id(){
+      
+        if (isset($_GET['id'])) {           
+           
+            $registrar =  $this->Registrar_model->get_t_registrar($_GET['id']);
+          
+            echo json_encode($registrar);
+            die;
+           
+        }
+    }
     
 }

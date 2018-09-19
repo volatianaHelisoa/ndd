@@ -15,11 +15,11 @@
 	</div>
 	<div class="field half">
 		<label for="">Rôle</label>
-		<select name="id_role" id="" require>
+		<select name="id_role" id="" required>
 			<option value="">Rôle de l'utilisateur</option>
 			<?php 
 			foreach($all_t_role as $t_role)
-			{
+			{				
 				$selected = ($t_role['id'] == $this->input->post('id_role')) ? ' selected="selected"' : "";
 				echo '<option value="'.$t_role['id'].'" '.$selected.'>'.$t_role['type'].'</option>';
 			} 
@@ -38,17 +38,14 @@
 		<label for="">Email :</label>
 		<input type="text" name="email" value="<?php echo ($this->input->post('email') ? $this->input->post('email') : $t_user['email']); ?>">
 	</div>
-	<div class="field full">
-		<label for="">Mot de passe :</label>
-		<input type="text" name="password" value="<?php echo ($this->input->post('password') ? $this->input->post('password') : $t_user['password']); ?>">
-	</div>
-	<div class="step-after clearfix">
+	
+	<div class="step-after" style=" clear: both;">
 		<div class="ttl-infos clearfix">
 			<span>Changer mot de passe</span>
 		</div>
 		<div class="field half">
 			<label for="">Nouveau mot de passe : </label>
-			<input type="text">
+			<input type="password" name="password"  value="<?php echo ($this->input->post('password') ? $this->input->post('password') : $t_user['password']); ?>">
 		</div>
 		<div class="field half">
 			<label for="">Répétér nouveau mot de passe :</label>

@@ -111,7 +111,7 @@ class Domaine_theme_ip_model extends CI_Model
     }
 
       /*
-     * Get t_domaine_techno by id _domaine
+     * Get t_domaine_techno by id_ip
      */
     function get_t_domaine_theme_ip_by_ip($id_ip)
     {
@@ -121,6 +121,23 @@ class Domaine_theme_ip_model extends CI_Model
         $this->db->from('t_domaine_theme_ip');      
         $this->db->join('t_ip', 't_domaine_theme_ip.id_ip = t_ip.id', 'inner');
         $this->db->where( 't_ip.id', $id_ip );     
+       
+        $query = $this->db->get();
+        $domaine_theme = $query->result_array();
+        return $domaine_theme;
+    }
+
+      /*
+     * Get t_domaine_techno by id_theme
+     */
+    function get_t_domaine_theme_ip_by_theme($id_theme)
+    {
+        $this->load->database();
+
+        $this->db->select(' t_domaine_theme_ip.*');
+        $this->db->from('t_domaine_theme_ip');      
+        $this->db->join('t_theme', 't_domaine_theme_ip.id_theme = t_theme.id', 'inner');
+        $this->db->where( 't_theme.id', $id_theme );     
        
         $query = $this->db->get();
         $domaine_theme = $query->result_array();

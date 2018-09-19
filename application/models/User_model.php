@@ -53,24 +53,8 @@ class User_model extends CI_Model
     {
         return $this->db->delete('t_user',array('id'=>$id));
     }
-
     
-    /**
-	 * Retourne name par rapport a un $login si $login exist
-	 */
-	public function get_fname( $login ) {
-		$this->db->select( 'firstname' );
-		$this->db->from( 't_user' );
-		$this->db->where( 'email', $login );
-		$query = $this->db->get();
-		$name  = $query->result();
-		if ( $query->num_rows() == 1 ) {
-			return $name[0]->name;
-		} else {
-			return FALSE;
-		}
-    }
-
+  
     	/**
 	 * Verifie si login/password existe
 	 */
@@ -79,7 +63,8 @@ class User_model extends CI_Model
 		$this->db->from( 't_user' );
 		$this->db->where( 'email', $login );
 		$this->db->where( 'password', $password );
-		$query = $this->db->get();
+        $query = $this->db->get();
+        var_dump($query->num_rows() );
 		if ( $query->num_rows() == 1 ) {
 			return TRUE;
 		} else {
@@ -98,12 +83,37 @@ class User_model extends CI_Model
 		$query = $this->db->get();
 		$name  = $query->result();
 		if ( $query->num_rows() == 1 ) {
-			return $name[0]->lastname;
+			return $name[0]->name;
 
 		} else {
 			return FALSE;
 		}
-	}
+    }
+    
+      /**
+	 * Retourne name par rapport a un $login si $login exist
+	 */
+	public function get_fname( $login ) {
+		$this->db->select( 'firstname' );
+		$this->db->from( 't_user' );
+		$this->db->where( 'email', $login );
+		$query = $this->db->get();
+		$name  = $query->result();
+		if ( $query->num_rows() == 1 ) {
+			return $name[0]->firstname;
+		} else {
+			return FALSE;
+		}
+    }
+
+      /*
+     * Get t_user by email
+     */
+    function get_t_user_id($email)
+    {
+        return $this->db->get_where('t_user',array('email'=>$email))->row_array();
+    }
+
 
 }
 

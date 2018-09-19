@@ -27,6 +27,10 @@
 	</head>
 
 	<body>
+	<?php	
+		$current_user = $this->session->userdata('sessiondata');  
+		$token =  $current_user["token"];		
+	?>
 	<div class="flex-wrapper-dashboard">
         <aside class="nav-panel">
             <a class="logo" href=""><img src="<?php echo base_url(); ?>assets/images/logo_light.png" alt="Mon Ndd" srcset=""></a>
@@ -39,15 +43,19 @@
                     <li><a href="<?php echo site_url('theme/index'); ?>">Gestion thématique</a></li>
                     <li><a href="<?php echo site_url('registrar/index'); ?>">Registrar</a></li>
                     <li><a href="<?php echo site_url('user/index'); ?>">Utilisateurs</a></li>
-                    <li><a href="#">Mon compte</a></li>
+                    <li><a href="<?php echo site_url('user/detail/'.$token); ?>">Mon compte</a></li>
                 </ul>
             </nav>
 		</aside>
 		<main class="dashboard-container">
 			<div class="topbar-head"></div>
 			<div class="main-wrapper">
-				<?php	if(isset($_view) && $_view)
-					$this->load->view($_view);
+				<?php				
+					if($this->session->userdata('sessiondata')) {					
+						if(isset($_view) && $_view)
+							$this->load->view($_view);
+					}else
+						redirect(base_url() . '/login');  			
 				?>
 			</div>
         </main>
