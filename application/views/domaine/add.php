@@ -4,7 +4,9 @@
                     <span class="title-l">Nom de domaine</span>
                     <p>Vous avez 1000 nom de domaines</p>
                 </div>
-                <div class="carte wrap-field info-gen">
+				
+				
+                <div class="wrap-field info-gen carte">
 					<div class="title-field">Information général</div>
                    
                     	<div class="field">
@@ -52,7 +54,7 @@
                         <input type="button" class="btn submit btn-next" value="Suivant">
 						<input type="submit" class="btn submit btn-save-first" value="Ajouter">
                 </div>
-                <div class="card wrap-field preference">
+                <div class="wrap-field preference carte">
 					<div class="title-field ">Préférences</div>
                    
                     	<div class="field">
