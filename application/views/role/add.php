@@ -1,16 +1,13 @@
 <?php echo form_open('role/add',array("class"=>"form-horizontal")); ?>
-
-	<div class="form-group">
-		<label for="type" class="col-md-4 control-label">Type</label>
-		<div class="col-md-8">
+	<div class="carte wrap-field info-gen">
+		<div class="title-field">Ajouter registrar</div>
+		<div class="field">
+			<label for="type">Type</label>
 			<input type="text" name="type" value="<?php echo $this->input->post('type'); ?>" class="form-control" id="type" />
 		</div>
+		
+		<div class="field">
+			<button type="submit" class="btn btn-success">Ajouter</button>
+		</div>
 	</div>
-	
-	<div class="form-group">
-		<div class="col-sm-offset-4 col-sm-8">
-			<button type="submit" class="btn btn-success">Save</button>
-        </div>
-	</div>
-
 <?php echo form_close(); ?>

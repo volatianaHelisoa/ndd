@@ -1,25 +1,25 @@
 <?php echo form_open('hebergement/add',array("class"=>"form-horizontal")); ?>
 	<div class="head-section centered-el">
-		<span class="title-l">Ajout d'hébergement</span>
+		<span class="title-l"></span>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla laoreet mauriss</p>
 	</div>
 	<div class="carte wrap-field info-gen">
-		<div class="title-field">Information générale</div>
+		<div class="title-field">Ajouter un hébergement</div>
 		<div class="field">
-			<label for="name">Name</label>
-			<input type="text" name="name" value="<?php echo $this->input->post('name'); ?>" class="form-control" id="name" />
+			<label for="name">Name (*)</label>
+			<input type="text" name="name" value="<?php echo $this->input->post('name'); ?>" id="name" require/>
 		</div>
 		<div class="field">
-			<label for="url">Url</label>
-			<input type="text" name="url" value="<?php echo $this->input->post('url'); ?>" class="form-control" id="url" />
+			<label for="url">Url (*)</label>
+			<input type="text" name="url" value="<?php echo $this->input->post('url'); ?>" id="url" require/>
 		</div>
 		<div class="field">
-			<label for="login">Login</label>
-			<input type="text" name="login" value="<?php echo $this->input->post('login'); ?>" class="form-control" id="login" />
+			<label for="login">Login (*)</label>
+			<input type="text" name="login" value="<?php echo $this->input->post('login'); ?>" id="login" require/>
 		</div>
 		<div class="field">
 			<label for="password">Password (*)</label>
-			<input type="password" name="password" value="<?php echo $this->input->post('password'); ?>" class="form-control" id="password" require/>
+			<input type="password" name="password" value="<?php echo $this->input->post('password'); ?>" id="password" require/>
 		</div>
 		<button type="submit" class="btn submit">Enregistrer</button>
 	</div>

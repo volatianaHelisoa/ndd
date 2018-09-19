@@ -4,8 +4,7 @@
 		<span class="title-l">Bienvenue</span>
 		<p>Lorem ipsum dolor sit amet, Nunc posuere libero id auctor efficitur. Aenean posuere leo quis dolor iaculis </p>
 		<?php echo validation_errors(); ?>      		
-		<?php echo form_open('user/verifyUser',array('class' => 'card small')); ?>
-		<form method="post">
+		<?php echo form_open('user/verifyUser',array('class' => 'carte small')); ?>
 			<div class="fixed-entet">Connexion</div>
 			<input type="email" name="email" id="username" required placeholder="E-mail" value="<?php echo (isset($sess['username'])) ? $sess['username'] : ''; ?>">
 			<input type="password" name="password" value="<?php echo (isset($sess['password'])) ? $sess['password'] : ''; ?>" id="password" placeholder="Mot de passe" require>
@@ -19,7 +18,6 @@
 			</div>
 
 			<button type="submit" class="cust-btn">Connexion</button>
-		</form>
 	</div>
 </div>
 

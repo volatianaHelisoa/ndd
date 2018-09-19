@@ -4,9 +4,7 @@
                     <span class="title-l">Nom de domaine</span>
                     <p>Vous avez 1000 nom de domaines</p>
                 </div>
-				
-				
-                <div class="card wrap-field info-gen">
+                <div class="carte wrap-field info-gen">
 					<div class="title-field">Information général</div>
                    
                     	<div class="field">

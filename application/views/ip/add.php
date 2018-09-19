@@ -1,8 +1,13 @@
 <?php echo form_open('ip/add',array("class"=>"form-horizontal")); ?>
+	<div class="head-section centered-el">
+		<span class="title-l"></span>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla laoreet mauriss</p>
+	</div>
 
-	<div class="form-group">
-		<label for="id_heberg" class="col-md-4 control-label">T Hebergement</label>
-		<div class="col-md-8">
+	<div class="carte wrap-field info-gen">
+		<div class="title-field">Ajouter un IP</div>
+		<div class="field">
+			<label for="id_heberg" >Sélectionner hébergement</label>
 			<select name="id_heberg" class="form-control">
 				<option value="">selectionner hebergement</option>
 				<?php 
@@ -15,18 +20,11 @@
 				?>
 			</select>
 		</div>
-	</div>
-	<div class="form-group">
-		<label for="adresse" class="col-md-4 control-label">Adresse</label>
-		<div class="col-md-8">
-			<input type="text" name="adresse" value="<?php echo $this->input->post('adresse'); ?>" class="form-control" id="adresse" />
+		<div class="field">
+			<label for="adresse">Adresse IP (*)</label>
+			<input type="text" name="adresse" value="<?php echo $this->input->post('adresse'); ?>" id="adresse" require/>
+		</div>
+		<button type="submit" class="btn submit">Enregistrer</button>
 		</div>
 	</div>
-	
-	<div class="form-group">
-		<div class="col-sm-offset-4 col-sm-8">
-			<button type="submit" class="btn btn-success">Save</button>
-        </div>
-	</div>
-
 <?php echo form_close(); ?>
