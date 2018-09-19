@@ -43,7 +43,9 @@ $(document).ready(function() {
     $('.searchInTable').keyup(function(){
         nddList.search($(this).val()).draw() ;
     })
-    
-    $("#the-user-password").prop("disabled",true);
+     
+    var password = $("#the-user-password-detail").text().replace(/./g, '*');
+    console.log(password);
+    $("#the-user-password-detail").text(password)
 } );
 
