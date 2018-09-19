@@ -6,14 +6,14 @@
 	<input type="text" class="searchInTable" placeholder="Rechercher">
 	<label>
 		Registrar
-		<select name="select_registrar" >
+		<select name="select_registrar" id="filter-registar" >
 				<option value="">Tous</option>
 				<?php 
 				foreach($all_t_registrar as $t_registrar)
 				{
-					$selected = ($t_registrar['id'] == $t_domaine['id_registrar']) ? ' selected="selected"' : "";
+					$selected =  "";
 
-					echo '<option value="'.$t_registrar['id'].'" '.$selected.'>'.$t_registrar['name'].'</option>';
+					echo '<option value="'.$t_registrar['name'].'" '.$selected.'>'.$t_registrar['name'].'</option>';
 				} 
 				?>
 			</select>
@@ -25,9 +25,9 @@
 				<?php 
 				foreach($all_t_hebergement as $t_hebergement)
 				{
-					$selected = ($t_hebergement['id'] == $t_domaine['id_heberg']) ? ' selected="selected"' : "";
+					$selected =  "";
 
-					echo '<option value="'.$t_hebergement['id'].'" '.$selected.'>'.$t_hebergement['name'].'</option>';
+					echo '<option value="'.$t_hebergement['name'].'" '.$selected.'>'.$t_hebergement['name'].'</option>';
 				} 
 				?>
 			</select>
