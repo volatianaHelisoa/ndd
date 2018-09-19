@@ -29,6 +29,6 @@
 		</div>
 		<div class="field full">
 			<label for="">Mot de passe :</label>
-			<span class="info-bill"><?php echo ($this->input->post('password') ? $this->input->post('password') : $t_user['password']); ?></span>
+			<input type="password" value="<?php echo ($this->input->post('password') ? $this->input->post('password') : $t_user['password']); ?>" class="info-bill" id="the-user-password">
 		</div>
 	</div>
