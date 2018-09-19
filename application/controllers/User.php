@@ -222,7 +222,7 @@ class User extends CI_Controller{
       function logout()  
       {  
            $this->session->unset_userdata('username');  
-           redirect(base_url() . 'main/login');  
+           redirect(base_url() . '/login');  
       }  
 
     

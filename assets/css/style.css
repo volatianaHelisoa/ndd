@@ -177,3 +177,14 @@ ul.ui-autocomplete li.ui-menu-item {
     padding: 30px 0;
     display: block;
 }
+
+.topbar-head { padding:0 40px}
+.bloc-user { float:right; position:relative; padding-right:30px; background:url(../images/arrow-down.svg) right center no-repeat; margin:10px 0 0; cursor:pointer}
+.bloc-user>div { display:inline-block; vertical-align:middle;}
+.user-name { font:normal 14px/21px RL; color:#646464;}
+.avatar { width:41px; height:41px; border-radius:50%; overflow:hidden;}
+.avatar img { width:100%; height:auto;}
+.sub-user { text-align:center; margin:0; padding:0; text-align:center; background:#fff;-webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);-moz-box-shadow:0px 0px 8px 0px rgba(0, 0, 0, 0.2);box-shadow:0px 0px 8px 0px rgba(0, 0, 0, 0.2); position:absolute; top:40px; visibility:hidden; opacity:0; width:100%; transition:all ease-in-out 0.2s;}
+.bloc-user.show .sub-user { top:52px; visibility:visible; opacity:1;}
+.sub-user li { list-style:none}
+.sub-user li a { display:block; padding:10px 20px; font:normal 14px/21px Rm; color:#9e9e9e}

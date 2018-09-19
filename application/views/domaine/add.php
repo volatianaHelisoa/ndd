@@ -7,7 +7,7 @@
 				
 				
                 <div class="wrap-field info-gen carte">
-						<div class="title-field">Information général</div>
+						<div class="title-field">Information générale</div>
                    
                     	<div class="field">
                         	<label for="">Nom de domaine (*) :</label>

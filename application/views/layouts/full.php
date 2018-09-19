@@ -48,7 +48,16 @@
             </nav>
 		</aside>
 		<main class="dashboard-container">
-			<div class="topbar-head"></div>
+			
+		<div class="topbar-head clearfix">
+            	<div class="bloc-user">
+                	<div class="user-name">Bienvenue, <span><?php echo $current_user['login']; ?> </span>.</div>
+                    <div class="avatar"><img src="assets/images/user-thumb.jpg" alt=""></div>
+                    <ul class="sub-user">
+                    	<li><a href="<?php echo site_url('user/logout'); ?>">Deconnexion</a></li>
+                    </ul>
+                </div>
+            </div>
 			<div class="main-wrapper">
 				<?php				
 					if($this->session->userdata('sessiondata')) {					

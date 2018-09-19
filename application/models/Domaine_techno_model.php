@@ -26,7 +26,7 @@ class Domaine_techno_model extends CI_Model
     {
         $this->load->database();
 
-        $this->db->select('t_techno.name as techno ');
+        $this->db->select('t_techno.name as techno, t_techno.id as id, t_domaine.id as id_domaine ');
         $this->db->from('t_domaine_techno');
         $this->db->join('t_domaine', 't_domaine_techno.id_domaine = t_domaine.id', 'inner');
         $this->db->join('t_techno', 't_domaine_techno.id_techno = t_techno.id', 'inner');
@@ -94,5 +94,35 @@ class Domaine_techno_model extends CI_Model
     function delete_t_domaine_techno($id)
     {
         return $this->db->delete('t_domaine_techno',array('id'=>$id));
+    }
+
+    /*
+     * function to delete t_domaine_techno
+     */
+    function delete_t_domaine_techno_by_domaine($id_domaine)
+    {
+        return $this->db->delete('t_domaine_techno',array('id_domaine'=>$id_domaine));
+    }
+
+
+     /*
+     * Get get_t_domaine_cms_by_domaine by id _domaine
+     */
+    function get_t_domaine_cms_by_param($id_domaine)
+    {
+        $this->load->database();
+
+        $this->db->select('t_domaine_techno.id ');
+        $this->db->from('t_domaine_techno');
+        $this->db->join('t_domaine', 't_domaine_techno.id_domaine = t_domaine.id', 'inner');
+      
+     
+        $this->db->where( 't_domaine.id', $id_domaine );     
+
+
+        $query = $this->db->get();
+        $domaine_techno = $query->result_array();
+      
+        return $domaine_techno;
     }
 }

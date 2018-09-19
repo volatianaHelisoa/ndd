@@ -61,7 +61,7 @@ class Domaine_theme_ip_model extends CI_Model
     {
         $this->load->database();
 
-        $this->db->select(' t_ip.adresse as ip');
+        $this->db->select(' t_ip.adresse as ip,t_ip.id as id');
         $this->db->from('t_domaine_theme_ip');
         $this->db->join('t_domaine', 't_domaine_theme_ip.id_domaine = t_domaine.id', 'inner');
         $this->db->join('t_ip', 't_domaine_theme_ip.id_ip = t_ip.id', 'inner');
@@ -80,7 +80,7 @@ class Domaine_theme_ip_model extends CI_Model
     {
         $this->load->database();
 
-        $this->db->select(' t_theme.name as name');
+        $this->db->select(' t_theme.name as name,t_theme.id as id');
         $this->db->from('t_domaine_theme_ip');
         $this->db->join('t_domaine', 't_domaine_theme_ip.id_domaine = t_domaine.id', 'inner');
         $this->db->join('t_theme', 't_domaine_theme_ip.id_theme = t_theme.id', 'inner');
@@ -143,4 +143,51 @@ class Domaine_theme_ip_model extends CI_Model
         $domaine_theme = $query->result_array();
         return $domaine_theme;
     }
+
+          /*
+     * Get t_domaine_techno by id _domaine
+     */
+    function get_t_domaine_theme_ip_by_params($id_domaine,$id_ip,$id_theme)
+    {
+        $this->load->database();
+
+        $this->db->select('t_domaine_theme_ip.id as id');
+        $this->db->from('t_domaine_theme_ip');
+        $this->db->join('t_domaine', 't_domaine_theme_ip.id_domaine = t_domaine.id', 'inner');
+        $this->db->join('t_theme', 't_domaine_theme_ip.id_theme = t_theme.id', 'inner');
+        $this->db->join('t_ip', 't_domaine_theme_ip.id_ip = t_ip.id', 'inner');
+     
+        $this->db->where( 't_domaine.id', $id_domaine );     
+        $this->db->where( 't_ip.id', $id_ip );     
+        $this->db->where( 't_theme.id', $id_theme );     
+       
+        $query = $this->db->get();
+        $domaine_theme = $query->row_array();
+      
+        return $domaine_theme;
+    }
+
+        /*
+     * Get t_domaine_techno by id _domaine
+     */
+    function get_t_domaine_theme_ip_by_param($id_domaine)
+    {
+        $this->load->database();
+
+        $this->db->select('t_domaine_theme_ip.id as id');
+        $this->db->from('t_domaine_theme_ip');
+        $this->db->join('t_domaine', 't_domaine_theme_ip.id_domaine = t_domaine.id', 'inner');
+       
+     
+        $this->db->where( 't_domaine.id', $id_domaine );     
+      
+       
+        $query = $this->db->get();
+        $domaine_theme = $query->row_array();
+      
+        return $domaine_theme;
+    }
+
+
+        
 }
