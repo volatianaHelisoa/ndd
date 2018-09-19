@@ -16,8 +16,31 @@ class Hebergement extends CI_Controller{
      */
     function index()
     {
-        $data['t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
-        
+        $data['t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();        
+
+        $res = array();
+        foreach($data['t_hebergement'] as $row) {
+			$element = new stdClass();
+            $element->id = $row['id'];
+            $element->name =  $row['name'];
+            $element->url =  $row['url'];
+            $element->login =  $row['login'];
+            $element->password =  $row['password'];     
+           
+            
+            $this->load->model('Ip_model');
+            $ip_data = $this->Ip_model->get_ip_id_hebergement($row['id']);
+            
+            $element->nb_ip = ($ip_data != null && count($ip_data) >0 ) ? count($ip_data) : 0;
+
+            $this->load->model('Domaine_model');
+            $domaine_data = $this->Domaine_model->get_by_id_hebergement($row['id']);
+            $element->nb_site = ($domaine_data != null && count($domaine_data) >0 ) ? count($domaine_data) : 0;
+		
+            $res[] = $element;	
+        }
+
+        $data['t_hebergement'] = $res;  
         $data['_view'] = 'hebergement/index';
         $this->load->view('layouts/main',$data);
     }
@@ -93,6 +116,18 @@ class Hebergement extends CI_Controller{
         }
         else
             show_error('The t_hebergement you are trying to delete does not exist.');
+    }
+
+    function get_info_by_id(){
+      
+        if (isset($_GET['id'])) {           
+           
+            $hebergement =  $this->Hebergement_model->get_t_hebergement($_GET['id']);
+          
+            echo json_encode($hebergement);
+            die;
+           
+        }
     }
     
 }

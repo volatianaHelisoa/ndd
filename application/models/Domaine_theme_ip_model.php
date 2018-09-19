@@ -109,4 +109,21 @@ class Domaine_theme_ip_model extends CI_Model
         $domaine_theme = $query->result_array();
         return $domaine_theme;
     }
+
+      /*
+     * Get t_domaine_techno by id _domaine
+     */
+    function get_t_domaine_theme_ip_by_ip($id_ip)
+    {
+        $this->load->database();
+
+        $this->db->select(' t_domaine_theme_ip.*');
+        $this->db->from('t_domaine_theme_ip');      
+        $this->db->join('t_ip', 't_domaine_theme_ip.id_ip = t_ip.id', 'inner');
+        $this->db->where( 't_ip.id', $id_ip );     
+       
+        $query = $this->db->get();
+        $domaine_theme = $query->result_array();
+        return $domaine_theme;
+    }
 }

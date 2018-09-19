@@ -9,17 +9,17 @@
 		<th>Reverse IP</th>
 		<th>Nombre de site</th>
 		<th>Action</th>
-    </thead>
+    </thead> 
 	<tbody>
 	<?php foreach($t_ip as $t){ ?>
-    <tr>
-		<td>100.25.62.01</td>
-		<td>Plesk</td>
-		<td>ip00e-cs-123-456::00</td>
-		<td>25</td>
+    <tr id="<?php echo $t->id; ?>">
+		<td><?php echo $t->adresse; ?></td>
+		<td><?php echo $t->hebergement; ?></td>
+		<td><?php echo $t->reverseip; ?></td>
+		<td><?php echo $t->nb_site; ?></td>
 		<td>
-            <a href="<?php echo site_url('ip/edit/'.$t['id']); ?>" class="btn btn-info btn-xs">Edit</a> 
-            <a href="<?php echo site_url('ip/remove/'.$t['id']); ?>" class="btn btn-danger btn-xs">Delete</a>
+            <a href="<?php echo site_url('ip/edit/'.$t->id); ?>" class="btn btn-info btn-xs">Edit</a> 
+            <a href="<?php echo site_url('ip/remove/'.$t->id); ?>" class="btn btn-danger btn-xs">Delete</a>
         </td>
     </tr>
 	<?php } ?>

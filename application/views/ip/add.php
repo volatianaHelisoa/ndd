@@ -22,7 +22,11 @@
 		</div>
 		<div class="field">
 			<label for="adresse">Adresse IP (*)</label>
-			<input type="text" name="adresse" value="<?php echo $this->input->post('adresse'); ?>" id="adresse" require/>
+			<input type="text" name="adresse" value="<?php echo $this->input->post('adresse'); ?>" id="adresse" required/>
+		</div>
+		<div class="field">
+		<label for="reverseip">Reverse IP</label>		
+		<input type="text" name="reverseip" value="<?php echo $this->input->post('reverseip'); ?>"  id="reverseip" />
 		</div>
 		<button type="submit" class="btn submit">Enregistrer</button>
 		</div>

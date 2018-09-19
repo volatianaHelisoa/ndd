@@ -17,6 +17,12 @@
 		</div>
 	</div>
 	<div class="form-group">
+		<label for="reverseip" class="col-md-4 control-label">Reverseip</label>
+		<div class="col-md-8">
+			<input type="text" name="reverseip" value="<?php echo ($this->input->post('reverseip') ? $this->input->post('reverseip') : $t_ip['reverseip']); ?>" class="form-control" id="reverseip" />
+		</div>
+	</div>
+	<div class="form-group">
 		<label for="adresse" class="col-md-4 control-label">Adresse</label>
 		<div class="col-md-8">
 			<input type="text" name="adresse" value="<?php echo ($this->input->post('adresse') ? $this->input->post('adresse') : $t_ip['adresse']); ?>" class="form-control" id="adresse" />

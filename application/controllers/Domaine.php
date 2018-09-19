@@ -90,9 +90,7 @@ class Domaine extends CI_Controller{
             
 
         $this->load->model('Theme_model');
-        $data['all_t_theme'] = $this->Theme_model->get_all_t_theme();
-
-       
+        $data['all_t_theme'] = $this->Theme_model->get_all_t_theme();      
 
         $data['t_domaine'] = $res;  
         $data['_view'] = 'domaine/index';

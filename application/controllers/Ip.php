@@ -16,8 +16,29 @@ class Ip extends CI_Controller{
      */
     function index()
     {
-        $data['t_ip'] = $this->Ip_model->get_all_t_ip();
+        $data['t_ip'] = $this->Ip_model->get_all_t_ip();       
+
+        $res = array();
+        foreach($data['t_ip'] as $row) {
+			$element = new stdClass();
+            $element->id = $row['id'];
+            $element->adresse =  $row['adresse'];
+            $element->reverseip =  $row['reverseip'];     
+
+            /**IP */               
+            $this->load->model('Domaine_theme_ip_model');
+            $domaine_ip = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_by_ip($row['id']);   
         
+            $element->nb_site = ($domaine_ip != null && count($domaine_ip) >0 ) ? count($domaine_ip) : 0;
+           
+            $this->load->model('Hebergement_model');
+			$hebergement = $this->Hebergement_model->get_t_hebergement($row['id_heberg']);
+            $element->hebergement = $hebergement['name'];   
+		
+            $res[] = $element;	
+        }
+
+        $data['t_ip'] = $res;  
         $data['_view'] = 'ip/index';
         $this->load->view('layouts/main',$data);
     }
@@ -31,7 +52,8 @@ class Ip extends CI_Controller{
         {   
             $params = array(
 				'id_heberg' => $this->input->post('id_heberg'),
-				'adresse' => $this->input->post('adresse'),
+                'adresse' => $this->input->post('adresse'),
+                'reverseip' => $this->input->post('reverseip'),
             );
             
             $t_ip_id = $this->Ip_model->add_t_ip($params);
@@ -61,7 +83,8 @@ class Ip extends CI_Controller{
             {   
                 $params = array(
 					'id_heberg' => $this->input->post('id_heberg'),
-					'adresse' => $this->input->post('adresse'),
+                    'adresse' => $this->input->post('adresse'),
+                    'reverseip' => $this->input->post('reverseip'),
                 );
 
                 $this->Ip_model->update_t_ip($id,$params);            

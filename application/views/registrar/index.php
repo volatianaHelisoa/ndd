@@ -12,7 +12,7 @@
     </thead>
 	<tbody>
 	<?php foreach($t_registrar as $t){ ?>
-    <tr>
+    <tr> 
 		<td><?php echo $t['name']; ?></td>
 		<td><?php echo $t['url']; ?></td>
 		<td><?php echo $t['login']; ?></td>

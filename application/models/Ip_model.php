@@ -81,8 +81,24 @@ class Ip_model extends CI_Model
         endforeach;
         
         echo json_encode($ips);
-        die;
+        die;       
+    }
 
+     /*
+     * Get t_ip by id_hebergement
+     */
+    function get_ip_id_hebergement($id_hebergement)
+    {
+        $this->load->database();       
+
+        $this->db->select( "*" );
+        $this->db->from( 't_ip' );
+        $this->db->like( 'id_heberg', $id_hebergement );
+        $this->db->order_by('id_heberg', 'asc');
+        $query = $this->db->get();
+        $ip_data = $query->result();
+        return    $ip_data;
        
     }
 }
+

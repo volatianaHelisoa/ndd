@@ -53,4 +53,21 @@ class Domaine_model extends CI_Model
     {
         return $this->db->delete('t_domaine',array('id'=>$id));
     }
+
+    /*
+     * Get t_domaine by id_hebergement
+     */
+    function get_by_id_hebergement($id_hebergement)
+    {
+        $this->load->database();       
+
+        $this->db->select( "*" );
+        $this->db->from( 't_domaine' );
+        $this->db->like( 'id_heberg', $id_hebergement );
+        $this->db->order_by('id_heberg', 'asc');
+        $query = $this->db->get();
+        $domaine_data = $query->result();
+        
+        return $domaine_data;   
+    }
 }
