@@ -3,7 +3,7 @@
 		<span class="title-l"></span>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla laoreet mauriss</p>
 	</div>
-	<div class="carte wrap-field info-gen">
+	<div class="wrap-field info-gen carte ">
 		<div class="title-field">Ajouter un hébergement</div>
 		<div class="field">
 			<label for="name">Name (*)</label>

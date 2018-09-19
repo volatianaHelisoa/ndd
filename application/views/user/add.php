@@ -1,5 +1,5 @@
 <?php echo form_open('user/add',array("class"=>"form-horizontal")); ?>
-<div class="carte wrap-field info-gen">
+<div class="wrap-field info-gen carte ">
 	<div class="field">
 		<label for="name">Nom (*)</label>
 		

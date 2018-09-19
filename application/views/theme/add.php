@@ -4,7 +4,7 @@
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla laoreet mauriss</p>
 	</div>
 
-	<div class="carte wrap-field info-gen">
+	<div class="wrap-field info-gen carte ">
 	<div class="title-field">Thématique</div>
 		<div class="field">
 			<label for="name">Nom (*)</label>

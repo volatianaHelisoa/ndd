@@ -1,5 +1,5 @@
 <?php echo form_open('role/add',array("class"=>"form-horizontal")); ?>
-	<div class="carte wrap-field info-gen">
+	<div class="wrap-field info-gen carte ">
 		<div class="title-field">Ajouter registrar</div>
 		<div class="field">
 			<label for="type">Type</label>
