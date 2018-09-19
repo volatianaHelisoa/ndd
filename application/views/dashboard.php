@@ -6,8 +6,8 @@
                 <div class="content">
                     <div>
                     <a href="<?php echo site_url('domaine/index'); ?>" >
-                        Nombre de <span>NDD</span>
-                        <div class="display-nbr">1000</div>
+                        Nombre de <span>NDD</span>  
+                        <div class="display-nbr"><?php echo $t_dashboard->nb_site; ?></div>
                     </a>
                     </div>
                 </div>
@@ -17,7 +17,7 @@
                     <div>
                     <a href="<?php echo site_url('registrar/index'); ?>" > 
                         <span>Registrar</span>
-                        <div class="display-nbr">125</div>
+                        <div class="display-nbr"><?php echo $t_dashboard->nb_registrar ?></div>
                     </a>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                     <div>
                     <a href="<?php echo site_url('hebergement/index'); ?>" >
                         Nombre<span>d’Hebergement</span>
-                        <div class="display-nbr">685</div>
+                        <div class="display-nbr"><?php echo $t_dashboard->nb_hebergement ?></div>
                     </a>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     <div>
                     <a href="<?php echo site_url('ip/index'); ?>" >
                         Nombre <span>d'ip</span>
-                        <div class="display-nbr">2535</div>
+                        <div class="display-nbr"><?php echo $t_dashboard->nb_ip ?></div>
                     </a>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                     <div>
                     <a href="<?php echo site_url('user/index'); ?>" >
                         <span>Utilisateurs</span>
-                        <div class="display-nbr">182</div>
+                        <div class="display-nbr"><?php echo $t_dashboard->nb_user ?></div>
                         </a>
                     </div>
                 </div>

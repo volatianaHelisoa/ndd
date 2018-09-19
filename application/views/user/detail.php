@@ -23,7 +23,7 @@
 			<label for="">Prénom :</label>
 			<span class="info-bill"><?php echo ($this->input->post('firstname') ? $this->input->post('firstname') : $t_user['firstname']); ?></span>
 		</div>
-		<div class="field half">
+		<div class="field half"> 
 			<label for="">Email :</label>
 			<span class="info-bill"><?php echo ($this->input->post('email') ? $this->input->post('email') : $t_user['email']); ?></span>
 		</div>
