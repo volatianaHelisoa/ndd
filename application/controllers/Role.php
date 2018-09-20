@@ -17,7 +17,8 @@ class Role extends CI_Controller{
     function index()
     {
         $data['t_role'] = $this->Role_model->get_all_t_role();
-        
+        $data['nb_role'] = ($data['t_role'] != null && count($data['t_role']) >0 ) ? count($data['t_role']) : 0;
+ 
         $data['_view'] = 'role/index';
         $this->load->view('layouts/main',$data);
     }

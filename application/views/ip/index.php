@@ -1,6 +1,6 @@
 <div class="head-section centered-el">
 	<span class="title-l">Adresse IP</span>
-    <p>Vous avez <span>4</span> adresse(s) IP</p>
+    <p>Vous avez <span><?php echo $nb_ip ?></span> adresse(s) IP</p>
 </div>
 
 <div class="filter">

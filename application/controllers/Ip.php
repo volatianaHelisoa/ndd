@@ -37,7 +37,8 @@ class Ip extends CI_Controller{
 		
             $res[] = $element;	
         }
-
+        $data['nb_ip'] = ($data['t_ip'] != null && count($data['t_ip']) >0 ) ? count($data['t_ip']) : 0;
+     
         $data['t_ip'] = $res;  
         $data['_view'] = 'ip/index';
         $this->load->view('layouts/main',$data);

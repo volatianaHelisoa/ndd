@@ -39,7 +39,7 @@ class Hebergement extends CI_Controller{
 		
             $res[] = $element;	
         }
-
+        $data['nb_hebergement'] = ($data['t_hebergement'] != null && count($data['t_hebergement']) >0 ) ? count($data['t_hebergement']) : 0;
         $data['t_hebergement'] = $res;  
         $data['_view'] = 'hebergement/index';
         $this->load->view('layouts/main',$data);
