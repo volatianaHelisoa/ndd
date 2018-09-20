@@ -130,6 +130,7 @@ ul.multiselect-container {
 }
 
 ul.multiselect-container label.checkbox {
+	font-weight:normal !important;
 	padding:6px 20px;
 }
 
