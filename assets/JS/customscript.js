@@ -69,9 +69,7 @@ $(document).ready(function() {
             }   
             return is_valid;
         }
-    );
-    
- 
+    );    
 
     var password = $("#the-user-password-detail").text().replace(/./g, '*');
     console.log(password);
