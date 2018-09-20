@@ -23,12 +23,12 @@
 			<label for="">Prénom :</label>
 			<span class="info-bill"><?php echo ($this->input->post('firstname') ? $this->input->post('firstname') : $t_user['firstname']); ?></span>
 		</div>
-		<div class="field half">
+		<div class="field half"> 
 			<label for="">Email :</label>
 			<span class="info-bill"><?php echo ($this->input->post('email') ? $this->input->post('email') : $t_user['email']); ?></span>
 		</div>
 		<div class="field full">
 			<label for="">Mot de passe :</label>
-			<span class="info-bill"><?php echo ($this->input->post('password') ? $this->input->post('password') : $t_user['password']); ?></span>
+			<span class="info-bill" id="the-user-password-detail"><?php echo ($this->input->post('password') ? $this->input->post('password') : $t_user['password']); ?></span>
 		</div>
 	</div>

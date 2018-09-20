@@ -27,6 +27,20 @@ class Hebergement_model extends CI_Model
         $this->db->order_by('id', 'desc');
         return $this->db->get('t_hebergement')->result_array();
     }
+
+    /*
+     * Get all t_hebergement
+     */
+    function get_all_t_hebergement_ip()
+    {       
+        $this->db->select(' t_theme.name as name');
+        $this->db->from('t_domaine_theme_ip');
+        $this->db->join('t_domaine', 't_domaine_theme_ip.id_domaine = t_domaine.id', 'inner');
+        $this->db->join('t_theme', 't_domaine_theme_ip.id_theme = t_theme.id', 'inner');
+        $this->db->where( 't_domaine.id', $id_domaine );   
+        $this->db->order_by('id', 'desc');
+        return $this->db->get('t_hebergement')->result_array();
+    }
         
     /*
      * function to add new t_hebergement

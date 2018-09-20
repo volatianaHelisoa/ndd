@@ -1,5 +1,5 @@
-<div class="pull-right">
-	<a href="<?php echo site_url('role/add'); ?>" class="btn btn-success">Add</a> 
+<div style=" margin: 20px 0; text-align: right;">
+	<a href="<?php echo site_url('role/add'); ?>" class="cust-btn dark-btn add">Ajouter role</a> 
 </div>
 
 <table class="table table-striped table-bordered">

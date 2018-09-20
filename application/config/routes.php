@@ -12,3 +12,5 @@ $route['user-add'] = 'User/add';
 $route['role'] = 'Role/index';
 $route['role-add'] = 'Role/add';
 $route['role-edit'] = 'Role/edit';
+
+$route['authentification-echouer'] = 'pages/authentificationfailed';

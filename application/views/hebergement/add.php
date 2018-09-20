@@ -7,19 +7,19 @@
 		<div class="title-field">Ajouter un hébergement</div>
 		<div class="field">
 			<label for="name">Name (*)</label>
-			<input type="text" name="name" value="<?php echo $this->input->post('name'); ?>" id="name" require/>
+			<input type="text" name="name" value="<?php echo $this->input->post('name'); ?>" id="name" required/>
 		</div>
 		<div class="field">
 			<label for="url">Url (*)</label>
-			<input type="text" name="url" value="<?php echo $this->input->post('url'); ?>" id="url" require/>
+			<input type="text" name="url" value="<?php echo $this->input->post('url'); ?>" id="url" required/>
 		</div>
 		<div class="field">
 			<label for="login">Login (*)</label>
-			<input type="text" name="login" value="<?php echo $this->input->post('login'); ?>" id="login" require/>
+			<input type="text" name="login" value="<?php echo $this->input->post('login'); ?>" id="login" required/>
 		</div>
 		<div class="field">
 			<label for="password">Password (*)</label>
-			<input type="password" name="password" value="<?php echo $this->input->post('password'); ?>" id="password" require/>
+			<input type="password" name="password" value="<?php echo $this->input->post('password'); ?>" id="password" required/>
 		</div>
 		<button type="submit" class="btn submit">Enregistrer</button>
 	</div>

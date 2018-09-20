@@ -16,8 +16,7 @@
 		<input type="text" name="email" value="<?php echo $this->input->post('email'); ?>" id="email" require/>
 	</div>
 	<div class="field">
-		<label for="password"control-label">Mot de passe (*)</label>
-		
+		<label for="password">Mot de passe (*)</label>		
 		<input type="text" name="password" value="<?php echo $this->input->post('password'); ?>" id="password" require/>
 	</div>
 

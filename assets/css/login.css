@@ -26,11 +26,13 @@
     position: relative;
     z-index: 20
 }
-.login-page .card {
+.login-page .carte {
     overflow: hidden;
     padding-top: 80px;
     margin-top: 35px;
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, .15)
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, .15);
+    position: relative;
+    min-width: 406px;
 }
 
 .login-page  .fixed-entet {
@@ -41,13 +43,14 @@
     background: #f15e53;
     color: white;
     padding: 15px 10px;
+    text-transform: uppercase;
 }
 
 .login-page .title-l {
     margin: 30px 0 0;
 }
 
-.login-page .card > input {
+.login-page .carte > input {
     display: block;
     width: 100%;
     margin-bottom: 20px

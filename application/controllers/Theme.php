@@ -18,6 +18,21 @@ class Theme extends CI_Controller{
     {
         $data['t_theme'] = $this->Theme_model->get_all_t_theme();
         
+        $res = array();
+        foreach($data['t_theme'] as $row) {
+			$element = new stdClass();
+            $element->id = $row['id'];
+            $element->name =  $row['name'];
+                      
+            $this->load->model('Domaine_theme_ip_model');
+            $domaine_ip = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_by_theme($row['id']);   
+        
+            $element->nb_site = ($domaine_ip != null && count($domaine_ip) >0 ) ? count($domaine_ip) : 0;           
+           
+            $res[] = $element;	
+        }
+
+        $data['t_theme'] = $res;  
         $data['_view'] = 'theme/index';
         $this->load->view('layouts/main',$data);
     }
