@@ -1,3 +1,8 @@
+<div class="head-section centered-el">
+	<span class="title-l">Régistrar</span>
+	<p>Vous avez <span>2</span> Régistrar(s)</p>
+</div>
+
 <div style="margin: 20px 0; text-align: right;">
 	<a href="<?php echo site_url('registrar/add'); ?>" class="cust-btn dark-btn add">Ajouter registrar</a> 
 </div>

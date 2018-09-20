@@ -1,8 +1,13 @@
-<div style=" margin: 20px 0; text-align: right;">
-	<a href="<?php echo site_url('ip/add'); ?>" class="cust-btn dark-btn add">Ajouter IP</a> 
+<div class="head-section centered-el">
+	<span class="title-l">Adresse IP</span>
+    <p>Vous avez <span>4</span> adresse(s) IP</p>
 </div>
+
 <div class="filter">
 	<input type="text" class="searchInTable" placeholder="Rechercher">
+</div>
+<div style=" margin: 20px 0; text-align: right;">
+	<a href="<?php echo site_url('ip/add'); ?>" class="cust-btn dark-btn add">Ajouter IP</a> 
 </div>
 <table id="ipList" class="display compact custom-styled" style="width:100%">
 	<thead class="customized-thead">

@@ -1,3 +1,9 @@
+
+<div class="head-section centered-el">
+	<span class="title-l">Hébergement</span>
+	<p>Vous avez <span>2</span> hébergement(s)</p>
+</div>
+
 <div style=" margin: 20px 0; text-align: right;">
 	<a href="<?php echo site_url('hebergement/add'); ?>" class="cust-btn dark-btn add">Ajouter hébergement</a> 
 </div>

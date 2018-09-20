@@ -1,6 +1,6 @@
 <div class="head-section centered-el">
 	<span class="title-l">Nom de domaine</span>
-	<p>Vous avez <span><?php echo $nb_site ?></span> Nom de domaines</p>
+	<p>Vous avez <span><?php echo $nb_site ?></span> Nom(s) de domaine(s)</p>
 </div>
 <div class="filter">
 

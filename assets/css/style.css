@@ -7,6 +7,8 @@
 label { color:#353535; font:normal 16px/21px Rm; display:block; width:100%; padding-bottom:10px; margin:0}
 form { padding:20px 0}
 input:not([type="submit"]),input:not([type="button"]) { width:100%;}
+.submit { width:auto !important}
+.prevnext { background-color:#337ab7 !important}
 .field { padding-bottom:20px; text-align:left}
 .field select { border: 1px solid #eaeaea;padding: 10px;min-height: 45px;font:normal 15px/21px Rl;olor:#231f20; width:100%}
 select:focus option,
@@ -60,7 +62,7 @@ select:focus option,
 
 /* TABLE STYLE */
 .filter { box-shadow: 0px 5px 20px rgba(0, 0, 0, .1); -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, .1); -ms-box-shadow: 0px 5px 20px rgba(0, 0, 0, .1); -moz-box-shadow: 0px 5px 20px rgba(0, 0, 0, .1); background: white; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
-.filter input.searchInTable { padding: 0 0 0 50px; flex: 1; max-width: 230px; background: url(../images/search_icon.png) no-repeat 15px center; }
+.filter input.searchInTable { padding: 0 0 0 50px; flex: 1; max-width: 230px; background: url(../images/search_icon.png) no-repeat 15px center; border:1px solid #eaeaea; min-height:45px;}
 .filter input.searchInTable::placeholder {}
 .filter label { font-size: 12px; padding: 0; width: inherit; }
 .filter input,
