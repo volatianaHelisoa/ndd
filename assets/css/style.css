@@ -48,9 +48,9 @@ select:focus option,
 .dash-item2 .content {background: #5dc1dc;background: -moz-linear-gradient(90deg, #5dc1dc 0%, #425da5 100%);background: -webkit-linear-gradient(90deg, #5dc1dc 0%, #425da5 100%);background: linear-gradient(90deg, #5dc1dc 0%, #425da5 100%);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5dc1dc",endColorstr="#425da5",GradientType=1);}
 .dash-item3 { background:url(../images/hebergement-icone.svg) 51px center no-repeat #fff}
 .dash-item3 .content {background: #fc932c;background: -moz-linear-gradient(90deg, #fc932c 0%, #fc5e2c 100%);background: -webkit-linear-gradient(90deg, #fc932c 0%, #fc5e2c 100%);background: linear-gradient(90deg, #fc932c 0%, #fc5e2c 100%);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fc932c",endColorstr="#fc5e2c",GradientType=1);}
-.dash-item4 { background:url(../images/ip-Icone.svg) 32px center no-repeat #fff}
+.dash-item4 { background:url(../images/ip-icone.svg) 32px center no-repeat #fff}
 .dash-item4 .content {background: #e1549f;background: -moz-linear-gradient(90deg, #e1549f 0%, #a749a2 100%);background: -webkit-linear-gradient(90deg, #e1549f 0%, #a749a2 100%);background: linear-gradient(90deg, #e1549f 0%, #a749a2 100%);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e1549f",endColorstr="#a749a2",GradientType=1);}
-.dash-item5 { background:url(../images/user-Icone.svg) 49px center no-repeat #fff}
+.dash-item5 { background:url(../images/user-icone.svg) 49px center no-repeat #fff}
 .dash-item5 .content {background: #fd6797;background: -moz-linear-gradient(90deg, #fd8a97 0%, #fd6797 100%);background: -webkit-linear-gradient(90deg, #fd8a97 0%, #fd6797 100%);background: linear-gradient(90deg, #fd8a97 0%, #fd6797 100%);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fd8a97",endColorstr="#fd6797",GradientType=1);}
 
 .right-dash{ width:calc(100% - 468px); float:left;width:-moz-calc(100% - 468px);width:-webkit-calc(100% - 468px);width:-ms-calc(100% - 468px); padding-left:14px;}
