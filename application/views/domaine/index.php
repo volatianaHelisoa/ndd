@@ -15,7 +15,7 @@
 	<label>
 		Registrar
 		<select name="select_registrar" id="filter-registar" >
-				<option value="">Tous</option>
+				<option value="tous">Tous</option>
 				<?php 
 				foreach($all_t_registrar as $t_registrar)
 				{
@@ -28,8 +28,8 @@
 	</label>
 	<label>
 		Hébergement
-		<select name="select_heberg" >
-				<option value="">Tous</option>
+		<select name="select_heberg" id="filter-heberg" >
+				<option value="tous">Tous</option>
 				<?php 
 				foreach($all_t_hebergement as $t_hebergement)
 				{
@@ -42,12 +42,12 @@
 	</label>
 	<label>
 		Thématique
-		<select name="select_theme" >
-				<option value="">Toutes</option>
+		<select name="select_theme" id="filter-theme" >
+				<option value="tous">Toutes</option>
 				<?php 
 				foreach($all_t_theme as $t_theme)
 				{
-					$selected = $t_theme['id'] != null  ? ' selected="selected"' : "";
+					$selected =  "";
 
 					echo '<option value="'.$t_theme['id'].'" '.$selected.'>'.$t_theme['name'].'</option>';
 				} 
@@ -219,7 +219,7 @@
 	</div>
 	</div>
 </div>
-
+<script src="<?php echo base_url(); ?>assets/JS/ndd-script.js"></script>
 
 <script type="text/javascript">
      // Start jQuery function after page is loaded

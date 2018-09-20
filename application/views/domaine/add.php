@@ -51,7 +51,7 @@
 								?>
 							</select>
                         </div>
-                        <input type="button" class="btn submit btn-next" value="Suivant">
+                        <input type="button" class="btn submit btn-next prevnext" value="Suivant">
 						<input type="submit" class="btn submit btn-save-first" value="Ajouter">
                 </div>
                 <div class="wrap-field preference carte">
@@ -112,7 +112,7 @@
 						</select>
 						</div>
 						
-						<input type="button" class="btn submit btn-previous" value="Precedent">
+						<input type="button" class="btn submit btn-previous prevnext" value="Precedent">
 						<input type="submit" class="btn submit btn-save" value="Ajouter">
                 </div>
 		
@@ -141,7 +141,8 @@
 		$('.select_techno').multiselect({
 				includeSelectAllOption : true,             
                 nonSelectedText: 'Aucune selection',               
-                allSelectedText: 'Tous'
+				allSelectedText: 'Tous'
+				
         });
 
 		$(".preference" ).hide();	
