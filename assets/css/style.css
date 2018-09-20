@@ -130,7 +130,7 @@ ul.multiselect-container {
 }
 
 ul.multiselect-container label.checkbox {
-	padding: 10px 20px;
+	padding:6px 20px;
 }
 
 ul.multiselect-container > li > a:hover, ul.multiselect-container > li > a:focus {
@@ -146,6 +146,9 @@ ul.multiselect-container input[type="checkbox"] {
     margin: 4px 10px 0 0;
     float: none;
     line-height: inherit;
+	width: auto;
+    position: absolute;
+    left: 3px;
 }
 
 .multiselect-selected-text {
