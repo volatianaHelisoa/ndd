@@ -194,3 +194,4 @@ ul.ui-autocomplete li.ui-menu-item {
 
 .dataTables_filter,
 .dataTables_length { display:none}
+td.td_ip span{cursor: pointer; display: inline-block; padding: 4px 6px; background:#999; color: #fff; border-radius: 3px;}
