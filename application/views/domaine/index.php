@@ -1,9 +1,17 @@
 <div class="head-section centered-el">
 	<span class="title-l">Nom de domaine</span>
-	<p>Vous avez 1000 Nom de domaines</p>
+	<p>Vous avez <span><?php echo $nb_site ?></span> Nom de domaines</p>
 </div>
 <div class="filter">
-	<input type="text" class="searchInTable" placeholder="Rechercher">
+
+	<div id="inner-top-panel" class="showpanel clear">
+		<div class="left ">
+			<div class="usr-srch--input-wrapper">
+				<input autocomplete="off" class="searchInTable usr-srch--input" type="search" placeholder="Rechercher" id="recherche"/>
+			</div>
+			<i class="fa fa-3x fa-search"></i>
+		</div>
+	</div>
 	<label>
 		Registrar
 		<select name="select_registrar" id="filter-registar" >
@@ -73,17 +81,26 @@
 			<td><?php echo $t->domaine; ?></td>
 			<td class="td_registrar"><?php echo $t->registrar; ?></td>
 			<td class="td_heberg"><?php echo $t->heberg; ?></td>
-			<td class="td_ip" data-ndd="<?php echo $t->id; ?>" > <span > <?php   if($t->ip != null ) echo $t->ip["ip"]; ?></span></td>
+			<td class="td_ip" data-ndd="<?php echo $t->id; ?>" data-backdrop="static" data-keyboard="false" > <span > <?php   if($t->ip != null ) echo $t->ip["ip"]; ?></span></td>
 			<td class="thematique">
 				<?php if($t->theme != null ) {?>
 					<span class="tag"><?php echo $t->theme["name"]; ?></span>	
 				<?php }?>
 			</td>
-			<td class="cms-type"><?php echo $t->cms; ?></td>
-			<td>		
-			<?php if($t->techno != null ) {?>
-				<button class="cust-btn dark-btn small-btn techno " data-ndd="<?php echo $t->id; ?>">VOIR</button>
+			<td class="cms-type" >			
+			<?php if($t->cms != null ) {?>
+				<button class="cust-btn dark-btn small-btn techno "  data-backdrop="static" data-keyboard="false" data-ndd="<?php echo $t->id; ?>"  data-type="<?php echo $t->cms; ?>">VOIR</button>
 			<?php } else echo "NAN";?>
+
+			</td>
+			<td class="thematique">		
+			<?php if($t->techno != null ) { ?>	
+				
+					<?php	foreach($t->techno as $tech){	?>
+						<span class="tag"><?php echo  $tech["techno"]; ?> </span>
+					<?php	} ?>		
+				
+				<?php } else echo "NAN";?>
 			
 			</td>
 			<td class="actions">
@@ -98,47 +115,63 @@
 <div class="modal fade" id="technoModal">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 	<div class="modal-content">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<button type="button" class="close close_techno" data-dismiss="modal" aria-label="Close">
 			<span aria-hidden="true"></span>
 		</button>
 		<div class="modal-body">
 		<div class="wrap-field carte">
 		<div class="title-field">Cms : <span id="cms_res"> </span></div>
-		<form action="">
+			<form action="">
+			<input type="hidden" name="ndd_id" id="ndd_id" />
 			<div class="sub-title">Accès FTP</div>
+			<div class="ttl-infos clearfix">
+				<input type="button" class="modif btn_update_techno" value="Modifier" >
+			</div>
+                            
 			<div class="field1">
 				<label for="">Serveur : </label>
-				<input type="text" id="serveur_res" >
+				<span id="serveur_res" ></span>
+				<input type="text" id="txt_serveur_res">
 			</div>
 			<div class="field1">
 				<label for="">Login :  </label>
-				<input type="text" id="login_res">
+				<span id="login_res"></span>
+				<input type="text" id="txt_login_res">
 			</div>
 			<div class="field1">
 				<label for="">Mot de passe : </label>
-				<input type="text" id="pass_res">
+				<span id="pass_res"></span>
+				<input type="text" id="txt_pass_res">
 			</div>
 			<div class="sub-title">Administration</div>
 			<div class="field1">
 				<label for="">URL :</label>
-				<input type="text" id="url_res">
+				<span id="url_res"></span>
+				<input type="text" id="txt_url_res">
 			</div>
 			<div class="field1">
 				<label for="">Login :  </label>
-				<input type="text" id="bologin_res">
+				<span id="bologin_res"></span>
+				<input type="text" id="txt_bologin_res">
 			</div>
 			<div class="field1">
 				<label for="">Mot de passe : </label>
-				<input type="text" id="bopass_res">
+				<span id="bopass_res"></span>
+				<input type="text" id="txt_bopass_res">
 			</div>
 			<div class="sub-title">Plugin</div>
 			<div class="content-chips ">
-				<ul id="techno_result">
-					
-				</ul>
+				<ul id="techno_result">					
+				</ul> 
 			</div>
-			
-		</form>
+			<div class="content-chips select_techno_result">			
+				<select  name="select_ml_techno[]" id="select_techno_type"  data-live-search="true" multiple class="select_techno" >							
+				</select>
+				
+			</div>
+			</form>
+			<input type="button" class="submit btn_save_acces" value="Enregistrer">
+		
 	</div>
 		</div>
 	</div>
@@ -157,7 +190,7 @@
 			<form action="">
 				<div class="field2">
 					<label for="">Nombre de site sur cette IP :</label>
-					<span  id="nb_ip_res"></span>
+					<button  id="nb_ip_res" ></button>
 				</div>
 				<div class="field2">
 					<label for="">Thematique Hébergé : </label>
@@ -191,40 +224,173 @@
 <script type="text/javascript">
      // Start jQuery function after page is loaded
         $(document).ready(function(){       
-      
+	  
+		var $popInput = $('#technoModal input[type="text"]');	
+		$popInput.hide();
+		$("#technoModal .select_techno_result").hide();	
+		$(".btn_save_acces").hide();	
+			
+		$('#technoModal').modal({
+                backdrop: 'static',
+				keyboard: false,
+				show: false
+	   })
+	   
+
 		$('.techno').click(function(e){           
 			var nddId = $(this).attr('data-ndd'); 
-			var current_cms = $("#"+nddId).children('td.cms-type').text(); 
-			
+		
+			var current_cms = $(this).attr('data-type'); 	
+			console.log(current_cms)	;
+			$("#ndd_id").text(nddId);	
 			$.ajax({
 				url: "<?=site_url('domaine/get_techno_by_domaine')?>",
 				data: { id: nddId},
 				dataType: "json",
 				type: "GET",                  
-				success: function(data){   
-					console.log(data);
+				success: function(data){   				
+					
+					if(!jQuery.isEmptyObject(data)){
 						$("#cms_res").text(current_cms);	
 
-						$("#serveur_res").val(data[0].ftp_server);	
-						$("#login_res").val(data[0].ftp_login);	
-						$("#pass_res").val(data[0].ftp_password);	
+						$("#serveur_res").text(data[0].ftp_server);	
+						$("#login_res").text(data[0].ftp_login);	
+						$("#pass_res").text(data[0].ftp_password);	
 
-						$("#url_res").val(data[0].admin_url);	
-						$("#bologin_res").val(data[0].admin_login);			
-						$("#bopass_res").val(data[0].admin_password);											 
+						$("#url_res").text(data[0].admin_url);	
+						$("#bologin_res").text(data[0].admin_login);			
+						$("#bopass_res").text(data[0].admin_password);	
+						
+						$("#txt_serveur_res").val(data[0].ftp_server);	
+						$("#txt_login_res").val(data[0].ftp_login);	
+						$("#txt_pass_res").val(data[0].ftp_password);	
 
-					var techno_result = $("#techno_result");  
-					techno_result.empty();       
-					$.each(data, function (index, ndd) {
-						techno_result.append("<li>" +ndd.techno+ "<span>x</span></li>");                 
+						$("#txt_url_res").val(data[0].admin_url);	
+						$("#txt_bologin_res").val(data[0].admin_login);			
+						$("#txt_bopass_res").val(data[0].admin_password);		
+
+						var techno_result = $("#techno_result");  
+						techno_result.empty();       
+						$.each(data, function (index, ndd) {
+							techno_result.append("<li>" +ndd.techno+ "<span>x</span></li>");                 
+						
+						})
+					}
 					
-					})
 					$('#technoModal').modal('show');
 				}
 			});
         
 		 });
-		 
+
+		 $('.btn_save_acces').click(function(e){   	
+			var nddId = $("#ndd_id").text(); 	
+			
+			var ftp_server = $("#txt_serveur_res").val();	
+			var ftp_login = $("#txt_login_res").val();	
+			var ftp_password = $("#txt_pass_res").val();	
+			var admin_url = $("#txt_url_res").val();
+			var admin_login = $("#txt_bologin_res").val();
+			var admin_password = $("#txt_bopass_res").val();			
+			var techno_list = get_techno_selected();
+			var ndd_obj = {"ndd_id": nddId,"ftp_server":ftp_server, "ftp_login":ftp_login,"ftp_password":ftp_password,"admin_url":admin_url,"admin_login":admin_login,"admin_password":admin_password,"techno_list":techno_list};      
+			console.log(ndd_obj);
+			 $.ajax({
+				type: "POST",
+				url:  "<?=site_url('domaine/edit_acces')?>",
+				data: ndd_obj,
+				dataType: "text",  
+				cache:false,
+				success: 
+					function(response){
+						if ( myTrim(response) == "index"  ){
+							console.log(response);  
+							reinit_techno();
+							$('#technoModal').modal('hide');
+						}
+					}
+				});// you have missed this bracket
+		
+
+		});  
+
+		function get_techno_selected(){
+			var arr = [];
+			$('#select_techno_type option:selected').each(function() {			
+				arr.push($(this).val());
+			});
+			return arr;
+		}
+
+		$('.close_techno').click(function(e){   
+			
+			reinit_techno();
+		});  
+
+		function myTrim(x) {
+            return x.replace(/^\s+|\s+$/gm,'');
+		}
+		
+		function reinit_techno(){
+			var $popInput = $('#technoModal input[type="text"]');	
+			$popInput.hide();		
+			$(".btn_save_acces").hide();	
+			var select = $("#technoModal .select_techno_result select");	
+			select.empty();
+			$("#technoModal .select_techno_result").hide();	
+			
+			var $popSpan = $('#technoModal span');	
+			$popSpan.show();
+
+			$('.btn_update_techno').show();	
+		}
+
+		 $('.btn_update_techno').click(function(e){   
+		
+			// var $popInput = $('#technoModal input[type="text"]');	
+			// $popInput.hide();
+			// $("#technoModal .select_techno_result").hide();	
+			// $(".btn_save_acces").hide();	
+			$('.btn_update_techno').hide();	
+
+			$.ajax({
+				url: "<?=site_url('domaine/get_techno_list')?>",				
+				dataType: "json",
+				type: "GET",                  
+				success: function(data){   
+
+					$("#technoModal .select_techno_result").removeAttr("style");
+					var $popInput = $('#technoModal input[type="text"]');	
+					$popInput.show();
+				
+					$(".btn_save_acces").show();						
+					var $popSpan = $('#technoModal span');	
+					$popSpan.hide();
+
+
+					var select = $("#technoModal .select_techno_result #select_techno_type");	
+					select.empty();
+					
+					$.each(data, function (index, itemData) {					
+						select
+							.append($('<option>', { value : itemData.id })
+							.text(itemData.value));
+					});	
+
+					$('#technoModal .select_techno_result select').multiselect({});
+					
+					
+
+				}
+			});
+		});
+
+		$('#ipModal').modal({
+                backdrop: 'static',
+				keyboard: false,
+				show: false
+       	})
+
 		 $('.td_ip').click(function(e){           
 			var nddId = $(this).attr('data-ndd'); 
 		

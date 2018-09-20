@@ -92,6 +92,12 @@ class Domaine extends CI_Controller{
         $this->load->model('Theme_model');
         $data['all_t_theme'] = $this->Theme_model->get_all_t_theme();      
 
+
+        $this->load->model('Domaine_model');
+        $domaine_data = $this->Domaine_model->get_all_t_domaine();
+        $data['nb_site'] = ($domaine_data != null && count($domaine_data) >0 ) ? count($domaine_data) : 0;
+
+      
         $data['t_domaine'] = $res;  
         $data['_view'] = 'domaine/index';
         $this->load->view('layouts/main', $data);
@@ -309,6 +315,57 @@ class Domaine extends CI_Controller{
             show_error('The t_domaine you are trying to edit does not exist.');
     } 
 
+    /*
+     * Editing a t_domaine
+     */
+    function edit_acces()
+    {             
+        $param = $_POST;
+        $id = $param["ndd_id"];
+
+        $row  =   $this->Domaine_model->get_t_domaine($id);
+        $element = $this->get_current_domaine($row);
+        $data['t_domaine'] =   $element;
+       
+        if(isset($element->id))
+        {    
+            $today = date("Y-m-d"); 
+            $params = array(
+                'id_cms' => $element->id_cms,
+                'id_registrar' =>$element->id_registrar,
+                'id_heberg' => $element->id_heberg,
+                'ftp_login' => $param["ftp_login"],
+                'ftp_password' => $param["ftp_password"],
+                'ftp_server' => $param["ftp_server"],
+                'admin_url' => $param["admin_url"],
+                'admin_login' => $param["admin_login"],
+                'admin_password' =>  $param["admin_password"],
+                'nom' => $element->nom,
+                'date_creation' => $today,
+            );
+
+                $this->Domaine_model->update_t_domaine($id,$params);  
+                $techno_array = empty($param["techno_list"]) ? NULL :  $param["techno_list"];
+                if(isset($techno_array) && count($techno_array) > 0)     
+                {                   
+                    $this->load->model('Domaine_techno_model');
+                    if($element->techno != null)
+                    { 
+                        $this->Domaine_techno_model->delete_t_domaine_techno_by_domaine($element->techno[0]['id_domaine']);  
+                    }
+                    
+                    foreach($techno_array as $key){                       
+                        $params = array(
+                            'id_domaine' => $element->id,
+                            'id_techno' => $key,
+                        );                     
+                       $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);
+                    }
+                }
+        }
+        echo "index";
+        die; 
+    } 
 
     function get_current_domaine($row){
        
@@ -318,6 +375,7 @@ class Domaine extends CI_Controller{
         $element->id_registrar = $row['id_registrar'];  
         $element->id_heberg = $row['id_heberg'];               
         $element->id_cms = $row['id_cms'];
+
         $element->theme = "";
         /** theme */               
         $this->load->model('Domaine_theme_ip_model');
@@ -339,6 +397,7 @@ class Domaine extends CI_Controller{
         if($domaine_techno != null )                
             $element->techno =  $domaine_techno;     
           
+           
         $element->ip = ""; 
         /**IP */               
         $this->load->model('Domaine_theme_ip_model');
@@ -347,8 +406,6 @@ class Domaine extends CI_Controller{
         if($domaine_ip != null )                
             $element->ip =  $domaine_ip;   
 
-          
-        
         return  $element;
     }
 
@@ -402,6 +459,25 @@ class Domaine extends CI_Controller{
             die;       
            
         }
+    }
+
+    function get_techno_list(){  
+        /* plugins */               
+        $this->load->model('Techno_model');
+        $techno = $this->Techno_model->get_all_t_techno();
+        $technos = array();
+        foreach($techno as $key):    
+           
+            $a = array(
+                'id' => trim($key['id']),
+                'label' => trim($key['name']),
+                'value' => trim($key['name'])
+            );
+
+            $technos[] = $a;
+        endforeach;
+        echo json_encode( $technos);
+        die;        
     }
 
     

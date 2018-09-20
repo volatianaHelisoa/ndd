@@ -60,7 +60,7 @@ $(document).ready(function() {
         function (settings, data, dataIndex) {
             registrarVal = $('#filter-registar').val();
             is_valid = true;
-          
+          console.log(registrarVal);
             if(registrarVal != '' &&  registrarVal != "tous" ){
                
                 is_valid = false;                
@@ -72,7 +72,7 @@ $(document).ready(function() {
     );    
 
     var password = $("#the-user-password-detail").text().replace(/./g, '*');
-    console.log(password);
+  
     $("#the-user-password-detail").text(password);
 
     $(".bloc-user").click(function(){

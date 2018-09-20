@@ -139,11 +139,9 @@
  <script type="text/javascript">
         $(document).ready(function(){ 	
 		$('.select_techno').multiselect({
-                includeSelectAllOption: true,
-                nSelectedText: 'selection',
-                nonSelectedText: 'Aucune selection',
-                selectAllText: 'Tous',
-                allSelectedText: 'Selections'
+				includeSelectAllOption : true,             
+                nonSelectedText: 'Aucune selection',               
+                allSelectedText: 'Tous'
         });
 
 		$(".preference" ).hide();	
@@ -178,7 +176,7 @@
 					//event.preventDefault();
                     $("#theme").val(ui.item.text);
 				
-                    console.log($("#theme").val(ui.item.text));
+                  //  console.log($("#theme").val(ui.item.text));
                 },
 				minLength: 2
 		});
@@ -205,7 +203,7 @@
 						select
 							.append($('<option>', { value : itemData.id })
 							.text(itemData.value));
-						});			
+					});			
 					
 					$(".div-addr-ip").show();		
 					$(".btn-next").show();
