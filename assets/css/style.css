@@ -188,3 +188,6 @@ ul.ui-autocomplete li.ui-menu-item {
 .bloc-user.show .sub-user { top:52px; visibility:visible; opacity:1;}
 .sub-user li { list-style:none}
 .sub-user li a { display:block; padding:10px 20px; font:normal 14px/21px Rm; color:#9e9e9e}
+
+.dataTables_filter,
+.dataTables_length { display:none}
