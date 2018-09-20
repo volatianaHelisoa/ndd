@@ -2,7 +2,7 @@
 	<span class="title-l">Adresse IP</span>
     <p>Vous avez <span><?php echo $nb_ip ?></span> adresse(s) IP</p>
 </div>
-
+ 
 <div class="filter">
 <div id="inner-top-panel" class="showpanel clear">
 		<div class="left ">

@@ -188,6 +188,9 @@
 		<div class="wrap-field carte">
 			<div class="title-field">Adresse IP : <span id="ip_res"> </span></div>
 			<form action="">
+				<div class="ttl-infos clearfix">
+					<input type="button" class="modif btn_update_ip" value="Modifier" >
+				</div>
 				<div class="field2">
 					<label for="">Nombre de site sur cette IP :</label>
 					<button  id="nb_ip_res" ></button>
@@ -195,24 +198,41 @@
 				<div class="field2">
 					<label for="">Thematique Hébergé : </label>
 					<div class="content-chips">
-						<ul  id="theme_res">
-							<li>Décoration<span>x</span></li>
-							<li>Crédit<span>x</span></li>
-							<li>Voyage <span>x</span></li>
-							<li>Mode <span>x</span></li>
-							<li>Life style<span>x</span></li>
-						</ul>
+						<ul  id="theme_res">						
+						</ul>						
 					</div>
+				
 				</div>
 				<div class="field2 other-field">
-					<label for="">Hébergement : </label>
-					
+					<label for="">Hébergement : </label>					
 					<span id="heberg_res"></span>
+					<select name="hebergement"  id="dp_heberg" >
+							<option value="">Selectionner hebergement</option>
+							<?php 
+							foreach($all_t_hebergement as $t_hebergement)
+							{
+								$selected = "";
+								echo '<option value="'.$t_hebergement['id'].'" '.$selected.'>'.$t_hebergement['name'].'</option>';
+							} 
+							?>
+					</select>
 				</div>
 				<div class="field2 other-field">
 					<label for="">Registrar : </label>
-					<span id="registrar_res"></span>
+					<span id="registrar_res" ></span>
+					<select name="registrar" id="dp_registrar"  >
+						<option value="">Selectionner registrar</option>
+						<?php 
+						foreach($all_t_registrar as $t_registrar)
+						{
+							$selected = "";
+
+							echo '<option value="'.$t_registrar['id'].'" '.$selected.'>'.$t_registrar['name'].'</option>';
+						} 
+						?>
+					</select>
 				</div>
+				<input type="button" class="submit btn_save_ip" value="Enregistrer">
 			</form>
 		</div>
 		</div>
@@ -228,7 +248,12 @@
 		var $popInput = $('#technoModal input[type="text"]');	
 		$popInput.hide();
 		$("#technoModal .select_techno_result").hide();	
-		$(".btn_save_acces").hide();	
+		$(".btn_save_acces").hide();
+
+		$("#dp_heberg").hide();
+		$("#dp_registrar").hide();
+		$(".btn_save_ip").hide();
+		
 			
 		$('#technoModal').modal({
                 backdrop: 'static',
@@ -307,6 +332,7 @@
 							console.log(response);  
 							reinit_techno();
 							$('#technoModal').modal('hide');
+							location.reload();
 						}
 					}
 				});// you have missed this bracket
@@ -346,11 +372,6 @@
 		}
 
 		 $('.btn_update_techno').click(function(e){   
-		
-			// var $popInput = $('#technoModal input[type="text"]');	
-			// $popInput.hide();
-			// $("#technoModal .select_techno_result").hide();	
-			// $(".btn_save_acces").hide();	
 			$('.btn_update_techno').hide();	
 
 			$.ajax({
@@ -378,9 +399,6 @@
 					});	
 
 					$('#technoModal .select_techno_result select').multiselect({});
-					
-					
-
 				}
 			});
 		});
@@ -408,7 +426,7 @@
 				dataType: "json",
 				type: "GET",                  
 				success: function(data){   
-					console.log(data);						 
+									 
 					$("#nb_ip_res").text(data.length);
 					var theme_res = $("#theme_res");  
 					theme_res.empty();       
@@ -421,5 +439,17 @@
 			});
 
 		});
+
+		 $('.btn_update_ip').click(function(e){   
+			$('.btn_update_ip').hide();	
+			$("#dp_heberg").show();
+			$("#dp_registrar").show();
+			$(".btn_save_ip").show();
+			$("#heberg_res").hide();
+			$("#registrar_res").hide();
+			
+		});
+
+
      });  
     </script>

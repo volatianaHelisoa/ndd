@@ -480,6 +480,32 @@ class Domaine extends CI_Controller{
         die;        
     }
 
+    function get_registrar_list(){  
+        /* plugins */               
+        // $this->load->model('Registrar_model');
+        // $registrar = $this->Registrar_model->get_all_t_registrar();
+
+        // $this->load->model('Hebergement_model');
+        // $registrar = $this->Hebergement_model->get_all_t_hebergement();     
+
+        // $this->load->model('Techno_model');
+        // $data['all_t_techno'] = $this->Techno_model->get_all_t_techno();
+
+        $registrar = array();
+        foreach($techno as $key):    
+           
+            $a = array(
+                'id' => trim($key['id']),
+                'label' => trim($key['name']),
+                'value' => trim($key['name'])
+            );
+
+            $technos[] = $a;
+        endforeach;
+        echo json_encode( $technos);
+        die;        
+    }
+
     
     function get_techno_by_domaine(){
    
