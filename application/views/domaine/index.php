@@ -21,7 +21,7 @@
 				{
 					$selected =  "";
 
-					echo '<option value="'.$t_registrar['name'].'" '.$selected.'>'.$t_registrar['name'].'</option>';
+					echo '<option value="'.$t_registrar['id'].'" '.$selected.'>'.$t_registrar['name'].'</option>';
 				} 
 				?>
 			</select>
@@ -35,7 +35,7 @@
 				{
 					$selected =  "";
 
-					echo '<option value="'.$t_hebergement['name'].'" '.$selected.'>'.$t_hebergement['name'].'</option>';
+					echo '<option value="'.$t_hebergement['id'].'" '.$selected.'>'.$t_hebergement['name'].'</option>';
 				} 
 				?>
 			</select>
@@ -79,9 +79,9 @@
 	<?php foreach($t_domaine as $t){  ?> 
 		<tr id="<?php echo $t->id; ?>"> 
 			<td><?php echo $t->domaine; ?></td>
-			<td class="td_registrar"><?php echo $t->registrar; ?></td>
-			<td class="td_heberg"><?php echo $t->heberg; ?></td>
-			<td class="td_ip" data-ndd="<?php echo $t->id; ?>" data-backdrop="static" data-keyboard="false" > <span > <?php   if($t->ip != null ) echo $t->ip["ip"]; ?></span></td>
+			<td class="td_registrar" data-id ="<?php echo $t->id_registrar; ?>"><?php echo $t->registrar; ?></td>
+			<td class="td_heberg" data-id ="<?php echo $t->id_heberg; ?>"><?php echo $t->heberg; ?></td>
+			<td class="td_ip" data-id="<?php if($t->ip!= null ) echo $t->ip["id"];  ?>" data-ndd="<?php echo $t->id; ?>" data-backdrop="static" data-keyboard="false" > <span > <?php   if($t->ip != null ) echo $t->ip["adresse"]; ?></span></td>
 			<td class="thematique">
 				<?php if($t->theme != null ) {?>
 					<span class="tag"><?php echo $t->theme["name"]; ?></span>	
@@ -104,7 +104,7 @@
 			
 			</td>
 			<td class="actions">
-				<a href="<?php echo site_url('domaine/edit/'.$t->id); ?>" class="btn btn-info btn-xs">Edit</a> 
+			
 				<a href="<?php echo site_url('domaine/remove/'.$t->id); ?>" class="btn btn-danger btn-xs">Delete</a>
 			</td>
 		</tr>
@@ -181,12 +181,13 @@
  <div class="modal fade" id="ipModal">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 	<div class="modal-content">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<button type="button" class="close close_ip" data-dismiss="modal" aria-label="Close">
 			<span aria-hidden="true"></span>
 		</button>
+		<input type="hidden" name="ndd_id" id="ndd_domaine_id" />
 		<div class="modal-body">
 		<div class="wrap-field carte">
-			<div class="title-field">Adresse IP : <span id="ip_res"> </span></div>
+			<div class="title-field">Adresse IP : <span id="addrese_ip_res"> </span></div>
 			<form action="">
 				<div class="ttl-infos clearfix">
 					<input type="button" class="modif btn_update_ip" value="Modifier" >
@@ -195,31 +196,30 @@
 					<label for="">Nombre de site sur cette IP :</label>
 					<button  id="nb_ip_res" ></button>
 				</div>
-				<div class="field2">
-					<label for="">Thematique Hébergé : </label>
+				<div class="field">
+					<label for="">Thematique hébergée : </label>
 					<div class="content-chips">
 						<ul  id="theme_res">						
-						</ul>						
-					</div>
-				
+						</ul>									
+					</div>			
+					
 				</div>
-				<div class="field2 other-field">
-					<label for="">Hébergement : </label>					
-					<span id="heberg_res"></span>
-					<select name="hebergement"  id="dp_heberg" >
-							<option value="">Selectionner hebergement</option>
-							<?php 
-							foreach($all_t_hebergement as $t_hebergement)
+				<div class="field other-field sel_theme">
+					
+						<select name="registrar" id="dp_theme"  >
+						<option value="">Selectionner theme</option>
+						<?php 
+							foreach($all_t_theme as $t_theme)
 							{
 								$selected = "";
-								echo '<option value="'.$t_hebergement['id'].'" '.$selected.'>'.$t_hebergement['name'].'</option>';
+								echo '<option value="'.$t_theme['id'].'" '.$selected.'>'.$t_theme['name'].'</option>';
 							} 
-							?>
-					</select>
+						?>
+					</select>						
 				</div>
-				<div class="field2 other-field">
+				<div class="field other-field">
 					<label for="">Registrar : </label>
-					<span id="registrar_res" ></span>
+					<span id="registrar_res" data-id="" ></span>
 					<select name="registrar" id="dp_registrar"  >
 						<option value="">Selectionner registrar</option>
 						<?php 
@@ -232,6 +232,32 @@
 						?>
 					</select>
 				</div>
+				
+				<div class="field other-field">
+					<label for="">Hébergement : </label>					
+					<span id="heberg_res" data-id="" ></span>
+					<select name="hebergement"  id="dp_heberg" >
+							<option value="">Selectionner hebergement</option>
+							<?php 
+							foreach($all_t_hebergement as $t_hebergement)
+							{
+								$selected = "";
+								echo '<option value="'.$t_hebergement['id'].'" '.$selected.'>'.$t_hebergement['name'].'</option>';
+							} 
+							?>
+					</select>
+				</div>
+				
+				
+				<div class="field" >
+						<label for="">Adresse IP :</label>
+						<span id="ip_res" data-id="" ></span>
+						<select id="dp_ip" name="addr-ip" class="div-addr-ip" >									
+							
+						</select>
+				</div>
+			
+			
 				<input type="button" class="submit btn_save_ip" value="Enregistrer">
 			</form>
 		</div>
@@ -253,6 +279,9 @@
 		$("#dp_heberg").hide();
 		$("#dp_registrar").hide();
 		$(".btn_save_ip").hide();
+		$(".div-addr-ip").hide();
+		$("#dp_theme").hide();
+		$(".sel_theme").hide();
 		
 			
 		$('#technoModal').modal({
@@ -351,8 +380,13 @@
 		$('.close_techno').click(function(e){   
 			
 			reinit_techno();
-		});  
+		});  	
 
+		$('.close_ip').click(function(e){   
+			
+			reinit_ip();
+		});  
+		
 		function myTrim(x) {
             return x.replace(/^\s+|\s+$/gm,'');
 		}
@@ -370,6 +404,50 @@
 
 			$('.btn_update_techno').show();	
 		}
+
+		
+
+		$('#ipModal').modal({
+                backdrop: 'static',
+				keyboard: false,
+				show: false
+       	})
+
+		 $('.td_ip').click(function(e){           
+			var nddId = $(this).attr('data-ndd'); 			
+		
+			var current_registrar = $("#"+nddId).children('td.td_registrar').text(); 
+			var current_heberg = $("#"+nddId).children('td.td_heberg').text(); 
+			var current_ip = $("#"+nddId).children('td.td_ip').text(); 	
+		
+		
+			$("#ndd_domaine_id").text(nddId);	
+			
+			$("#registrar_res").text(current_registrar);
+			$("#heberg_res").text(current_heberg);
+			$("#ip_res").text(current_ip);	
+			$("#addrese_ip_res").text(current_ip);	
+			
+			$.ajax({
+				url: "<?=site_url('domaine/get_ip_info_by_domaine')?>",
+				data: { id: current_ip},
+				dataType: "json",
+				type: "GET",                  
+				success: function(data){   
+									 
+					$("#nb_ip_res").text(data.length);
+					var theme_res = $("#theme_res");  
+					theme_res.empty();       
+					$.each(data, function (index, ndd) {
+						theme_res.append("<li>" +ndd.name+ "<span>x</span></li>");                 
+					
+					})
+					
+					$('#ipModal').modal('show');
+				}
+			});
+		});
+
 
 		 $('.btn_update_techno').click(function(e){   
 			$('.btn_update_techno').hide();	
@@ -403,53 +481,142 @@
 			});
 		});
 
-		$('#ipModal').modal({
-                backdrop: 'static',
-				keyboard: false,
-				show: false
-       	})
-
-		 $('.td_ip').click(function(e){           
-			var nddId = $(this).attr('data-ndd'); 
-		
-			var current_registrar = $("#"+nddId).children('td.td_registrar').text(); 
-			var current_heberg = $("#"+nddId).children('td.td_heberg').text(); 
-			var current_ip = $("#"+nddId).children('td.td_ip').text(); 					
-			
-			$("#ip_res").text(current_ip);	
-			$("#registrar_res").text(current_registrar);
-			$("#heberg_res").text(current_heberg);
-			
-			$.ajax({
-				url: "<?=site_url('domaine/get_ip_info_by_domaine')?>",
-				data: { id: current_ip},
-				dataType: "json",
-				type: "GET",                  
-				success: function(data){   
-									 
-					$("#nb_ip_res").text(data.length);
-					var theme_res = $("#theme_res");  
-					theme_res.empty();       
-					$.each(data, function (index, ndd) {
-						theme_res.append("<li>" +ndd.name+ "<span>x</span></li>");                 
-					
-					})
-					$('#ipModal').modal('show');
-				}
-			});
-
-		});
-
 		 $('.btn_update_ip').click(function(e){   
-			$('.btn_update_ip').hide();	
+			var nddId = $("#ndd_domaine_id").text();	
+			var current_registrar = $("#"+nddId).children('td.td_registrar').attr('data-id'); 
+			var current_heberg = $("#"+nddId).children('td.td_heberg').attr('data-id'); 
+			var theme = $("#dp_theme").val();	
+		
+			if(current_heberg)
+				get_ip_list_by_heberg(current_heberg);
+
+			$("#dp_registrar").val(current_registrar);
+			$("#dp_heberg").val(current_heberg);
 			$("#dp_heberg").show();
 			$("#dp_registrar").show();
+			$("#dp_theme").show();
+			$(".sel_theme").show();
+
 			$(".btn_save_ip").show();
 			$("#heberg_res").hide();
+			$("#ip_res").hide();
 			$("#registrar_res").hide();
-			
+			$('.btn_update_ip').hide();	
 		});
 
+		function reinit_ip(){
+			$("#dp_heberg").hide();
+			$("#dp_registrar").hide();
+			$("#dp_theme").hide();
+			$(".btn_save_ip").hide();
+			$(".sel_theme").hide();
+			$(".div-addr-ip").hide();
+			
+			$("#heberg_res").show();
+			$("#ip_res").show();
+			$("#registrar_res").show();
+			$('.btn_update_ip').show();	
+
+		}
+
+		function get_ip_list_by_heberg(id_heberg){
+			var nddId = $("#ndd_domaine_id").text();	
+			var current_ip_id = $("#"+nddId).children('td.td_ip').attr('data-id') ;
+			$.ajax({
+				type: "GET",
+				url: "<?=site_url('domaine/get_select_ip')?>",
+				data: { id_heberg: id_heberg},
+				dataType: "json",
+				success: function(data){
+
+					var select = $("#dp_ip");				
+					select.empty();
+					select.append($('<option/>', {
+						value: 0,
+						text: "Selectionner IP"
+					}));
+					$.each(data, function (index, itemData) {
+					
+						select
+							.append($('<option>', { value : itemData.id })
+							.text(itemData.value));
+						});			
+
+					if(current_ip_id != "")
+						select.val(current_ip_id);				
+						$(".div-addr-ip").show();		
+				}			
+        	});	
+		}
+
+		$("#dp_heberg").change(function(){
+			var dID = $(this).val();			
+			var nddId = $("#ndd_domaine_id").text(); 	
+			var registrar = $("#dp_registrar").val();
+			var heberg = $("#dp_heberg").val();	
+			
+			
+			var current_ip = $("#"+nddId).children('td.td_ip').text(); 	
+		
+			if(dID != ""){
+				$.ajax({
+				type: "GET",
+				url: "<?=site_url('domaine/get_select_ip')?>",
+				data: { id_heberg: dID},
+				dataType: "json",
+				success: function(data){
+
+					var select = $("#dp_ip");				
+					select.empty();
+					select.append($('<option/>', {
+						value: 0,
+						text: "Selectionner IP"
+					}));
+					$.each(data, function (index, itemData) {
+					
+						select
+							.append($('<option>', { value : itemData.id })
+							.text(itemData.value));
+						});			
+
+					if(current_ip_id != "")
+						select.val(current_ip_id);
+
+					$(".div-addr-ip").show();		
+				
+				}			
+        	});	
+			}
+		});		
+
+		 $('.btn_save_ip').click(function(e){   	
+			var nddId = $("#ndd_domaine_id").text(); 	
+			var registrar = $("#dp_registrar").val();
+			var heberg = $("#dp_heberg").val();	
+			var ip = $("#dp_ip").val();	
+			var current_ip = ($("#dp_ip").val() == "") ? $("#"+nddId).children('td.td_ip').attr('data-id') : $("#dp_ip").val(); 
+			var theme = $("#dp_theme").val();	
+			
+			var ndd_obj = {"ndd_id": nddId,"registrar":registrar,"heberg":heberg, "ip":ip,"theme":theme};      
+			console.log(ndd_obj);
+			 $.ajax({
+				type: "POST",
+				url:  "<?=site_url('domaine/edit_ip')?>",
+				data: ndd_obj,
+				dataType: "text",  
+				cache:false,
+				success: 
+					function(response){
+						if ( myTrim(response) == "index"  ){
+							console.log(response);  
+							reinit_ip();
+							$('#ipModal').modal('hide');
+							location.reload();
+						}
+					}
+				});		
+
+		});  
 
      });  
     </script>

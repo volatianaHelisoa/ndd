@@ -137,13 +137,17 @@
 <?php echo form_close(); ?>
 
  <script type="text/javascript">
-        $(document).ready(function(){ 	
+        $(document).ready(function(){ 
+	
+
 		$('.select_techno').multiselect({
 				includeSelectAllOption : true,             
                 nonSelectedText: 'Aucune selection',               
 				allSelectedText: 'Tous'
 				
         });
+		$('.select_techno').multiselect('deselectAll', false);
+		$('.select_techno').multiselect('refresh');
 
 		$(".preference" ).hide();	
 		$(".div-addr-ip").hide();	
