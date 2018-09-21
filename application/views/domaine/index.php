@@ -217,7 +217,7 @@
 				</div>
 				<div class="field2">
 					<label for="">Nombre de site sur cette IP :</label>
-					<button  id="nb_ip_res" ></button>
+					<button  id="nb_ip_res" class="btn_nb_ip" ></button>
 				</div>
 				<div class="field">
 					<label for="">Thematique hébergée : </label>
