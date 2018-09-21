@@ -13,4 +13,4 @@ $route['role'] = 'Role/index';
 $route['role-add'] = 'Role/add';
 $route['role-edit'] = 'Role/edit';
 
-$route['authentification'] = 'template/authentificationfailed';
+$route['authentification'] = 'pages/authentificationfailed';
