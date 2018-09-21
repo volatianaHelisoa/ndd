@@ -29,7 +29,8 @@ class Domaine extends CI_Controller{
             $registrar_obj = $this->Registrar_model->get_t_registrar($row['id_registrar']);    
             $element->registrar =  $registrar_obj['name'];
             $element->id_registrar = $row['id_registrar'];
-            
+            $element->id_cms = $row['id_cms'];
+
             $element->heberg = "";
             $element->ip = "";
             $element->cms ="";
@@ -42,6 +43,8 @@ class Domaine extends CI_Controller{
                 $heberg_obj = $this->Hebergement_model->get_t_hebergement($row['id_heberg']);    
                 $element->heberg =  $heberg_obj['name'];
                 $element->id_heberg = $row['id_heberg'];
+               
+               
                
                 if($row['id_cms'] != "" && $row['id_cms'] != null )
                 {
@@ -101,6 +104,9 @@ class Domaine extends CI_Controller{
         $this->load->model('Domaine_model');
         $domaine_data = $this->Domaine_model->get_all_t_domaine();
         $data['nb_site'] = ($domaine_data != null && count($domaine_data) >0 ) ? count($domaine_data) : 0;
+
+        $this->load->model('Cms_model');
+        $data['all_t_cms'] = $this->Cms_model->get_all_t_cms();
 
       
         $data['t_domaine'] = $res;  
@@ -402,7 +408,7 @@ class Domaine extends CI_Controller{
         {    
             $today = date("Y-m-d"); 
             $params = array(
-                'id_cms' => $element->id_cms,
+                'id_cms' => $param["cms"],
                 'id_registrar' =>$element->id_registrar,
                 'id_heberg' => $element->id_heberg,
                 'ftp_login' => $param["ftp_login"],
@@ -420,7 +426,8 @@ class Domaine extends CI_Controller{
                 if(isset($techno_array) && count($techno_array) > 0)     
                 {                   
                     $this->load->model('Domaine_techno_model');
-                    if($element->techno != null)
+                   
+                    if($element->techno != "")
                     { 
                         $this->Domaine_techno_model->delete_t_domaine_techno_by_domaine($element->techno[0]['id_domaine']);  
                     }
@@ -449,7 +456,7 @@ class Domaine extends CI_Controller{
         $element->id_registrar = $row['id_registrar'];  
         $element->id_heberg = $row['id_heberg'];               
         $element->id_cms = $row['id_cms'];
-
+        $element->techno = "";
         $element->theme = "";
         /** theme */               
         $this->load->model('Domaine_theme_ip_model');

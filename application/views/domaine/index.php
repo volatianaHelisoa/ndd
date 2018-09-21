@@ -87,11 +87,19 @@
 					<span class="tag"><?php echo $t->theme["name"]; ?></span>	
 				<?php }?>
 			</td>
-			<td class="cms-type" >			
-			<?php if($t->cms != null ) {?>
-				<button class="cust-btn dark-btn small-btn techno "  data-backdrop="static" data-keyboard="false" data-ndd="<?php echo $t->id; ?>"  data-type="<?php echo $t->cms; ?>">VOIR</button>
-			<?php } else echo "NAN";?>
-
+			<td class="td_cms" data-id ="<?php echo $t->id_cms; ?>" data-type="<?php echo $t->cms; ?>" >			
+		
+				<button class="cust-btn dark-btn small-btn techno "  data-backdrop="static" data-keyboard="false" data-ndd="<?php echo $t->id; ?>"  data-type="<?php echo $t->cms; ?>">	
+				<?php if($t->cms != "" ){				
+					echo  "VOIR";  }
+				else{
+					echo "AJOUTER";
+				}   
+				?>
+			</button>
+		
+				
+			
 			</td>
 			<td class="thematique">		
 			<?php if($t->techno != null ) { ?>	
@@ -123,11 +131,26 @@
 		<div class="title-field">Cms : <span id="cms_res"> </span></div>
 			<form action="">
 			<input type="hidden" name="ndd_id" id="ndd_id" />
-			<div class="sub-title">Accès FTP</div>
 			<div class="ttl-infos clearfix">
 				<input type="button" class="modif btn_update_techno" value="Modifier" >
 			</div>
-                            
+			<div class="div_cms" >
+			<div class="sub-title">CMS / HTML</div>
+			<div class="field ">					
+				<select name="id_cms" id="select_cms">
+					<option value="">Selectionner cms</option>
+					<?php 
+					foreach($all_t_cms as $t_cms)
+					{
+						$selected = "";
+
+						echo '<option value="'.$t_cms['id'].'" '.$selected.'>'.$t_cms['type'].'</option>';
+					} 
+					?>
+				</select>
+			</div>
+			</div>
+			<div class="sub-title">Accès FTP</div>	
 			<div class="field1">
 				<label for="">Serveur : </label>
 				<span id="serveur_res" ></span>
@@ -246,10 +269,9 @@
 							} 
 							?>
 					</select>
-				</div>
+				</div>				
 				
-				
-				<div class="field" >
+				<div class="field other-field">
 						<label for="">Adresse IP :</label>
 						<span id="ip_res" data-id="" ></span>
 						<select id="dp_ip" name="addr-ip" class="div-addr-ip" >									
@@ -275,6 +297,8 @@
 		$popInput.hide();
 		$("#technoModal .select_techno_result").hide();	
 		$(".btn_save_acces").hide();
+		
+		$(".div_cms").hide();	
 
 		$("#dp_heberg").hide();
 		$("#dp_registrar").hide();
@@ -290,13 +314,14 @@
 				show: false
 	   })
 	   
-
 		$('.techno').click(function(e){           
-			var nddId = $(this).attr('data-ndd'); 
-		
-			var current_cms = $(this).attr('data-type'); 	
-			console.log(current_cms)	;
+			var nddId = $(this).attr('data-ndd'); 		
+			var current_cms = $(this).attr('data-type'); 
+			var current_cms_id = $("#"+nddId).children('td.td_cms').attr('data-id'); 
 			$("#ndd_id").text(nddId);	
+			$("#cms_res").text(current_cms);	
+			$("#select_cms").val(current_cms_id);	
+
 			$.ajax({
 				url: "<?=site_url('domaine/get_techno_by_domaine')?>",
 				data: { id: nddId},
@@ -305,7 +330,7 @@
 				success: function(data){   				
 					
 					if(!jQuery.isEmptyObject(data)){
-						$("#cms_res").text(current_cms);	
+					
 
 						$("#serveur_res").text(data[0].ftp_server);	
 						$("#login_res").text(data[0].ftp_login);	
@@ -326,16 +351,53 @@
 						var techno_result = $("#techno_result");  
 						techno_result.empty();       
 						$.each(data, function (index, ndd) {
-							techno_result.append("<li>" +ndd.techno+ "<span>x</span></li>");                 
-						
+							techno_result.append("<li>" +ndd.techno+ "<span>x</span></li>");   
 						})
-					}
-					
+					}					
 					$('#technoModal').modal('show');
 				}
-			});
-        
+			});        
 		 });
+
+		  $('.btn_update_techno').click(function(e){  
+			var nddId = $("#ndd_id").text();	
+			$('.btn_update_techno').hide();	
+			var current_cms = $("#"+nddId).children('td.td_cms').attr('data-type');  
+			var current_cms_id = $("#"+nddId).children('td.td_cms').attr('data-id'); 
+			$("#cms_res").text(current_cms);	
+			$("#select_cms").val(current_cms_id);	
+
+			$.ajax({
+				url: "<?=site_url('domaine/get_techno_list')?>",				
+				dataType: "json",
+				type: "GET",                  
+				success: function(data){   
+
+					$("#technoModal .select_techno_result").removeAttr("style");
+					var $popInput = $('#technoModal input[type="text"]');	
+					$popInput.show();
+				
+					$(".btn_save_acces").show();						
+					var $popSpan = $('#technoModal span');	
+					$popSpan.hide();
+					$("#cms_res").show();	
+					$(".div_cms").show();	
+
+					var select = $("#technoModal .select_techno_result #select_techno_type");	
+					select.empty();
+					
+					$.each(data, function (index, itemData) {					
+						select
+							.append($('<option>', { value : itemData.id })
+							.text(itemData.value));
+					});	
+
+					$('#technoModal .select_techno_result select').multiselect({});
+				}
+			});
+
+			
+		});
 
 		 $('.btn_save_acces').click(function(e){   	
 			var nddId = $("#ndd_id").text(); 	
@@ -345,9 +407,12 @@
 			var ftp_password = $("#txt_pass_res").val();	
 			var admin_url = $("#txt_url_res").val();
 			var admin_login = $("#txt_bologin_res").val();
-			var admin_password = $("#txt_bopass_res").val();			
+			var admin_password = $("#txt_bopass_res").val();
+			var cms = $("#select_cms").val();
+						
 			var techno_list = get_techno_selected();
-			var ndd_obj = {"ndd_id": nddId,"ftp_server":ftp_server, "ftp_login":ftp_login,"ftp_password":ftp_password,"admin_url":admin_url,"admin_login":admin_login,"admin_password":admin_password,"techno_list":techno_list};      
+
+			var ndd_obj = {"ndd_id": nddId,"ftp_server":ftp_server, "ftp_login":ftp_login,"ftp_password":ftp_password,"admin_url":admin_url,"admin_login":admin_login,"admin_password":admin_password,"techno_list":techno_list,"cms":cms};      
 			console.log(ndd_obj);
 			 $.ajax({
 				type: "POST",
@@ -364,7 +429,7 @@
 							location.reload();
 						}
 					}
-				});// you have missed this bracket
+				});
 		
 
 		});  
@@ -448,38 +513,7 @@
 			});
 		});
 
-
-		 $('.btn_update_techno').click(function(e){   
-			$('.btn_update_techno').hide();	
-
-			$.ajax({
-				url: "<?=site_url('domaine/get_techno_list')?>",				
-				dataType: "json",
-				type: "GET",                  
-				success: function(data){   
-
-					$("#technoModal .select_techno_result").removeAttr("style");
-					var $popInput = $('#technoModal input[type="text"]');	
-					$popInput.show();
-				
-					$(".btn_save_acces").show();						
-					var $popSpan = $('#technoModal span');	
-					$popSpan.hide();
-
-
-					var select = $("#technoModal .select_techno_result #select_techno_type");	
-					select.empty();
-					
-					$.each(data, function (index, itemData) {					
-						select
-							.append($('<option>', { value : itemData.id })
-							.text(itemData.value));
-					});	
-
-					$('#technoModal .select_techno_result select').multiselect({});
-				}
-			});
-		});
+		
 
 		 $('.btn_update_ip').click(function(e){   
 			var nddId = $("#ndd_domaine_id").text();	
