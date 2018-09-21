@@ -3,12 +3,12 @@
 	<div class="title-field">Modifier l'hébergement</div>
 	<div class="field">
 		<label for="name">Nom</label>
-		<input type="text" name="name" value="<?php echo ($this->input->post('name') ? $this->input->post('name') : $t_hebergement['name']); ?>" class="form-control" id="name" />
+		<input type="text" required name="name" value="<?php echo ($this->input->post('name') ? $this->input->post('name') : $t_hebergement['name']); ?>" class="form-control" id="name" />
 	</div>
 	<div class="field">
 		<label for="url">Url</label>
 		
-		<input type="text" name="url" value="<?php echo ($this->input->post('url') ? $this->input->post('url') : $t_hebergement['url']); ?>" class="form-control" id="url" />
+		<input type="text" required name="url" value="<?php echo ($this->input->post('url') ? $this->input->post('url') : $t_hebergement['url']); ?>" class="form-control" id="url" />
 	</div>
 	<div class="field">
 		<label for="login">Login</label>

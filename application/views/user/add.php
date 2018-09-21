@@ -3,7 +3,7 @@
 	<div class="field">
 		<label for="name">Nom (*)</label>
 		
-		<input type="text" name="name" value="<?php echo $this->input->post('name'); ?>" id="name" require/>
+		<input type="text" name="name" value="<?php echo $this->input->post('name'); ?>" id="name" required/>
 	</div>
 	<div class="field">
 		<label for="firstname"control-label">Prénom</label>
@@ -13,16 +13,16 @@
 	<div class="field">
 		<label for="email"control-label">Email (*)</label>
 		
-		<input type="text" name="email" value="<?php echo $this->input->post('email'); ?>" id="email" require/>
+		<input type="text" name="email" value="<?php echo $this->input->post('email'); ?>" id="email" required/>
 	</div>
 	<div class="field">
 		<label for="password">Mot de passe (*)</label>		
-		<input type="text" name="password" value="<?php echo $this->input->post('password'); ?>" id="password" require/>
+		<input type="text" name="password" value="<?php echo $this->input->post('password'); ?>" id="password" required/>
 	</div>
 
 	<div class="field">
 		<label for="id_role">Rôle (*)</label>
-		<select name="id_role" require>
+		<select name="id_role" required>
 			<option value="">Rôle de l'utilisateur</option>
 			<?php 
 			foreach($all_t_role as $t_role)

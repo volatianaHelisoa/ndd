@@ -3,7 +3,7 @@
 		<div class="title-field">Ajouter Rôle</div>
 		<div class="field">
 			<label for="type">Type</label>
-			<input type="text" name="type" value="<?php echo $this->input->post('type'); ?>" class="form-control" id="type" />
+			<input type="text" name="type" value="<?php echo $this->input->post('type'); ?>" class="form-control" id="type" required />
 		</div>
 		
 		<div class="field">
