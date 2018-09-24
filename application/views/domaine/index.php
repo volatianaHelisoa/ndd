@@ -111,11 +111,28 @@
 				<?php } else echo "NAN";?>
 			
 			</td>
-			<td class="actions">
-			
-				<a href="<?php echo site_url('domaine/remove/'.$t->id); ?>" class="btn btn-danger btn-xs">Delete</a>
+			<td class="actions">				
+				<a href=""  title="Supprimer domaine"  class="btn btn-danger" data-toggle="modal" data-target="#myModal<?php echo $t->id; ?>">Supprimer</a>
 			</td>
 		</tr>
+		<div class="modal fade" id="myModal<?php echo $t->id; ?>" role="dialog">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">      
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>                
+                      <div class="modal-body">
+                        <div class="wrap-field carte">
+                          <div class="title-field">Confirmation</div>
+                           
+                            <p>Êtes-vous sûr de vouloir supprimer ?</p>
+                             <div class="modal-footer">
+								<a  href="<?php echo site_url('domaine/remove/'. $t->id); ?>" class="submit"  >Oui</a>
+								<button type="button" class="submit" data-dismiss="modal">Non</button>
+							</div>
+				</div>
+				</div>
+			</div>
+			</div>
+		</div>
 	<?php } ?>
 	</tbody>
 </table>
@@ -189,8 +206,7 @@
 			</div>
 			<div class="content-chips select_techno_result">			
 				<select  name="select_ml_techno[]" id="select_techno_type"  data-live-search="true" multiple class="select_techno" >							
-				</select>
-				
+				</select>				
 			</div>
 			</form>
 			<input type="button" class="submit btn_save_acces" value="Enregistrer">
@@ -254,8 +270,7 @@
 						} 
 						?>
 					</select>
-				</div>
-				
+				</div>				
 				<div class="field other-field">
 					<label for="">Hébergement : </label>					
 					<span id="heberg_res" data-id="" ></span>
@@ -269,17 +284,14 @@
 							} 
 							?>
 					</select>
-				</div>				
-				
+				</div>	
 				<div class="field other-field">
 						<label for="">Adresse IP :</label>
 						<span id="ip_res" data-id="" ></span>
 						<select id="dp_ip" name="addr-ip" class="div-addr-ip" >									
 							
 						</select>
-				</div>
-			
-			
+				</div>	
 				<input type="button" class="submit btn_save_ip" value="Enregistrer">
 			</form>
 		</div>
@@ -287,6 +299,10 @@
 	</div>
 	</div>
 </div>
+
+
+
+
 <script src="<?php echo base_url(); ?>assets/JS/ndd-script.js"></script>
 
 <script type="text/javascript">
@@ -650,7 +666,7 @@
 					}
 				});		
 
-		});  
+		});  		
 
      });  
     </script>

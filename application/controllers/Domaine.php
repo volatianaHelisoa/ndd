@@ -493,6 +493,27 @@ class Domaine extends CI_Controller{
     /*
      * Deleting t_domaine
      */
+    function delete_domaine()
+    {
+        $param = $_POST;
+        $id = $param["ndd_id"];
+
+        // check if the t_domaine exists before trying to delete it
+        if(isset($id))
+        {
+            remove($id);
+            echo 'remove';
+            die;
+        }
+        else
+            show_error('The t_domaine you are trying to delete does not exist.');
+    }
+
+
+
+    /*
+     * Deleting t_domaine
+     */
     function remove($id)
     {
         $t_domaine = $this->Domaine_model->get_t_domaine($id);
