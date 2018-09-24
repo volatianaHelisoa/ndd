@@ -8,6 +8,8 @@ label { color:#353535; font:normal 16px/21px Rm; display:block; width:100%; padd
 form { padding:20px 0}
 input:not([type="submit"]),input:not([type="button"]) { width:100%;}
 .submit { width:auto !important}
+a.submit { display:inline-block}
+a.submit + .submit { background-color:#00a1e4}
 .prevnext { background-color:#337ab7 !important}
 .field { padding-bottom:20px; text-align:left}
 .field select { border: 1px solid #eaeaea;padding: 10px;min-height: 45px;font:normal 15px/21px Rl;olor:#231f20; width:100%}
