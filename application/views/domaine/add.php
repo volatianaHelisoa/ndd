@@ -51,7 +51,7 @@
 								?>
 							</select>
                         </div>
-                        <input type="button" class="btn submit btn-next" value="Suivant">
+                        <input type="button" class="btn submit btn-next prevnext" value="Suivant">
 						<input type="submit" class="btn submit btn-save-first" value="Ajouter">
                 </div>
                 <div class="wrap-field preference carte">
@@ -112,7 +112,7 @@
 						</select>
 						</div>
 						
-						<input type="button" class="btn submit btn-previous" value="Precedent">
+						<input type="button" class="btn submit btn-previous prevnext" value="Precedent">
 						<input type="submit" class="btn submit btn-save" value="Ajouter">
                 </div>
 		
@@ -137,14 +137,17 @@
 <?php echo form_close(); ?>
 
  <script type="text/javascript">
-        $(document).ready(function(){ 	
+        $(document).ready(function(){ 
+	
+
 		$('.select_techno').multiselect({
-                includeSelectAllOption: true,
-                nSelectedText: 'selection',
-                nonSelectedText: 'Aucune selection',
-                selectAllText: 'Tous',
-                allSelectedText: 'Selections'
+				includeSelectAllOption : true,             
+                nonSelectedText: 'Aucune selection',               
+				allSelectedText: 'Tous'
+				
         });
+		$('.select_techno').multiselect('deselectAll', false);
+		$('.select_techno').multiselect('refresh');
 
 		$(".preference" ).hide();	
 		$(".div-addr-ip").hide();	
@@ -178,7 +181,7 @@
 					//event.preventDefault();
                     $("#theme").val(ui.item.text);
 				
-                    console.log($("#theme").val(ui.item.text));
+                  //  console.log($("#theme").val(ui.item.text));
                 },
 				minLength: 2
 		});
@@ -205,7 +208,7 @@
 						select
 							.append($('<option>', { value : itemData.id })
 							.text(itemData.value));
-						});			
+					});			
 					
 					$(".div-addr-ip").show();		
 					$(".btn-next").show();

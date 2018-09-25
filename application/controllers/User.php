@@ -34,9 +34,11 @@ class User extends CI_Controller{
             $res[] = $element;	
         }
 
+
         $data['t_user'] = $res;        
       
-        
+         $data['nb_user'] = ($data['t_user'] != null && count($data['t_user']) >0 ) ? count($data['t_user']) : 0;
+ 
         $data['_view'] = 'user/index';
         $this->load->view('layouts/main',$data);
     }
@@ -222,7 +224,7 @@ class User extends CI_Controller{
       function logout()  
       {  
            $this->session->unset_userdata('username');  
-           redirect(base_url() . '/login');  
+           redirect(base_url() . 'login');  
       }  
 
     

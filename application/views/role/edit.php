@@ -3,7 +3,7 @@
 	<div class="title-field">Modifier le rôle</div>
 	<div class="field">
 		<label for="type">Type</label>
-		<input type="text" name="type" value="<?php echo ($this->input->post('type') ? $this->input->post('type') : $t_role['type']); ?>" id="type" />
+		<input type="text" name="type" value="<?php echo ($this->input->post('type') ? $this->input->post('type') : $t_role['type']); ?>" id="type" required />
 	</div>
 	<button type="submit" class="btn submit">Enregistrer</button>
 </div>

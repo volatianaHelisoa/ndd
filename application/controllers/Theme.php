@@ -31,7 +31,8 @@ class Theme extends CI_Controller{
            
             $res[] = $element;	
         }
-
+        $data['nb_theme'] = ($data['t_theme'] != null && count($data['t_theme']) >0 ) ? count($data['t_theme']) : 0;
+ 
         $data['t_theme'] = $res;  
         $data['_view'] = 'theme/index';
         $this->load->view('layouts/main',$data);

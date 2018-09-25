@@ -17,7 +17,8 @@ class Cms extends CI_Controller{
     function index()
     {
         $data['t_cms'] = $this->Cms_model->get_all_t_cms();
-        
+      
+        $data['nb_cms'] = ($data['t_cms'] != null && count($data['t_cms']) >0 ) ? count($data['t_cms']) : 0;
         $data['_view'] = 'cms/index';
         $this->load->view('layouts/main',$data);
     }

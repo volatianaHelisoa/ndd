@@ -65,7 +65,7 @@
 </div>
 <?php endif; 	?>
 
-</div>
+
 <div class="wrap-field preference carte">
 					<div class="title-field ">Préférences</div>
 		<label for="id_cms">Cms</label>

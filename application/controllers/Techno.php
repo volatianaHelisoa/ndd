@@ -17,7 +17,8 @@ class Techno extends CI_Controller{
     function index()
     {
         $data['t_techno'] = $this->Techno_model->get_all_t_techno();
-        
+        $data['nb_techno'] = ($data['t_techno'] != null && count($data['t_techno']) >0 ) ? count($data['t_techno']) : 0;
+ 
         $data['_view'] = 'techno/index';
         $this->load->view('layouts/main',$data);
     }

@@ -5,24 +5,24 @@
 	<div class="field">
 		<label for="name">Nom</label>
 		
-			<input type="text" name="name" value="<?php echo $this->input->post('name'); ?>" id="name" />
+			<input type="text" name="name" value="<?php echo $this->input->post('name'); ?>" id="name" required />
 	</div>
 	<div class="field">
 		<label for="url">Url (*)</label>
 		
-		<input type="text" name="url" value="<?php echo $this->input->post('url'); ?>" id="url" require/>
+		<input type="text" name="url" value="<?php echo $this->input->post('url'); ?>" id="url" required/>
 	</div>
 
 	<div class="field">
 		<label for="login">Login (*)</label>
 		
-		<input type="text" name="login" value="<?php echo $this->input->post('login'); ?>" id="login" require/>
+		<input type="text" name="login" value="<?php echo $this->input->post('login'); ?>" id="login" required/>
 	</div>
 	
 	<div class="field">
 		<label for="password">Mot de passe (*)</label>
 		
-			<input type="password" name="password" value="<?php echo $this->input->post('password'); ?>" id="password" require/>
+			<input type="password" name="password" value="<?php echo $this->input->post('password'); ?>" id="password" required/>
 	</div>
 	
 	

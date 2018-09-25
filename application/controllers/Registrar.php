@@ -17,7 +17,8 @@ class Registrar extends CI_Controller{
     function index()
     {
         $data['t_registrar'] = $this->Registrar_model->get_all_t_registrar();
-        
+        $data['nb_registrar'] = ($data['t_registrar'] != null && count($data['t_registrar']) >0 ) ? count($data['t_registrar']) : 0;
+     
         $data['_view'] = 'registrar/index';
         $this->load->view('layouts/main',$data);
     }
