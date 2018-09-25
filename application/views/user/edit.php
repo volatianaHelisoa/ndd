@@ -45,7 +45,7 @@
 		</div>
 		<div class="field half">
 			<label for="">Nouveau mot de passe : </label>
-			<input type="password" name="password" id="newpass1" class="pass-field">
+			<input type="text" name="password" id="newpass1" class="pass-field">
 		</div>
 		<div class="field half">
 			<label for="">Répétér nouveau mot de passe :</label>
