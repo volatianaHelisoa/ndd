@@ -21,7 +21,7 @@
 				{
 					$selected =  "";
 
-					echo '<option value="'.$t_registrar['id'].'" '.$selected.'>'.$t_registrar['name'].'</option>';
+					echo '<option value="'.$t_registrar['name'].'" '.$selected.'>'.$t_registrar['name'].'</option>';
 				} 
 				?>
 			</select>
@@ -35,7 +35,7 @@
 				{
 					$selected =  "";
 
-					echo '<option value="'.$t_hebergement['id'].'" '.$selected.'>'.$t_hebergement['name'].'</option>';
+					echo '<option value="'.$t_hebergement['name'].'" '.$selected.'>'.$t_hebergement['name'].'</option>';
 				} 
 				?>
 			</select>
@@ -49,7 +49,7 @@
 				{
 					$selected =  "";
 
-					echo '<option value="'.$t_theme['id'].'" '.$selected.'>'.$t_theme['name'].'</option>';
+					echo '<option value="'.$t_theme['name'].'" '.$selected.'>'.$t_theme['name'].'</option>';
 				} 
 				?>
 		</select>
@@ -327,7 +327,7 @@
 	</div>
 	</div>
 </div>
-
+ 
 
 
 

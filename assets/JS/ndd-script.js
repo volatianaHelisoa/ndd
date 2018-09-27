@@ -40,6 +40,7 @@ var table = $('#ndd-list').DataTable({
 );
 
 $('#do_filter').click( function() {
+
     table.draw();
 } );
 
@@ -58,7 +59,8 @@ $.fn.dataTable.ext.search.push(
        var hebergVal = $('#filter-heberg').val();
        var themeVal = $('#filter-theme').val();
 
-        is_valid = true;
+      
+        is_valid = true; 
    
         if(registrarVal != '' &&  registrarVal != "tous"  && is_valid){
            
