@@ -16,7 +16,20 @@ class Domaine extends CI_Controller{
      */
     function index()
     {
-        $data['t_domaine'] = $this->Domaine_model->get_all_t_domaine();
+        // $param = $_GET;
+    
+        // if($param)
+        //  {
+        //     $id_ip = $param["ndd_id"];
+          
+        //     $this->load->model('Domaine_theme_ip_model');
+        //     $domaine_by_ip = $this->Domaine_theme_ip_model->get_t_domaine_by_ip();
+        //     $data['t_domaine'] = $domaine_by_ip;
+           
+        //  }  
+        // else   
+         $data['t_domaine'] = $this->Domaine_model->get_all_t_domaine();
+    
        
         $res = array();
         foreach($data['t_domaine'] as $row) {
@@ -88,17 +101,8 @@ class Domaine extends CI_Controller{
                      $element->theme =  $domaine_theme;  
             }            
             
-                $url =  $row['nom'];               
+            $url =  $row['nom'];               
 
-                // $available = $this->isSiteAvailible($url);
-                // if ($available[0]) {
-                //     $element->available = "Le domaine n'est pas enregistré";
-
-                // } else {
-                //     $element->available = "Le domaine est enregistré";
-            // }             
-
-            
             $headers = $this->get_contents($url) ;
             $element->headers  =  "";
             if( $headers  != null)
@@ -137,8 +141,7 @@ class Domaine extends CI_Controller{
 
 
     function get_contents($url) {
-        // $domain = parse_url('http://' . str_replace(array('https://', 'http://'), '', $url), PHP_URL_HOST);
-    
+
         if(!filter_var($url, FILTER_VALIDATE_URL)){
          
             return null;
@@ -691,10 +694,21 @@ class Domaine extends CI_Controller{
    
         if (isset($_GET['id'])) {
             $ip_addresse = trim($_GET['id']);
-            $this->load->model('Domaine_theme_ip_model');
-            $domaine_theme = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_theme_by_ip($ip_addresse);   
-          
-            echo json_encode($domaine_theme);
+            $this->load->model('Ip_model');
+            $current_ip =  $this->Ip_model->get_t_ip_by_adresse($ip_addresse);
+            if($current_ip){
+                $this->load->model('Domaine_theme_ip_model');
+                $domaine_theme["themes"]  = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_theme_by_ip($current_ip['id']);   
+               
+                $domaine_ip = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_by_ip($current_ip['id']);   
+             
+                $domaine_theme["nb_site"] = ($domaine_ip != null && count($domaine_ip) >0 ) ? count($domaine_ip) : 0; 
+               
+                echo json_encode($domaine_theme);
+            }else{
+                $domaine_theme["nb_site"] = 0;
+                echo json_encode($domaine_theme);
+            }
             die;
            
         }

@@ -544,10 +544,11 @@
 				type: "GET",                  
 				success: function(data){   
 									 
-					$("#nb_ip_res").text(data.length);
+					$("#nb_ip_res").text(data['nb_site']);
+					console.log(data);
 					var theme_res = $("#theme_res");  
 					theme_res.empty();       
-					$.each(data, function (index, ndd) {
+					$.each(data['themes'], function (index, ndd) {
 						theme_res.append("<li>" +ndd.name+ "<span>x</span></li>");                 
 					
 					})
@@ -666,7 +667,7 @@
         	});	
 			}
 		});		
-
+		
 		 $('.btn_save_ip').click(function(e){   	
 			var nddId = $("#ndd_domaine_id").text(); 	
 			var registrar = $("#dp_registrar").val();
@@ -696,5 +697,28 @@
 
 		});  		
 
+ 	//	$('.btn_nb_ip').click(function(e){ 
+			// var nddId = $("#ndd_domaine_id").text();  
+			// var current_ip =  $("#"+nddId).children('td.td_ip').attr('data-id'); 
+			
+			// var ndd_obj = {"ip":current_ip};  
+
+			// console.log(ndd_obj);
+			//  $.ajax({
+			// 	type: "GET",
+			// 	url:  "<?=site_url('domaine/index')?>",
+			// 	data: ndd_obj,
+			// 	dataType: "text",  
+			// 	cache:false,
+			// 	success: 
+			// 		function(response){
+						
+			// 			//	location.reload();
+						
+			// 		}
+			// 	});		
+
+	//	});  		
+		
      });  
     </script>

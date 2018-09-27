@@ -19,6 +19,14 @@ class Ip_model extends CI_Model
         return $this->db->get_where('t_ip',array('id'=>$id))->row_array();
     }
         
+     /*
+     * Get t_ip by id
+     */
+    function get_t_ip_by_adresse($adresse)
+    {
+        return $this->db->get_where('t_ip',array('adresse'=>$adresse))->row_array();
+    }
+
     /*
      * Get all t_ip
      */
