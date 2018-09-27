@@ -22,7 +22,8 @@ class Domaine extends CI_Controller{
         foreach($data['t_domaine'] as $row) {
 			$element = new stdClass();
             $element->id = $row['id'];
-            $element->domaine =  $row['nom'];
+            $domain = parse_url('http://' . str_replace(array('https://', 'http://'), '',  $row['nom']), PHP_URL_HOST);
+            $element->domaine = $domain;
            
                        
             $this->load->model('Registrar_model');
@@ -87,7 +88,7 @@ class Domaine extends CI_Controller{
                      $element->theme =  $domaine_theme;  
             }            
             
-                $url = $element->domaine;               
+                $url =  $row['nom'];               
 
                 // $available = $this->isSiteAvailible($url);
                 // if ($available[0]) {
@@ -106,8 +107,7 @@ class Domaine extends CI_Controller{
                 $element->headers  = substr($headers[0], 9, 3);
             }
             else
-                $element->available = "Le domaine n'est pas enregistré ou inactif.";
-               
+                $element->available = "Le domaine n'est pas enregistré ou inactif.";               
 
             $res[] = $element;	
         }
