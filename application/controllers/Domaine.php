@@ -106,7 +106,7 @@ class Domaine extends CI_Controller{
                 $element->headers  = substr($headers[0], 9, 3);
             }
             else
-                $element->available = "Le domaine n'est pas enregistré.";
+                $element->available = "Le domaine n'est pas enregistré ou inactif.";
                
 
             $res[] = $element;	
