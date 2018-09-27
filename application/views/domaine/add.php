@@ -3,19 +3,23 @@
                 <div class="head-section centered-el">
                     <span class="title-l">Nom de domaine</span>
                     <p>Vous avez 1000 nom de domaines</p>
-                </div>
-				
+                </div>				
 				
                 <div class="wrap-field info-gen carte">
 						<div class="title-field">Information générale</div>
-                   
+						<?php if(isset($error_nom)) :?>
+						<div class="alert alert-info" role="alert">
+							<?php echo $error_nom; ?>
+						</div>
+						<?php endif ?>
                     	<div class="field">
                         	<label for="">Nom de domaine (*) :</label>
-                        	<input type="text" name="nom" required value="<?php echo $this->input->post('nom'); ?>"  id="nom" />
-                        </div>
+                        	<input type="url" name="nom" required value="<?php echo $this->input->post('nom'); ?>"  id="nom" />
+
+						</div>
                         <div class="field">
                         	<label for="">Thématique :</label>
-                        	<input type="text" id="theme" name="theme" >
+                        	<input type="text" id="theme" name="theme" placeholder="Saisir thème" >
                         </div>
                         
                         <div class="field">

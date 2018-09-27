@@ -73,6 +73,7 @@
 			<th class="thematique">Thématique</th>
 			<th>CMS</th>
 			<th>Techno</th>
+			<th>Statut</th>
 			<th>Action</th>
 	</thead>
 	<tbody>
@@ -111,6 +112,9 @@
 				<?php } else echo "NAN";?>
 			
 			</td>
+			<td class="statut">				
+				<a href=""  title="Status domaine"  class="btn btn-danger" data-toggle="modal" data-target="#statusModal<?php echo $t->id; ?>">Voir</a>
+			</td>
 			<td class="actions">				
 				<a href=""  title="Supprimer domaine"  class="btn btn-danger" data-toggle="modal" data-target="#myModal<?php echo $t->id; ?>">Supprimer</a>
 			</td>
@@ -133,9 +137,33 @@
 			</div>
 			</div>
 		</div>
+
+		<div class="modal fade" id="statusModal<?php echo $t->id; ?>" role="dialog">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true"></span>
+				</button>
+				<div class="modal-body">
+				<div class="wrap-field carte">
+					<div class="title-field">Status du domaine : <?php echo $t->domaine; ?></div>									
+						<div class="field2 other-field">								
+								<?php echo $t->available; ?>
+								<?php if($t->headers != "" ) : ?>		
+									<span class="domaine_status"> statut <?php echo $t->headers; ?></span>
+								<?php endif; ?>
+						</div>
+				</div>
+				</div>
+			</div>
+			</div>
+		</div>				
+
 	<?php } ?>
 	</tbody>
 </table>
+
+
 
 <div class="modal fade" id="technoModal">
 	<div class="modal-dialog modal-dialog-centered" role="document">

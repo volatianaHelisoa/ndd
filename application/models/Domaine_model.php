@@ -18,6 +18,14 @@ class Domaine_model extends CI_Model
     {
         return $this->db->get_where('t_domaine',array('id'=>$id))->row_array();
     }
+
+        /*
+     * Get t_domaine by name
+     */
+    function get_t_domaine_by_name($name)
+    {
+        return $this->db->get_where('t_domaine',array('nom'=>$name))->row_array();
+    }
         
     /*
      * Get all t_domaine
