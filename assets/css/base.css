@@ -84,6 +84,7 @@ p { margin: 0 0 20px; }
 input[type="text"],
 input[type="email"],
 input[type="password"],
+input[type="url"],
 select {
     border: 1px solid #eaeaea;
     padding: 10px;
