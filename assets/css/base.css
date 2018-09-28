@@ -67,6 +67,10 @@ p { margin: 0 0 20px; }
 
 .centered-el { margin: 0 auto; text-align: center; }
 
+.cust-btn.dark-btn:hover {
+	color:white;
+	background-color: #f15e53;
+}
 .carte {
     border-radius: 5px;
     -webkit-border-radius: 5px;

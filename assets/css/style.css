@@ -166,9 +166,9 @@ td.td_ip span{cursor: pointer; display: inline-block; padding: 4px 6px; backgrou
 #result.fort::before { width: 100%; background-color: #16c43b; }
 
 .domaine_status {
-    width: 100%;
-    font-size: 30px;
+    width: 100% !important;
+    font-size: 30px !important;
     margin-top: 20px;
     border-radius: 3px;
-    display: block;
+    display: block !important;
 }
