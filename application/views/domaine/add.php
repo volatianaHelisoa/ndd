@@ -8,14 +8,13 @@
                 <div class="wrap-field info-gen carte">
 						<div class="title-field">Information générale</div>
 						<?php if(isset($error_nom)) :?>
-						<div class="alert alert-info" role="alert">
-							<?php echo $error_nom; ?>
-						</div>
+							<div class="alert alert-info" role="alert">
+								<?php echo $error_nom; ?>
+							</div>
 						<?php endif ?>
                     	<div class="field">
                         	<label for="">Nom de domaine (*) :</label>
-                        	<input type="url" name="nom" required value="<?php echo $this->input->post('nom'); ?>"  id="nom" />
-
+							<input type="text" name="nom" value="<?php echo $this->input->post('nom'); ?>"  id="nom" >
 						</div>
                         <div class="field">
                         	<label for="">Thématique :</label>
@@ -43,7 +42,7 @@
                         </div>
                         <div class="field">
                         	<label for="">Registrar (*) :</label>
-                        	<select name="id_registrar" required  >
+                        	<select name="id_registrar"  >
 								<option value="">Selectionner registrar</option>
 								<?php 
 								foreach($all_t_registrar as $t_registrar)

@@ -35,7 +35,7 @@ class Domaine extends CI_Controller{
         foreach($data['t_domaine'] as $row) {
 			$element = new stdClass();
             $element->id = $row['id'];
-            $domain = parse_url('http://' . str_replace(array('https://', 'http://'), '',  $row['nom']), PHP_URL_HOST);
+            $domain = $this->getHost($row['nom']);
             $element->domaine = $domain;
            
                        
@@ -178,133 +178,148 @@ class Domaine extends CI_Controller{
         curl_close($curlInit);
         $res[] =  $response?true:false;
         $res[] =   $status;
-      
+
         return $res;
     }
 
-   
-
+    function getHost($Address) {
+        $parseUrl = parse_url(trim($Address));      
+        if(isset($parseUrl['host'])){
+            $host_name = trim($parseUrl['host'] ? $parseUrl['host'] : array_shift(explode('/', $parseUrl['path'], 2)));
+            return str_replace('www\.', '',  $host_name);
+        }           
+        else
+           return str_replace('www\.', '',  $Address);
+    }
+    
     /*
      * Adding a new t_domaine
      */
     function add()
     {   
         if(isset($_POST) && count($_POST) > 0)     
-        {              
-
-            $today = date("Y-m-d"); 
-            $id_heberg = $this->input->post('id_heberg');
-           
-            if($id_heberg == ""){
-                $params = array(
-                    'nom' => $this->input->post('nom'),
-                    'id_registrar' => $this->input->post('id_registrar'),		
-                    'date_creation' =>  $today,
-                );
+        {     
+          
+            $pattern = '/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/';
+            // $domain =  $this->getHost($this->input->post('nom'));
+          
+            if (!preg_match($pattern, $this->input->post('nom')))
+            {     
+                $this->bind_domaine(1);              
             }
-            else{
-                $params = array(
-                    'nom' => $this->input->post('nom'),                   
-                    'id_registrar' => $this->input->post('id_registrar'),
-                    'id_heberg' => $this->input->post('id_heberg'),
-                    'id_cms' => $this->input->post('id_cms'),
-                    'ftp_login' => $this->input->post('ftp_login'),
-                    'ftp_password' => $this->input->post('ftp_password'),
-                    'ftp_server' => $this->input->post('ftp_server'),
-                    'admin_url' => $this->input->post('admin_url'),
-                    'admin_login' => $this->input->post('admin_login'),
-                    'admin_password' => $this->input->post('admin_password'),                   
-                    'date_creation' =>  $today,
-                );              
-            }  
+            if ($this->input->post('id_registrar') == "")
+            {     
+                $this->bind_domaine(2);              
+            }
+           else{
+                $today = date("Y-m-d"); 
+                $id_heberg = $this->input->post('id_heberg');
+            
+                if($id_heberg == ""){
+                    $params = array(
+                        'nom' => $this->input->post('nom'),
+                        'id_registrar' => $this->input->post('id_registrar'),		
+                        'date_creation' =>  $today,
+                    );
+                }
+                else{
+                    $params = array(
+                        'nom' => $this->input->post('nom'),                   
+                        'id_registrar' => $this->input->post('id_registrar'),
+                        'id_heberg' => $this->input->post('id_heberg'),
+                        'id_cms' => $this->input->post('id_cms'),
+                        'ftp_login' => $this->input->post('ftp_login'),
+                        'ftp_password' => $this->input->post('ftp_password'),
+                        'ftp_server' => $this->input->post('ftp_server'),
+                        'admin_url' => $this->input->post('admin_url'),
+                        'admin_login' => $this->input->post('admin_login'),
+                        'admin_password' => $this->input->post('admin_password'),                   
+                        'date_creation' =>  $today,
+                    );              
+                }  
 
-             if($this->Domaine_model->get_t_domaine_by_name($this->input->post('nom')) == 0)  
-             {
-                    $t_domaine_id = $this->Domaine_model->add_t_domaine($params);
+                if($this->Domaine_model->get_t_domaine_by_name($this->input->post('nom')) == 0)  
+                {
+                        $t_domaine_id = $this->Domaine_model->add_t_domaine($params);
+                        
+                        /**ajout ip */
                     
-                    /**ajout ip */
-                
-                    $id_theme = empty( $this->input->post('theme')) ? NULL :  $this->input->post('theme')   ;
-                
-                    if(!empty( $this->input->post('theme'))){
-                        $theme = $this->input->post('theme');
-                        $this->load->model('Theme_model');
-                        $theme_obj = $this->Theme_model->get_t_theme_by_name($theme);   
-                        $id_theme  = $theme_obj['id'];       
-                    }            
+                        $id_theme = empty( $this->input->post('theme')) ? NULL :  $this->input->post('theme')   ;
                     
-                    $id_ip = empty($_POST['addr-ip']) ? NULL : $_POST['addr-ip'];   
+                        if(!empty( $this->input->post('theme'))){
+                            $theme = $this->input->post('theme');
+                            $this->load->model('Theme_model');
+                            $theme_obj = $this->Theme_model->get_t_theme_by_name($theme);   
+                            $id_theme  = $theme_obj['id'];       
+                        }            
+                        
+                        $id_ip = empty($_POST['addr-ip']) ? NULL : $_POST['addr-ip'];   
 
-                    if( $id_ip || $id_theme){
-                        
-                        $params_ip = array(
-                            'id_domaine' => $t_domaine_id,
-                            'id_ip' =>  $id_ip,
-                            'id_theme' => $id_theme,
-                        );
-                        $this->load->model('Domaine_theme_ip_model');        
-                        $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);                
-                    }
-                
-                    $techno_array = empty($_POST['select_ml_techno']) ? NULL : $_POST['select_ml_techno'];   
-                    if(isset($techno_array) && count($techno_array) > 0)     
-                    { 
-                        $this->load->model('Domaine_techno_model');
-                        foreach($techno_array as $key){
-                        
-                            $params = array(
-                                'id_domaine' => $t_domaine_id,
-                                'id_techno' => $key,
-                            );
+                        if( $id_ip || $id_theme){
                             
-                        $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);
-                        
+                            $params_ip = array(
+                                'id_domaine' => $t_domaine_id,
+                                'id_ip' =>  $id_ip,
+                                'id_theme' => $id_theme,
+                            );
+                            $this->load->model('Domaine_theme_ip_model');        
+                            $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);                
                         }
-                    }
-                
-                redirect('domaine/index');
-            }else{
-                $data['error_nom'] = "Ce nom de domaine existe déjà !";
+                    
+                        $techno_array = empty($_POST['select_ml_techno']) ? NULL : $_POST['select_ml_techno'];   
+                        if(isset($techno_array) && count($techno_array) > 0)     
+                        { 
+                            $this->load->model('Domaine_techno_model');
+                            foreach($techno_array as $key){
+                            
+                                $params = array(
+                                    'id_domaine' => $t_domaine_id,
+                                    'id_techno' => $key,
+                                );
+                                
+                            $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);
+                            
+                            }
+                        }
+                    
+                    redirect('domaine/index');
+                }else{                  
 
-                $this->load->model('Cms_model');
-                $data['all_t_cms'] = $this->Cms_model->get_all_t_cms();
-    
-                $this->load->model('Registrar_model');
-                $data['all_t_registrar'] = $this->Registrar_model->get_all_t_registrar();
-    
-                $this->load->model('Hebergement_model');
-                $data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
-                
-                $this->load->model('Techno_model');
-                $data['all_t_techno'] = $this->Techno_model->get_all_t_techno();
-                
-                $this->load->model('Theme_model');
-                $data['all_t_theme'] = $this->Theme_model->get_all_t_theme();
-                $data['_view'] = 'domaine/add';
-                $this->load->view('layouts/full',$data);
+                    $this->bind_domaine(1);
+                }
             }
-        }
+           }
+
+           
         else
         {
-			$this->load->model('Cms_model');
-			$data['all_t_cms'] = $this->Cms_model->get_all_t_cms();
-
-			$this->load->model('Registrar_model');
-			$data['all_t_registrar'] = $this->Registrar_model->get_all_t_registrar();
-
-			$this->load->model('Hebergement_model');
-            $data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
-            
-            $this->load->model('Techno_model');
-            $data['all_t_techno'] = $this->Techno_model->get_all_t_techno();
-            
-            $this->load->model('Theme_model');
-            $data['all_t_theme'] = $this->Theme_model->get_all_t_theme();
-
-            $data['_view'] = 'domaine/add';
-            $this->load->view('layouts/full',$data);
+            $this->bind_domaine(false);
         }
     }  
+
+    function bind_domaine($error){    
+        if($error == 1)
+            $data['error_nom'] = "Ce nom de domaine est invalide ou existe déjà !";  
+        if($error == 2)
+            $data['error_nom'] = "Le registrar selectionné est invalide !";  
+
+        $this->load->model('Cms_model');
+        $data['all_t_cms'] = $this->Cms_model->get_all_t_cms();
+
+        $this->load->model('Registrar_model');
+        $data['all_t_registrar'] = $this->Registrar_model->get_all_t_registrar();
+
+        $this->load->model('Hebergement_model');
+        $data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
+        
+        $this->load->model('Techno_model');
+        $data['all_t_techno'] = $this->Techno_model->get_all_t_techno();
+        
+        $this->load->model('Theme_model');
+        $data['all_t_theme'] = $this->Theme_model->get_all_t_theme();
+        $data['_view'] = 'domaine/add';
+        $this->load->view('layouts/full',$data);
+    }
 
     /*
      * Editing a t_domaine
