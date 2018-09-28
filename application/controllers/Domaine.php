@@ -186,10 +186,10 @@ class Domaine extends CI_Controller{
         $parseUrl = parse_url(trim($Address));      
         if(isset($parseUrl['host'])){
             $host_name = trim($parseUrl['host'] ? $parseUrl['host'] : array_shift(explode('/', $parseUrl['path'], 2)));
-            return str_replace('www\.', '',  $host_name);
+            return str_replace('www.', '',  $host_name);
         }           
         else
-           return str_replace('www\.', '',  $Address);
+           return str_replace('www.', '',  $Address);
     }
     
     /*
@@ -213,11 +213,15 @@ class Domaine extends CI_Controller{
             }
            else{
                 $today = date("Y-m-d"); 
-                $id_heberg = $this->input->post('id_heberg');
-            
+                $id_heberg = $this->input->post('id_heberg');   
+             
+                $protocol = 'http://';
+                $domain =  $protocol.$this->getHost($this->input->post('nom'));
+               
+                
                 if($id_heberg == ""){
                     $params = array(
-                        'nom' => $this->input->post('nom'),
+                        'nom' =>  $domain,
                         'id_registrar' => $this->input->post('id_registrar'),		
                         'date_creation' =>  $today,
                     );
@@ -238,12 +242,11 @@ class Domaine extends CI_Controller{
                     );              
                 }  
 
-                if($this->Domaine_model->get_t_domaine_by_name($this->input->post('nom')) == 0)  
+                if($this->Domaine_model->get_t_domaine_by_name($domain) == 0)  
                 {
                         $t_domaine_id = $this->Domaine_model->add_t_domaine($params);
                         
-                        /**ajout ip */
-                    
+                        /**ajout ip */                    
                         $id_theme = empty( $this->input->post('theme')) ? NULL :  $this->input->post('theme')   ;
                     
                         if(!empty( $this->input->post('theme'))){
@@ -288,9 +291,7 @@ class Domaine extends CI_Controller{
                     $this->bind_domaine(1);
                 }
             }
-           }
-
-           
+           }           
         else
         {
             $this->bind_domaine(false);
@@ -513,7 +514,32 @@ class Domaine extends CI_Controller{
         $data['t_domaine'] =   $element;
        
         if(isset($element->id))
-        {    
+        {     
+            $techno_array = empty($param["techno_list"]) ? NULL :  $param["techno_list"];
+            if(isset($techno_array) && count($techno_array) > 0)     
+            {                   
+                $this->load->model('Domaine_techno_model');
+                
+                if($element->techno != "")
+                { 
+                    $this->Domaine_techno_model->delete_t_domaine_techno_by_domaine($element->techno[0]['id_domaine']);  
+                }
+                
+                foreach($techno_array as $key){                       
+                    $params = array(
+                        'id_domaine' => $element->id,
+                        'id_techno' => $key,
+                    );  
+
+                    $this->load->model('Techno_model');
+                    $t_techno = $this->Techno_model->get_t_techno($key);  
+                    if($t_techno['name'] =="SSL") 
+                        $element->nom = str_replace('http', 'https',  $element->nom );
+
+                    $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);
+                }
+            }
+
             $today = date("Y-m-d"); 
             $params = array(
                 'id_cms' => $param["cms"],
@@ -529,28 +555,10 @@ class Domaine extends CI_Controller{
                 'date_creation' => $today,
             );
 
-                $this->Domaine_model->update_t_domaine($id,$params);  
-                $techno_array = empty($param["techno_list"]) ? NULL :  $param["techno_list"];
-                if(isset($techno_array) && count($techno_array) > 0)     
-                {                   
-                    $this->load->model('Domaine_techno_model');
-                   
-                    if($element->techno != "")
-                    { 
-                        $this->Domaine_techno_model->delete_t_domaine_techno_by_domaine($element->techno[0]['id_domaine']);  
-                    }
-                    
-                    foreach($techno_array as $key){                       
-                        $params = array(
-                            'id_domaine' => $element->id,
-                            'id_techno' => $key,
-                        );                     
-                       $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);
-                    }
-                }
+            $this->Domaine_model->update_t_domaine($id,$params); 
 
-                echo "index";
-                die; 
+            echo "index";
+            die; 
         }
         echo "no-index";
         die; 
