@@ -215,7 +215,7 @@ class Domaine extends CI_Controller{
                 $today = date("Y-m-d"); 
                 $id_heberg = $this->input->post('id_heberg');   
              
-                $protocol = 'http://';
+                $protocol = 'http://'; 
                 $domain =  $protocol.$this->getHost($this->input->post('nom'));
                
                 
