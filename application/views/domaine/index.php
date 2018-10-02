@@ -176,7 +176,7 @@
 		<div class="title-field">Cms : <span id="cms_res"> </span></div>
 			<form action="">
 			<input type="hidden" name="ndd_id" id="ndd_id" />
-			<div class="ttl-infos clearfix">
+			<div class="ttl-infos clearfix div_update_techno">
 				<input type="button" class="modif btn_update_techno" value="Modifier" >
 			</div>
 			<div class="div_cms" >
@@ -258,7 +258,7 @@
 		<div class="wrap-field carte">
 			<div class="title-field">Adresse IP : <span id="addrese_ip_res"> </span></div>
 			<form action="">
-				<div class="ttl-infos clearfix">
+				<div class="ttl-infos clearfix div_update_ip">
 					<input type="button" class="modif btn_update_ip" value="Modifier" >
 				</div>
 				<div class="field2">
@@ -418,7 +418,7 @@
 		  $('.btn_update_techno').click(function(e){ 
 			$("#view_bopass").hide();$("#view_ftppass").hide();$("#bopass_res").hide();$("#pass_res").hide();
 			var nddId = $("#ndd_id").text();	
-			$('.btn_update_techno').hide();	
+			$('.div_update_techno').hide();	
 			var current_cms = $("#"+nddId).children('td.td_cms').attr('data-type');  
 			var current_cms_id = $("#"+nddId).children('td.td_cms').attr('data-id'); 
 			$("#cms_res").text(current_cms);	
@@ -449,7 +449,13 @@
 							.text(itemData.value));
 					});	
 
-					$('#technoModal .select_techno_result select').multiselect({});
+					$('#technoModal .select_techno_result select').multiselect({
+						includeSelectAllOption : true,             
+						nonSelectedText: 'Aucune selection',     
+						selectAllText: 'Tout selectionner',          
+						allSelectedText: 'Tous'
+					});
+			
 				}
 			});
 
@@ -524,7 +530,7 @@
 			var $popSpan = $('#technoModal span');	
 			$popSpan.show();
 
-			$('.btn_update_techno').show();	
+			$('.div_update_techno').show();	
 		}
 
 
@@ -569,11 +575,14 @@
 					
 					})
 					
+					
+
 					$('#ipModal').modal('show');
 				}
 			});
 		});
 
+		
 		
 
 		 $('.btn_update_ip').click(function(e){   
@@ -598,7 +607,7 @@
 			$("#heberg_res").hide();
 			$("#ip_res").hide();
 			$("#registrar_res").hide();
-			$('.btn_update_ip').hide();	
+			$('.div_update_ip').hide();	
 		});
 
 		function reinit_ip(){
@@ -613,7 +622,7 @@
 			$("#heberg_res").show();
 			$("#ip_res").show();
 			$("#registrar_res").show();
-			$('.btn_update_ip').show();	
+			$('.div_update_ip').show();	
 
 		}
 

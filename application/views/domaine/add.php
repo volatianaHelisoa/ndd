@@ -141,11 +141,11 @@
 
  <script type="text/javascript">
         $(document).ready(function(){ 
-	
 
 		$('.select_techno').multiselect({
 				includeSelectAllOption : true,             
-                nonSelectedText: 'Aucune selection',               
+                nonSelectedText: 'Aucune selection',         
+				selectAllText: 'Tout selectionner',      
 				allSelectedText: 'Tous'
 				
         });
