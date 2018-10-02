@@ -98,7 +98,7 @@ table.custom-styled_wrapper .toolbar {float: left; }
 .field.other-field label,
 .field1 label { text-align:left; float:left; width:38%; padding:12px 0}
 .field1 input { width:62%; float:left}
-.field1 span { width:62%;line-height: 45px;text-align: center;padding: 11px 10px;display: block;float: left;font: normal 16px/21px RR;color: #999898; min-height:45px}
+.field1 span { border: 1px solid #e0e0e0; width:62%;line-height: 45px;text-align: center;padding: 11px 10px;display: block;float: left;font: normal 16px/21px RR;color: #999898; min-height:45px}
 .field2 { margin-bottom:20px;}
 .field2:after,
 .field1:after { content:""; display:block; width:100%; clear:both;}
@@ -111,7 +111,7 @@ table.custom-styled_wrapper .toolbar {float: left; }
 .field2.other-field label{ width:calc(100% - 250px);width:-webkit-calc(100% - 250px);width:-moz-calc(100% - 250px);}
 .field2 button { height:45px; background:#eaeaea; border:1px solid #eaeaea; border-radius:2px}
 .field.other-field>span,
-.field2>span { width: 250px; min-height:45px; text-align:center; padding:11px 10px; display:block; float:left; font: normal 16px/21px RR; color: #999898; word-wrap:break-word}
+.field2>span { border: 1px solid #e0e0e0;width: 250px; min-height:45px; text-align:center; padding:11px 10px; display:block; float:left; font: normal 16px/21px RR; color: #999898; word-wrap:break-word}
 .field2.other-field>span { width:250px}
 .other-field:after { content:""; display:block; clear:both}
 .btn_nb_ip{ width:97px !important}

@@ -103,3 +103,12 @@ select {
     font-size: 30px;
     text-transform: uppercase;
 }
+
+/* Espacement modal */
+.modal-footer .submit {
+	margin-top: 0;
+}
+
+.modal-body p {
+    margin: 0 0 10px;
+}
