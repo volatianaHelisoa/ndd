@@ -200,8 +200,6 @@ class Domaine extends CI_Controller{
             return false;
         }
     }
-    
-
 
     /*
      * Adding a new t_domaine
@@ -330,7 +328,7 @@ class Domaine extends CI_Controller{
     }  
 
     function bind_domaine($error){    
-        var_dump($error);
+        
         if($error == 1)
             $data['error_nom'] = "Ce nom de domaine est invalide ou existe déjà !";  
         if($error == 2)

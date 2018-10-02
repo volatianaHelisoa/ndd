@@ -313,7 +313,7 @@
 							?>
 					</select>
 				</div>	
-				<div class="field other-field">
+				<div class="field other-field div_ip">
 						<label for="">Adresse IP :</label>
 						<span id="ip_res" data-id="" ></span>
 						<select id="dp_ip" name="addr-ip" class="div-addr-ip" >									
@@ -348,6 +348,8 @@
 		$("#dp_registrar").hide();
 		$(".btn_save_ip").hide();
 		$(".div-addr-ip").hide();
+		$(".div_ip").hide();
+		
 		$("#dp_theme").hide();
 		$(".sel_theme").hide();
 		
@@ -575,6 +577,8 @@
 			$("#dp_registrar").show();
 			$("#dp_theme").show();
 			$(".sel_theme").show();
+			$(".div_ip").show();
+		
 
 			$(".btn_save_ip").show();
 			$("#heberg_res").hide();
@@ -590,7 +594,8 @@
 			$(".btn_save_ip").hide();
 			$(".sel_theme").hide();
 			$(".div-addr-ip").hide();
-			
+			$(".div_ip").hide();
+
 			$("#heberg_res").show();
 			$("#ip_res").show();
 			$("#registrar_res").show();
