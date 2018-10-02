@@ -192,6 +192,17 @@ class Domaine extends CI_Controller{
            return str_replace('www.', '',  $Address);
     }
     
+    function is_url($uri){
+        if(preg_match( '/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i' ,$uri)){
+          return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+
+
     /*
      * Adding a new t_domaine
      */
@@ -199,19 +210,15 @@ class Domaine extends CI_Controller{
     {   
         if(isset($_POST) && count($_POST) > 0)     
         {     
-          
-            $pattern = '/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/';
-            // $domain =  $this->getHost($this->input->post('nom'));
-          
-            if (!preg_match($pattern, $this->input->post('nom')))
-            {     
+            if (!$this->is_url($this->input->post('nom')))
+            {                  
                 $this->bind_domaine(1);              
             }
             if ($this->input->post('id_registrar') == "")
             {     
                 $this->bind_domaine(2);              
             }
-           else{
+           elseif($this->is_url($this->input->post('nom'))){
                 $today = date("Y-m-d"); 
                 $id_heberg = $this->input->post('id_heberg');   
              
@@ -323,6 +330,7 @@ class Domaine extends CI_Controller{
     }  
 
     function bind_domaine($error){    
+        var_dump($error);
         if($error == 1)
             $data['error_nom'] = "Ce nom de domaine est invalide ou existe déjà !";  
         if($error == 2)
