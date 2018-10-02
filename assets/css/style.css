@@ -93,13 +93,13 @@ table.custom-styled_wrapper .toolbar {float: left; }
 /* new */
 
 .field input[type="text"] { width:100%}
-.field1 { margin-bottom:12px;}
+.field1 { margin-bottom:12px;position: relative;}
 .field2 label,
 .field.other-field label,
 .field1 label { text-align:left; float:left; width:38%; padding:12px 0}
 .field1 input { width:62%; float:left}
 .field1 span { border: 1px solid #e0e0e0; width:62%;line-height: 45px;text-align: center;padding: 11px 10px;display: block;float: left;font: normal 16px/21px RR;color: #999898; min-height:45px}
-.field2 { margin-bottom:20px;}
+.field2 { margin-bottom:20px; position: relative;}
 .field2:after,
 .field1:after { content:""; display:block; width:100%; clear:both;}
 .field2 label{ text-align:left; width:calc(100% - 97px);width:-webkit-calc(100% - 97px);width:-moz-calc(100% - 97px); float:left}
@@ -171,4 +171,33 @@ td.td_ip span{cursor: pointer; display: inline-block; padding: 4px 6px; backgrou
     margin-top: 20px;
     border-radius: 3px;
     display: block !important;
+}
+/* view password */
+#technoModal input[type="password"],
+#technoModal input[type="text"]{
+	text-align: center;
+}
+input.eye_toggle {
+    -webkit-appearance: none;
+    width: 18px !important;
+    height: 10px;
+    background: url(../images/eyes.png) no-repeat top center;
+    position: absolute;
+    z-index: 10;
+    right: 15px;
+    top: 50%;
+    margin-top: -5px;
+	outline: none;
+	cursor:pointer;
+}
+input.eye_toggle:checked {
+	background-position: bottom center;
+}
+input.eye_toggle:focus {
+	border: none;
+    outline: none;
+}
+
+.info-disabled {
+    background: white;
 }

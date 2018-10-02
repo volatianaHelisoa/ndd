@@ -66,7 +66,8 @@
 				</div>
 				<div class="field2 other-field">
 					<label for="">Password : </label>
-					<span id="pass_res"></span>
+					<input type="password" id="pass_res" disabled class="info-disabled">
+					<input type="checkbox" onclick='toggleView("pass_res")' class="eye_toggle" id="view_bopass">
 				</div>
 			</form>
 		</div>
@@ -76,7 +77,16 @@
 </div>
 
 
-<script>
+<script type="text/javascript">
+	function toggleView(elm) {
+		var x = document.getElementById(elm);
+		if (x.type === "password") {
+			x.type = "text";
+		} else {
+			x.type = "password";
+		}
+	}
+
 	$(document).ready(function() {
 		$('#registrarList').DataTable( {
 			columnDefs: [
@@ -130,7 +140,7 @@
 						$("#registrar_res").text(data["name"]);
 						$("#url_res").text(data["url"]);	
 						$("#login_res").text(data["login"]);	
-						$("#pass_res").text(data["password"]);	
+						$("#pass_res").val(data["password"]);	
 
 					$('#registrarModal').modal('show');
 				}

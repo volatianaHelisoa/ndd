@@ -208,7 +208,8 @@
 			</div>
 			<div class="field1">
 				<label for="">Mot de passe : </label>
-				<span id="pass_res"></span>
+				<input type="password" id="pass_res" disabled class="info-disabled">
+				<input type="checkbox" onclick='toggleView("pass_res")' class="eye_toggle" id="view_ftppass">
 				<input type="text" id="txt_pass_res">
 			</div>
 			<div class="sub-title">Administration</div>
@@ -224,7 +225,8 @@
 			</div>
 			<div class="field1">
 				<label for="">Mot de passe : </label>
-				<span id="bopass_res"></span>
+				<input type="password" id="bopass_res" disabled class="info-disabled">
+				<input type="checkbox" onclick='toggleView("bopass_res")' class="eye_toggle" id="view_bopass">
 				<input type="text" id="txt_bopass_res">
 			</div>
 			<div class="sub-title">Plugin</div>
@@ -334,8 +336,17 @@
 <script src="<?php echo base_url(); ?>assets/JS/ndd-script.js"></script>
 
 <script type="text/javascript">
+	function toggleView(elm) {
+		var x = document.getElementById(elm);
+		if (x.type === "password") {
+			x.type = "text";
+		} else {
+			x.type = "password";
+		}
+	}
      // Start jQuery function after page is loaded
-        $(document).ready(function(){       
+        $(document).ready(function(){
+		
 	  
 		var $popInput = $('#technoModal input[type="text"]');	
 		$popInput.hide();
@@ -353,7 +364,6 @@
 		$("#dp_theme").hide();
 		$(".sel_theme").hide();
 		
-			
 		$('#technoModal').modal({
                 backdrop: 'static',
 				keyboard: false,
@@ -380,11 +390,11 @@
 
 						$("#serveur_res").text(data[0].ftp_server);	
 						$("#login_res").text(data[0].ftp_login);	
-						$("#pass_res").text(data[0].ftp_password);	
+						$("#pass_res").val(data[0].ftp_password);	
 
 						$("#url_res").text(data[0].admin_url);	
 						$("#bologin_res").text(data[0].admin_login);			
-						$("#bopass_res").text(data[0].admin_password);	
+						$("#bopass_res").val(data[0].admin_password);	
 						
 						$("#txt_serveur_res").val(data[0].ftp_server);	
 						$("#txt_login_res").val(data[0].ftp_login);	
@@ -403,9 +413,10 @@
 					$('#technoModal').modal('show');
 				}
 			});        
-		 });
+		});
 
-		  $('.btn_update_techno').click(function(e){  
+		  $('.btn_update_techno').click(function(e){ 
+			$("#view_bopass").hide();$("#view_ftppass").hide();$("#bopass_res").hide();$("#pass_res").hide();
 			var nddId = $("#ndd_id").text();	
 			$('.btn_update_techno').hide();	
 			var current_cms = $("#"+nddId).children('td.td_cms').attr('data-type');  
@@ -516,7 +527,10 @@
 			$('.btn_update_techno').show();	
 		}
 
-		
+
+		$("#technoModal").on("hidden.bs.modal", function () {
+			$("#view_bopass").show();$("#view_ftppass").show();$("#bopass_res").show();$("#pass_res").show();
+		});		
 
 		$('#ipModal').modal({
                 backdrop: 'static',
