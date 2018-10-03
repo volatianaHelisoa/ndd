@@ -532,10 +532,15 @@
 
 			$('.div_update_techno').show();	
 		}
-
-
 		$("#technoModal").on("hidden.bs.modal", function () {
 			$("#view_bopass").show();$("#view_ftppass").show();$("#bopass_res").show();$("#pass_res").show();
+			$('#technoModal input#pass_res').attr('type', 'password');
+			$('#technoModal input#bopass_res').attr('type', 'password');
+			$('#technoModal input[type=checkbox]').each(function() 
+				{ 
+						this.checked = false; 
+				});
+			$('#technoModal input:checkbox').removeAttr('checked');
 		});		
 
 		$('#ipModal').modal({
