@@ -70,7 +70,8 @@
 				</div>
 				<div class="field2 other-field">
 					<label for="">Password : </label>
-					<span id="pass_res"></span>
+					<input type="password" id="pass_res" disabled class="info-disabled">
+					<input type="checkbox" onclick='toggleView("pass_res")' class="eye_toggle" id="view_bopass">
 				</div>
 			</form>
 		</div>
@@ -80,12 +81,20 @@
 </div>
 
 
-<script>
+<script type="text/javascript">
+	function toggleView(elm) {
+		var x = document.getElementById(elm);
+		if (x.type === "password") {
+			x.type = "text";
+		} else {
+			x.type = "password";
+		}
+	}
 	$(document).ready(function() {
 		$('#hebergement').DataTable( {
 			columnDefs: [
-        { orderable: false, targets: -1 }
-     ],
+			{ orderable: false, targets: -1 }
+		],
     
      "pageLength": 50,
      responsive : true,
@@ -135,13 +144,22 @@
 						$("#heberg_res").text(data["name"]);
 						$("#url_res").text(data["url"]);	
 						$("#login_res").text(data["login"]);	
-						$("#pass_res").text(data["password"]);	
+						$("#pass_res").val(data["password"]);	
 
 					$('#hebergModal').modal('show');
 				}
 			});
         });
         
+	$("#hebergModal").on("hidden.bs.modal", function () {
+		$("#pass_res").show();
+		$('#hebergModal input#pass_res').attr('type', 'password');
+		$('#hebergModal input[type=checkbox]').each(function() 
+			{ 
+					this.checked = false; 
+			});
+		$('#hebergModal input:checkbox').removeAttr('checked');
+	});	
 		
 	})
 </script>
