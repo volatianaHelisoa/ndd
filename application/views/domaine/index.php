@@ -92,7 +92,7 @@
 		
 				<button class="cust-btn dark-btn small-btn techno "  data-backdrop="static" data-keyboard="false" data-ndd="<?php echo $t->id; ?>"  data-type="<?php echo $t->cms; ?>">	
 				<?php if($t->cms != "" ){				
-					echo  "VOIR";  }
+					echo  $t->cms;  }
 				else{
 					echo "AJOUTER";
 				}   
