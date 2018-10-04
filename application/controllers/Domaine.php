@@ -610,7 +610,7 @@ class Domaine extends CI_Controller{
                                 $element->nom  =  str_replace('http', 'https', $element->nom);
                             }  
                             $params_domaine = array(                                
-                                'nom' => $domaine_nom                                
+                                'nom' =>  $element->nom                               
                             );   
 
                             $this->Domaine_model->update_t_domaine($element->id,$params_domaine);
