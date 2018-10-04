@@ -165,39 +165,25 @@ td.td_ip span{cursor: pointer; display: inline-block; padding: 4px 6px; backgrou
 #result.bon::before { width: 60%; background-color: #ff8400;}
 #result.fort::before { width: 100%; background-color: #16c43b; }
 
-.domaine_status {
-    width: 100% !important;
-    font-size: 30px !important;
-    margin-top: 20px;
-    border-radius: 3px;
-    display: block !important;
-}
+.domaine_status { width: 100% !important; font-size: 30px !important; margin-top: 20px; border-radius: 3px; display: block !important; }
 /* view password */
 #technoModal input[type="password"],
-#technoModal input[type="text"]{
-	text-align: center;
-}
-input.eye_toggle {
-    -webkit-appearance: none;
-    width: 18px !important;
-    height: 10px;
-    background: url(../images/eyes.png) no-repeat top center;
-    position: absolute;
-    z-index: 10;
-    right: 15px;
-    top: 50%;
-    margin-top: -5px;
-	outline: none;
-	cursor:pointer;
-}
-input.eye_toggle:checked {
-	background-position: bottom center;
-}
-input.eye_toggle:focus {
-	border: none;
-    outline: none;
-}
+#technoModal input[type="text"]{ text-align: center; }
+input.eye_toggle { -webkit-appearance: none; width: 18px !important; height: 10px; background: url(../images/eyes.png) no-repeat top center; position: absolute; z-index: 10; right: 15px; top: 50%; margin-top: -5px; outline: none; cursor:pointer; }
+input.eye_toggle:checked { background-position: bottom center; }
+input.eye_toggle:focus { border: none; outline: none;}
+.info-disabled { background: white;}
 
-.info-disabled {
-    background: white;
-}
+.select_techno_result > .materialize-tags { text-align: left; padding: 10px 0; border-bottom: 2px solid #afafaf; }
+.select_techno_result > .typeahead { display:none !important;}
+.materialize-tags .chip > i { width: 22px; height: 22px; background-color: #f15e53; border-radius: 50%; color: rgba(255,255,255,0.9); font-size: 16px; padding: 3px; vertical-align: middle; margin-left: 7px; }
+.materialize-tags .chip { display: inline-block; background: #f2f2f2; padding: 5px 10px; border-radius: 15px; font-size: 12px; margin-right: 4px; vertical-align: middle; }
+.materialize-tags .twitter-typeahead { vertical-align: middle; }
+.materialize-tags .twitter-typeahead input{	border: none; padding: 5px 0; min-height: inherit; }
+.select_techno_result input { text-align: left !important; }
+.materialize-tags .tt-menu { width: 240px; background: white; margin-top: 15px; text-align: left; padding: 15px; box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 20px; }
+.twitter-typeahead .input { padding: 5px 0;}
+.twitter-typeahead input.tt-hint {color: #bdbdbd;}
+
+.plug-list { padding: 0; border: none; min-height: inherit; }
+/*.plug-list li { padding: 4px }*/

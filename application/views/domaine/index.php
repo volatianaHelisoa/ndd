@@ -230,12 +230,12 @@
 				<input type="text" id="txt_bopass_res">
 			</div>
 			<div class="sub-title">Plugin</div>
-			<div class="content-chips ">
+			<div class="content-chips plug-list">
 				<ul id="techno_result">					
 				</ul> 
 			</div>
-			<div class="content-chips select_techno_result">			
-				<input class="typeahead" name="techno_tags" type="text" data-role="materialtags" >					
+			<div class="select_techno_result">			
+				<input class="typeahead" name="techno_tags" type="text" data-role="materialtags" placeholder="Saisissez vos plugins ici">			
 			</div>
 			</form>
 			<input type="button" class="submit btn_save_acces" value="Enregistrer">
