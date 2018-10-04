@@ -346,7 +346,6 @@
      // Start jQuery function after page is loaded
         $(document).ready(function(){
 		
-	  
 		var $popInput = $('#technoModal input[type="text"]');	
 		$popInput.hide();
 		$("#technoModal .select_techno_result").hide();	
@@ -415,6 +414,7 @@
 		});
 
 		  $('.btn_update_techno').click(function(e){ 
+			$("#technoModal").addClass("in-modification");
 			$("#view_bopass").hide();$("#view_ftppass").hide();$("#bopass_res").hide();$("#pass_res").hide();
 			var nddId = $("#ndd_id").text();	
 			$('.div_update_techno').hide();	
@@ -542,6 +542,7 @@
 						this.checked = false; 
 				});
 			$('#technoModal input:checkbox').removeAttr('checked');
+			$("#technoModal").removeClass("in-modification");
 		});		
 
 		$('#ipModal').modal({

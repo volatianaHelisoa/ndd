@@ -173,6 +173,7 @@ input.eye_toggle { -webkit-appearance: none; width: 18px !important; height: 10p
 input.eye_toggle:checked { background-position: bottom center; }
 input.eye_toggle:focus { border: none; outline: none;}
 .info-disabled { background: white;}
+.in-modification .info-disabled { display: none!important;}
 
 .select_techno_result > .materialize-tags { text-align: left; padding: 10px 0; border-bottom: 2px solid #afafaf; }
 .select_techno_result > .typeahead { display:none !important;}
@@ -181,9 +182,11 @@ input.eye_toggle:focus { border: none; outline: none;}
 .materialize-tags .twitter-typeahead { vertical-align: middle; }
 .materialize-tags .twitter-typeahead input{	border: none; padding: 5px 0; min-height: inherit; }
 .select_techno_result input { text-align: left !important; }
-.materialize-tags .tt-menu { width: 240px; background: white; margin-top: 15px; text-align: left; padding: 15px; box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 20px; }
+.materialize-tags .tt-menu { width: auto; background: white; margin-top: 15px; text-align: left; padding: 15px; box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 20px; }
 .twitter-typeahead .input { padding: 5px 0;}
 .twitter-typeahead input.tt-hint {color: #bdbdbd;}
+.twitter-typeahead .tt-suggestion { margin-bottom: 5px;}
+.twitter-typeahead .tt-suggestion:last-of-type { margin-bottom: 0;}
 
 .plug-list { padding: 0; border: none; min-height: inherit; }
 /*.plug-list li { padding: 4px }*/
