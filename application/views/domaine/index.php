@@ -235,8 +235,7 @@
 				</ul> 
 			</div>
 			<div class="content-chips select_techno_result">			
-				<select  name="select_ml_techno[]" id="select_techno_type"  data-live-search="true" multiple class="select_techno" >							
-				</select>				
+				<input class="typeahead" name="techno_tags" type="text" data-role="materialtags" >					
 			</div>
 			</form>
 			<input type="button" class="submit btn_save_acces" value="Enregistrer">
@@ -429,32 +428,32 @@
 				dataType: "json",
 				type: "GET",                  
 				success: function(data){   
-
 					$("#technoModal .select_techno_result").removeAttr("style");
 					var $popInput = $('#technoModal input[type="text"]');	
 					$popInput.show();
-				
+									
 					$(".btn_save_acces").show();						
 					var $popSpan = $('#technoModal span');	
 					$popSpan.hide();
 					$("#cms_res").show();	
 					$(".div_cms").show();	
 
-					var select = $("#technoModal .select_techno_result #select_techno_type");	
-					select.empty();
-					
-					$.each(data, function (index, itemData) {					
-						select
-							.append($('<option>', { value : itemData.id })
-							.text(itemData.value));
-					});	
-
-					$('#technoModal .select_techno_result select').multiselect({
-						includeSelectAllOption : true,             
-						nonSelectedText: 'Aucune selection',     
-						selectAllText: 'Tout selectionner',          
-						allSelectedText: 'Tous'
+					var technos = new Bloodhound({
+						datumTokenizer: Bloodhound.tokenizers.obj.whitespace('label'),
+						queryTokenizer: Bloodhound.tokenizers.whitespace,                   
+						local:data
 					});
+					technos.initialize();
+					var elt = $('input.n-tag');
+					elt.materialtags({
+						itemValue: 'id',
+						itemText: 'label',
+						typeaheadjs: {
+							name: 'technos',
+							displayKey: 'label',
+							source: technos.ttAdapter()
+						}
+					});	
 			
 				}
 			});
@@ -498,11 +497,13 @@
 		});  
 
 		function get_techno_selected(){
-			var arr = [];
-			$('#select_techno_type option:selected').each(function() {			
-				arr.push($(this).val());
-			});
-			return arr;
+			var tags = [];			
+            $('.materialize-tags').find('span.chip').each(function() {               
+				var value = $(this).text();	
+				var res = value.replace("close", "");			
+				tags.push(res); 				           
+			});			
+			return tags;
 		}
 
 		$('.close_techno').click(function(e){   

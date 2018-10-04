@@ -18,6 +18,14 @@ class Techno_model extends CI_Model
     {
         return $this->db->get_where('t_techno',array('id'=>$id))->row_array();
     }
+
+    /*
+     * Get t_techno by name
+     */
+    function get_t_techno_by_name($name)
+    {
+        return $this->db->get_where('t_techno',array('name'=>$name))->row_array();
+    }
         
     /*
      * Get all t_techno

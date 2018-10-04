@@ -102,65 +102,54 @@
                         </div>
                         <div class="sub-title">Plugin</div>
                         <div class="content-chips">
-						<select name="select_ml_techno[]"  data-live-search="true" multiple class="select_techno" >
-							
-							<?php 
-							foreach($all_t_techno as $t_techno)
-							{
-								$selected = $t_techno['id'] != null  ? ' selected="selected"' : "";
-
-								echo '<option value="'.$t_techno['id'].'" '.$selected.'>'.$t_techno['name'].'</option>';
-							} 
-							?>
-						</select>
+							<input class="typeahead" name="techno_tags" type="text" data-role="materialtags" >						
 						</div>
 						
 						<input type="button" class="btn submit btn-previous prevnext" value="Precedent">
 						<input type="submit" class="btn submit btn-save" value="Ajouter">
                 </div>
-		
-			
 						
-			<div class="modal fade" id="nddModalCenter">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <div class="modal-body">
-                        <div class="confirmation-wrap">
-                            <div class="title-ended">Terminé</div>
-                            <p>Nom de domaine ajouter avec succès</p>
-							<a href="#" class="submit">OK</a>
-							<a href="#" class="submit">Créer</a>
-                       </div>
-                      </div>
-                    </div>
-                  </div>
-            </div>
+			
   
 
 <?php echo form_close(); ?>
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+ 
  <script type="text/javascript">
         $(document).ready(function(){ 
-
-		$('.select_techno').multiselect({
-				includeSelectAllOption : true,             
-                nonSelectedText: 'Aucune selection',         
-				selectAllText: 'Tout selectionner',      
-				allSelectedText: 'Tous'
-				
+		
+		$.ajax({
+			url: "<?=site_url('domaine/get_techno_list')?>",				
+			dataType: "json",
+			type: "GET",                  
+			success: function(data){   
+			console.log(data);                
+			var technos = new Bloodhound({
+				datumTokenizer: Bloodhound.tokenizers.obj.whitespace('label'),
+				queryTokenizer: Bloodhound.tokenizers.whitespace,                   
+				local:data
+			});
+			technos.initialize();
+			var elt = $('input.n-tag');
+			elt.materialtags({
+				itemValue: 'id',
+				itemText: 'label',
+				typeaheadjs: {
+					name: 'technos',
+					displayKey: 'label',
+					source: technos.ttAdapter()
+				}
+			});					   
+					
+			}
         });
-		$('.select_techno').multiselect('deselectAll', false);
-		$('.select_techno').multiselect('refresh');
 
 		$(".preference" ).hide();	
 		$(".div-addr-ip").hide();	
 		$(".btn-next").hide();	
 		// auto complete
 		$( "#theme" ).autocomplete({
-				source: function(request, response) {
-					//console.info(request, 'request');
-					//console.info(response, 'response');
-
+				source: function(request, response) {					
 					$.ajax({
 						//q: request.term,
 						url: "<?=site_url('domaine/get_autocomplete_theme')?>",
@@ -246,5 +235,32 @@
 			$(".preference").hide();	
 		});
 
-        });
-    </script>
+
+		$('.btn-save').click(function(e){ 				
+			var tags = [];			
+            $('.materialize-tags').find('span.chip').each(function() {               
+				var value = $(this).text();	
+				var res = value.replace("close", "");			
+				tags.push(res); 				           
+			});
+			setCookie('tags',tags,1);				
+		});
+
+	function setCookie(name,value,days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+            document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    }
+
+	});
+</script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"
+integrity="sha256-uWtSXRErwH9kdJTIr1swfHFJn/d/WQ6s72gELOHXQGM=" crossorigin="anonymous"></script>
+
+<script src="<?php echo base_url(); ?>assets/plugins/typeahead/typeahead.bundle.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/materialize-tags/js/materialize-tags.min.js"></script> 
