@@ -66,15 +66,15 @@
 
 <table id="ndd-list" class="display compact custom-styled" style="width:100%">
 	<thead class="customized-thead">
-			<th>Nom de domaine</th>
-			<th>Registrar</th>
-			<th>Hébergement</th>
-			<th>IP</th>
-			<th class="thematique">Thématique</th>
-			<th>CMS</th>
-			<th>Techno</th>
-			<th>Statut</th>
-			<th>Action</th>
+		<th>Nom de domaine</th>
+		<th>Registrar</th>
+		<th>Hébergement</th>
+		<th>IP</th>
+		<th class="thematique">Thématique</th>
+		<th>CMS</th>
+		<!-- <th>Techno</th> -->
+		<th>Statut</th>
+		<th>Action</th>
 	</thead>
 	<tbody>
 	<?php foreach($t_domaine as $t){  ?> 
@@ -88,30 +88,26 @@
 					<span class="tag"><?php echo $t->theme["name"]; ?></span>	
 				<?php }?>
 			</td>
-			<td class="td_cms" data-id ="<?php echo $t->id_cms; ?>" data-type="<?php echo $t->cms; ?>" >			
-		
-				<button class="cust-btn dark-btn small-btn techno "  data-backdrop="static" data-keyboard="false" data-ndd="<?php echo $t->id; ?>"  data-type="<?php echo $t->cms; ?>">	
-				<?php if($t->cms != "" ){				
-					echo  $t->cms;  }
-				else{
-					echo "AJOUTER";
-				}   
-				?>
-			</button>
-		
-				
-			
+			<td class="td_cms" data-id ="<?php echo $t->id_cms; ?>" data-type="<?php echo $t->cms; ?>" >
+				<div class="techno"  data-backdrop="static" data-keyboard="false" data-ndd="<?php echo $t->id; ?>"  data-type="<?php echo $t->cms; ?>">
+					<?php if($t->cms != "" ){				
+						echo  $t->cms;  }
+					else{
+						echo "AJOUTER";
+					}   
+					?>
+				</div>
 			</td>
-			<td class="thematique">		
-			<?php if($t->techno != null ) { ?>	
+			<!-- <td class="thematique">		
+			<?php /*if($t->techno != null ) { ?>	
 				
 					<?php	foreach($t->techno as $tech){	?>
 						<span class="tag"><?php echo  $tech["techno"]; ?> </span>
 					<?php	} ?>		
 				
-				<?php } else echo "NAN";?>
+				<?php } else echo "NAN";*/?>
 			
-			</td>
+			</td> -->
 			<td class="statut">				
 				<a href=""  title="Status domaine"  class="btn btn-danger" data-toggle="modal" data-target="#statusModal<?php echo $t->id; ?>">Voir</a>
 			</td>
@@ -317,8 +313,7 @@
 				<div class="field other-field div_ip">
 						<label for="">Adresse IP :</label>
 						<span id="ip_res" data-id="" ></span>
-						<select id="dp_ip" name="addr-ip" class="div-addr-ip" >									
-							
+						<select id="dp_ip" name="addr-ip" class="div-addr-ip" >
 						</select>
 				</div>	
 				<input type="button" class="submit btn_save_ip" value="Enregistrer">

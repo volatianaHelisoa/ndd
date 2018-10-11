@@ -31,20 +31,26 @@ select:focus option,
 .close { width:28px; height:28px; display:block; position:absolute; top:-14px; right:-13px; background:url(../images/icone-close.svg) center no-repeat !important; overflow:hidden; border-radius:50%; z-index:99; cursor:pointer; opacity:1}
 .img-thumb { display:block; margin:-30px auto 66px; line-height:0; width:80px; height:80px;}
 .img-thumb img { border-radius:50%; width:100%; height:auto}
-.ttl-infos { position:relative; padding:10px 47px; border-top:1px solid #f0f0f0; border-bottom:1px solid #f0f0f0; margin:0 -25px 20px}
+.ttl-infos { position:relative; padding:10px 25px; border-top:1px solid #f0f0f0; border-bottom:1px solid #f0f0f0; margin:0 -25px 20px}
 .ttl-infos  span{ font:normal 22px/21px Rl; color:#f15e53; text-transform:uppercase; float:left; display:inline-block; vertical-align:top; padding:9px 0}
 .modif { display:block; float:right; border:none; color:#f15e53; border:1px solid #f15e53; cursor:pointer; text-transform:uppercase; padding:6px 10px 6px 37px; border-radius:5px; background:url(../images/icon-save.svg) 10px center no-repeat; width:auto !important}
 .half { width:50%; float:left; padding:0 50px 20px} 
 .full { width:100%; clear:both; padding:0 50px 20px} 
 
 .left-dash{ width:468px; float:left}
-[class^="dash-item"] { background-color:#fff; min-height:210px; width:100%; max-width:468px; border-radius:10px; margin-bottom:10px;-webkit-box-shadow: 0px 15px 15px 0px rgba(50, 50, 50, 0.04);-moz-box-shadow:0px 15px 15px 0px rgba(50, 50, 50, 0.04);box-shadow:0px 15px 15px 0px rgba(50, 50, 50, 0.04); padding-left:198px; overflow:hidden}
-[class^="dash-item"] .content { width:100%; height:210px; display:table;}
+[class^="dash-item"] { background-color:#fff; width:100%; max-width:468px; border-radius:10px; margin-bottom:10px;-webkit-box-shadow: 0px 15px 15px 0px rgba(50, 50, 50, 0.04);-moz-box-shadow:0px 15px 15px 0px rgba(50, 50, 50, 0.04);box-shadow:0px 15px 15px 0px rgba(50, 50, 50, 0.04); padding-left:198px; overflow:hidden}
+[class^="dash-item"] .content { width:100%; min-height: 150px;; display:table;}
 [class^="dash-item"] .content a {color:white}
 [class^="dash-item"] .content>div { display:table-cell; vertical-align:middle; text-align:center; width:100%; color:#fff; font:normal 20px/24px Rr; text-transform:uppercase}
-[class^="dash-item"] .content>div span { display:block; font:normal 25px/38px RB; padding-bottom:20px;}
-.display-nbr { display:inline-block; vertical-align:top; border:1px solid #fff; font:normal 36px/36px RR; padding:4px 10px; min-width:120px;}
-
+[class^="dash-item"] .content>div span { display:block; font:normal 20px/20px RB; padding-bottom:20px;}
+.display-nbr {
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid #fff;
+    font: normal 20px/30px RR;
+    padding: 4px 10px;
+    min-width: 120px;
+}
 .dash-item1 { background:url(../images/ndd-icone.svg) 32px center no-repeat #fff}
 .dash-item1 .content {background: rgb(102,92,255);background: -moz-linear-gradient(90deg, #665cff 0%, #967bf2 100%);background: -webkit-linear-gradient(90deg, #665cff 0%, #967bf2 100%);background: linear-gradient(90deg, #665cff 0%, #967bf2 100%);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#665cff",endColorstr="#967bf2",GradientType=1);}
 .dash-item2 { background:url(../images/registrar-icone.svg) 46px center no-repeat #fff}
@@ -64,7 +70,6 @@ select:focus option,
 /* TABLE STYLE */
 .filter { box-shadow: 0px 5px 20px rgba(0, 0, 0, .1); -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, .1); -ms-box-shadow: 0px 5px 20px rgba(0, 0, 0, .1); -moz-box-shadow: 0px 5px 20px rgba(0, 0, 0, .1); background: white; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
 .filter input.searchInTable { padding: 0 0 0 50px; flex: 1; max-width: 230px; background: url(../images/search_icon.png) no-repeat 15px center; border:1px solid #eaeaea; min-height:45px;}
-.filter input.searchInTable::placeholder {}
 .filter label { font-size: 12px; padding: 0; width: inherit; }
 .filter input,
 .filter select { border-radius: 40px; }
@@ -91,7 +96,6 @@ table.custom-styled_wrapper .toolbar {float: left; }
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {background-color: #d4d4d4 !important;}
 
 /* new */
-
 .field input[type="text"] { width:100%}
 .field1 { margin-bottom:12px;position: relative;}
 .field2 label,
@@ -118,9 +122,7 @@ table.custom-styled_wrapper .toolbar {float: left; }
 
 span.info-bill { background: #f5f5f5; display: block; padding: 15px 10px;}
 
-
 /* Multiselect dropdown design */
-
 .dropdown-area { margin-top: 10px; }
 .multiselect { background: #eaeaea; }
 ul.multiselect-container {min-width: 370px; text-align: left; }
@@ -190,3 +192,4 @@ input.eye_toggle:focus { border: none; outline: none;}
 
 .plug-list { padding: 0; border: none; min-height: inherit; }
 /*.plug-list li { padding: 4px }*/
+.techno:hover { cursor: pointer;}

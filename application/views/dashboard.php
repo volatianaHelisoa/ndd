@@ -43,9 +43,8 @@
                 </div>
             </div>
         </div>
-        <div class="right-dash">
+        <!--<div class="right-dash">
             <div class="bloc-graph">
-                <!-- content graph -->
             </div>
             <div class="dash-item5">
                 <div class="content">
@@ -57,5 +56,5 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
