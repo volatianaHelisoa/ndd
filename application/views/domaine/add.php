@@ -62,7 +62,7 @@
                    
                     	<div class="field">
                         	<label for="">CMS / HTML</label>
-                        	<select name="id_cms" >
+                        	<select name="id_cms" id="cms_select">
 								<option value="">Selectionner cms</option>
 								<?php 
 								foreach($all_t_cms as $t_cms)
@@ -86,25 +86,27 @@
                         <div class="field">
                         	<label for="">Mot de passe :</label>
                         	<input type="text" name="ftp_password" value="<?php echo $this->input->post('ftp_password'); ?>" id="ftp_password" />
-                        </div>
-                        <div class="sub-title">Administration</div>
-                        <div class="field">
-                        	<label for="">URL :</label>
-							<input type="text" name="admin_url" value="<?php echo $this->input->post('admin_url'); ?>" id="admin_url" />
-                        </div>
-                        <div class="field">
-                        	<label for="">Login :</label>
-							<input type="text" name="admin_login" value="<?php echo $this->input->post('admin_login'); ?>" id="admin_login" />
-                        </div>
-                        <div class="field">
-                        	<label for="">Mot de passe :</label>
-							<input type="text" name="admin_password" value="<?php echo $this->input->post('admin_password'); ?>"  id="admin_password" />
-                        </div>
-                        <div class="sub-title">Plugin</div>
-                        <div class="content-chips">
-							<input class="typeahead" name="techno_tags" type="text" data-role="materialtags" >						
 						</div>
+						<div id="bo-acces">
+							<div class="sub-title">Administration</div>
+							<div class="field">
+								<label for="">URL :</label>
+								<input type="text" name="admin_url" value="<?php echo $this->input->post('admin_url'); ?>" id="admin_url" />
+							</div>
+							<div class="field">
+								<label for="">Login :</label>
+								<input type="text" name="admin_login" value="<?php echo $this->input->post('admin_login'); ?>" id="admin_login" />
+							</div>
+							<div class="field">
+								<label for="">Mot de passe :</label>
+								<input type="text" name="admin_password" value="<?php echo $this->input->post('admin_password'); ?>"  id="admin_password" />
+							</div>
 						
+							<div class="sub-title">Plugin</div>
+							<div class="content-chips">
+								<input class="typeahead" name="techno_tags" type="text" data-role="materialtags" >						
+							</div>
+						</div>
 						<input type="button" class="btn submit btn-previous prevnext" value="Precedent">
 						<input type="submit" class="btn submit btn-save" value="Ajouter">
                 </div>
@@ -117,7 +119,16 @@
  
  <script type="text/javascript">
         $(document).ready(function(){ 
-		
+			$("#cms_select").change(function(){
+				var value = $(this).find("option:selected").val();
+				switch (value){
+					case "6":
+						$("#bo-acces").hide()
+					break;
+					default:
+						$("#bo-acces").show()
+				}
+			});
 		$.ajax({
 			url: "<?=site_url('domaine/get_techno_list')?>",				
 			dataType: "json",

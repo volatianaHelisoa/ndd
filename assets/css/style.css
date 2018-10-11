@@ -39,10 +39,10 @@ select:focus option,
 
 .left-dash{ width:468px; float:left}
 [class^="dash-item"] { background-color:#fff; width:100%; max-width:468px; border-radius:10px; margin-bottom:10px;-webkit-box-shadow: 0px 15px 15px 0px rgba(50, 50, 50, 0.04);-moz-box-shadow:0px 15px 15px 0px rgba(50, 50, 50, 0.04);box-shadow:0px 15px 15px 0px rgba(50, 50, 50, 0.04); padding-left:198px; overflow:hidden}
-[class^="dash-item"] .content { width:100%; min-height: 150px;; display:table;}
+[class^="dash-item"] .content { width:100%; min-height: 130px;; display:table;}
 [class^="dash-item"] .content a {color:white}
 [class^="dash-item"] .content>div { display:table-cell; vertical-align:middle; text-align:center; width:100%; color:#fff; font:normal 20px/24px Rr; text-transform:uppercase}
-[class^="dash-item"] .content>div span { display:block; font:normal 20px/20px RB; padding-bottom:20px;}
+[class^="dash-item"] .content>div span { display:block; font:normal 20px/20px RB; padding-bottom:15px;}
 .display-nbr {
     display: inline-block;
     vertical-align: top;
@@ -63,7 +63,7 @@ select:focus option,
 .dash-item5 .content {background: #fd6797;background: -moz-linear-gradient(90deg, #fd8a97 0%, #fd6797 100%);background: -webkit-linear-gradient(90deg, #fd8a97 0%, #fd6797 100%);background: linear-gradient(90deg, #fd8a97 0%, #fd6797 100%);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fd8a97",endColorstr="#fd6797",GradientType=1);}
 
 .right-dash{ width:calc(100% - 468px); float:left;width:-moz-calc(100% - 468px);width:-webkit-calc(100% - 468px);width:-ms-calc(100% - 468px); padding-left:14px;}
-.bloc-graph { background:#fff; border-radius:10px; margin-bottom:10px;-webkit-box-shadow: 0px 15px 15px 0px rgba(50, 50, 50, 0.04);-moz-box-shadow:0px 15px 15px 0px rgba(50, 50, 50, 0.04);box-shadow:0px 15px 15px 0px rgba(50, 50, 50, 0.04); width:100%; min-height:651px}
+.bloc-graph { background:#fff; border-radius:10px; margin-bottom:10px;-webkit-box-shadow: 0px 15px 15px 0px rgba(50, 50, 50, 0.04);-moz-box-shadow:0px 15px 15px 0px rgba(50, 50, 50, 0.04);box-shadow:0px 15px 15px 0px rgba(50, 50, 50, 0.04); width:100%; min-height:547px}
 
 .title-field span { text-transform:initial; color:#fff}
 
