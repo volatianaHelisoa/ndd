@@ -84,4 +84,5 @@ $.fn.dataTable.ext.search.push(
 
         return is_valid;
     }
-);    
+);
+ 

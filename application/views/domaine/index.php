@@ -390,7 +390,10 @@
 				$("#ndd_id").text(nddId);	
 				$("#cms_res").text(current_cms);	
 				$("#select_cms").val(current_cms_id);	
-
+											
+				if (str.toLowerCase().indexOf("html") >= 0) {
+					$("#bo-acces").hide()
+				}
 				$.ajax({
 					url: "<?=site_url('domaine/get_techno_by_domaine')?>",
 					data: { id: nddId},
@@ -422,10 +425,6 @@
 							$.each(data, function (index, ndd) {
 								techno_result.append("<li>" +ndd.techno+ "<span>x</span></li>");   
 							})
-						}					
-						
-						if (str.toLowerCase().indexOf("html") >= 0) {
-							$("#bo-acces").hide()
 						}
 						$('#technoModal').modal('show');
 					}
