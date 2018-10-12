@@ -775,19 +775,40 @@ class Domaine extends CI_Controller{
         echo json_encode( $technos);
         die;        
     }
-       
-    function get_techno_by_domaine(){
+
+    function get_by_domaine(){
    
         if (isset($_GET['id'])) {
 
+            $t_domaine = $this->Domaine_model->get_t_domaine($_GET['id']);
+            $domaine_techno = "";
+            if(isset($t_domaine['id_cms']))
+            {
+                $this->load->model('Cms_model');
+                $t_cms = $this->Cms_model->get_t_cms($t_domaine['id_cms']);
+                $type = $t_cms['type'];
+                if (isset($type) && strpos(strtolower($type), 'html') !== false){
+                    echo json_encode( $t_domaine);                    
+                }
+                
+                die;
+            }
+            echo json_encode( $domaine_techno);
+           die;
+        }
+    }
+
+       
+    function get_techno_by_domaine(){
+   
+        if (isset($_GET['id'])) {          
+                
             /* plugins */               
             $this->load->model('Domaine_techno_model');
             $domaine_techno = $this->Domaine_techno_model->get_t_domaine_cms_by_domaine($_GET['id']);  
-            $technos = array();
-           
+            $technos = array();                   
             echo json_encode( $domaine_techno);
-            die;
-           
+           die;
         }
     }
 

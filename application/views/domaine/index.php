@@ -208,7 +208,7 @@
 				<input type="checkbox" onclick='toggleView("pass_res")' class="eye_toggle" id="view_ftppass">
 				<input type="text" id="txt_pass_res">
 			</div>
-			<?php //if (strpos($t->cms, 'html') !== false){?>					
+						
 				<div id="bo-acces" class="">
 					<div class="sub-title">Administration</div>
 					<div class="field1">
@@ -236,6 +236,7 @@
 						<input class="typeahead" name="techno_tags" type="text" data-role="materialtags" placeholder="Saisissez vos plugins ici">			
 					</div>
 				</div>
+			
 				
 			</form>
 			<input type="button" class="submit btn_save_acces" value="Enregistrer">
@@ -345,14 +346,12 @@
         $(document).ready(function(){
 		
 			$("#select_cms").change(function(){
-				var value = $(this).find("option:selected").val();
-				switch (value){
-					case "6":
-						$("#bo-acces").hide()
-					break;
-					default:
-						$("#bo-acces").show()
-				}
+				var value = $(this).find("option:selected").text();
+				if (value.toLowerCase().indexOf("html") >= 0) 
+					$("#bo-acces").hide();
+				else
+					$("#bo-acces").show();
+				
 			});
 			
 			
@@ -389,44 +388,71 @@
 				$("#select_cms").val(current_cms_id);	
 											
 				if (str.toLowerCase().indexOf("html") >= 0) {
-					$("#bo-acces").hide()
-				}
-				$.ajax({
-					url: "<?=site_url('domaine/get_techno_by_domaine')?>",
-					data: { id: nddId},
-					dataType: "json",
-					type: "GET",                  
-					success: function(data){   				
-						
-						if(!jQuery.isEmptyObject(data)){
-						
-
-							$("#serveur_res").text(data[0].ftp_server);	
-							$("#login_res").text(data[0].ftp_login);	
-							$("#pass_res").val(data[0].ftp_password);	
-
-							$("#url_res").text(data[0].admin_url);	
-							$("#bologin_res").text(data[0].admin_login);			
-							$("#bopass_res").val(data[0].admin_password);	
+					$("#bo-acces").hide();
+					
+					$.ajax({
+						url: "<?=site_url('domaine/get_by_domaine')?>",
+						data: { id: nddId},
+						dataType: "json",
+						type: "GET",                  
+						success: function(data){   				
 							
-							$("#txt_serveur_res").val(data[0].ftp_server);	
-							$("#txt_login_res").val(data[0].ftp_login);	
-							$("#txt_pass_res").val(data[0].ftp_password);	
-
-							$("#txt_url_res").val(data[0].admin_url);	
-							$("#txt_bologin_res").val(data[0].admin_login);			
-							$("#txt_bopass_res").val(data[0].admin_password);		
-
-							var techno_result = $("#techno_result");  
-							techno_result.empty();       
-							$.each(data, function (index, ndd) {
-								techno_result.append("<li>" +ndd.techno+ "<span>x</span></li>");   
-							})
+							if(!jQuery.isEmptyObject(data)){
+							
+								console.log(data);
+								$("#serveur_res").text(data.ftp_server);	
+								$("#login_res").text(data.ftp_login);	
+								$("#pass_res").val(data.ftp_password);								
+								
+								$("#txt_serveur_res").val(data.ftp_server);	
+								$("#txt_login_res").val(data.ftp_login);	
+								$("#txt_pass_res").val(data.ftp_password);	
+								
+							}
+							$('#technoModal').modal('show');
 						}
-						$('#technoModal').modal('show');
-					}
-				}); 
-       
+					}); 
+				
+				}
+				else{
+					
+					$.ajax({
+						url: "<?=site_url('domaine/get_techno_by_domaine')?>",
+						data: { id: nddId},
+						dataType: "json",
+						type: "GET",                  
+						success: function(data){   				
+							console.log(data);
+							if(!jQuery.isEmptyObject(data)){						
+
+								$("#serveur_res").text(data[0].ftp_server);	
+								$("#login_res").text(data[0].ftp_login);	
+								$("#pass_res").val(data[0].ftp_password);	
+
+								$("#url_res").text(data[0].admin_url);	
+								$("#bologin_res").text(data[0].admin_login);			
+								$("#bopass_res").val(data[0].admin_password);	
+								
+								$("#txt_serveur_res").val(data[0].ftp_server);	
+								$("#txt_login_res").val(data[0].ftp_login);	
+								$("#txt_pass_res").val(data[0].ftp_password);	
+
+								$("#txt_url_res").val(data[0].admin_url);	
+								$("#txt_bologin_res").val(data[0].admin_login);			
+								$("#txt_bopass_res").val(data[0].admin_password);		
+
+								var techno_result = $("#techno_result");  
+								techno_result.empty();       
+								$.each(data, function (index, ndd) {
+									techno_result.append("<li>" +ndd.techno+ "<span>x</span></li>");   
+								})
+							}
+							$('#technoModal').modal('show');
+						}
+					});        
+
+				}
+				
 			});
 
 			$('.btn_update_techno').click(function(e){ 
@@ -439,6 +465,7 @@
 				$("#cms_res").text(current_cms);	
 				$("#select_cms").val(current_cms_id);	
 
+				console.log(nddId);
 				$.ajax({
 					url: "<?=site_url('domaine/get_techno_list')?>",				
 					dataType: "json",
@@ -487,7 +514,7 @@
 			var admin_login = $("#txt_bologin_res").val();
 			var admin_password = $("#txt_bopass_res").val();
 			var cms = $("#select_cms").val();
-						
+			console.log(nddId);
 			var techno_list = get_techno_selected();
 
 			var ndd_obj = {"ndd_id": nddId,"ftp_server":ftp_server, "ftp_login":ftp_login,"ftp_password":ftp_password,"admin_url":admin_url,"admin_login":admin_login,"admin_password":admin_password,"techno_list":techno_list,"cms":cms};      

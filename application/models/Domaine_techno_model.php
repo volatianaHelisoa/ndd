@@ -56,8 +56,9 @@ class Domaine_techno_model extends CI_Model
         $this->db->order_by('t_techno.name', 'asc');
 
         $query = $this->db->get();
-        $domaine_techno = $query->result_array();
       
+        $domaine_techno = $query->result_array();
+       
         return $domaine_techno;
     }
         
