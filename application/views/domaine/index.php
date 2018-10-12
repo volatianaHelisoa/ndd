@@ -172,7 +172,7 @@
 		<div class="title-field">Cms : <span id="cms_res"> </span></div>
 			<form action="">
 			<input type="hidden" name="ndd_id" id="ndd_id" />
-			<div class="ttl-infos clearfix div_update_techno">
+			<div class="modifier-btn clearfix div_update_techno">
 				<input type="button" class="modif btn_update_techno" value="Modifier" >
 			</div>
 			<div class="div_cms" >
