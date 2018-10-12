@@ -208,31 +208,36 @@
 				<input type="checkbox" onclick='toggleView("pass_res")' class="eye_toggle" id="view_ftppass">
 				<input type="text" id="txt_pass_res">
 			</div>
-			<div class="sub-title">Administration</div>
-			<div class="field1">
-				<label for="">URL :</label>
-				<span id="url_res"></span>
-				<input type="text" id="txt_url_res">
-			</div>
-			<div class="field1">
-				<label for="">Login :  </label>
-				<span id="bologin_res"></span>
-				<input type="text" id="txt_bologin_res">
-			</div>
-			<div class="field1">
-				<label for="">Mot de passe : </label>
-				<input type="password" id="bopass_res" disabled class="info-disabled">
-				<input type="checkbox" onclick='toggleView("bopass_res")' class="eye_toggle" id="view_bopass">
-				<input type="text" id="txt_bopass_res">
-			</div>
-			<div class="sub-title">Plugin</div>
-			<div class="content-chips plug-list">
-				<ul id="techno_result">					
-				</ul> 
-			</div>
-			<div class="select_techno_result">			
-				<input class="typeahead" name="techno_tags" type="text" data-role="materialtags" placeholder="Saisissez vos plugins ici">			
-			</div>
+			<?php //if (strpos($t->cms, 'html') !== false){?>					
+				<div id="bo-acces" class="">
+					<div class="sub-title">Administration</div>
+					<div class="field1">
+						<label for="">URL :</label>
+						<span id="url_res"></span>
+						<input type="text" id="txt_url_res">
+					</div>
+					<div class="field1">
+						<label for="">Login :  </label>
+						<span id="bologin_res"></span>
+						<input type="text" id="txt_bologin_res">
+					</div>
+					<div class="field1">
+						<label for="">Mot de passe : </label>
+						<input type="password" id="bopass_res" disabled class="info-disabled">
+						<input type="checkbox" onclick='toggleView("bopass_res")' class="eye_toggle" id="view_bopass">
+						<input type="text" id="txt_bopass_res">
+					</div>
+					<div class="sub-title">Plugin</div>
+					<div class="content-chips plug-list">
+						<ul id="techno_result">					
+						</ul> 
+					</div>
+					<div class="select_techno_result">			
+						<input class="typeahead" name="techno_tags" type="text" data-role="materialtags" placeholder="Saisissez vos plugins ici">			
+					</div>
+				</div>
+			<?php //} ?>
+				
 			</form>
 			<input type="button" class="submit btn_save_acces" value="Enregistrer">
 		
@@ -338,120 +343,140 @@
 			x.type = "password";
 		}
 	}
+	
      // Start jQuery function after page is loaded
         $(document).ready(function(){
 		
-		var $popInput = $('#technoModal input[type="text"]');	
-		$popInput.hide();
-		$("#technoModal .select_techno_result").hide();	
-		$(".btn_save_acces").hide();
-		
-		$(".div_cms").hide();	
-
-		$("#dp_heberg").hide();
-		$("#dp_registrar").hide();
-		$(".btn_save_ip").hide();
-		$(".div-addr-ip").hide();
-		$(".div_ip").hide();
-		
-		$("#dp_theme").hide();
-		$(".sel_theme").hide();
-		
-		$('#technoModal').modal({
-                backdrop: 'static',
-				keyboard: false,
-				show: false
-	   })
-	   
-		$('.techno').click(function(e){           
-			var nddId = $(this).attr('data-ndd'); 		
-			var current_cms = $(this).attr('data-type'); 
-			var current_cms_id = $("#"+nddId).children('td.td_cms').attr('data-id'); 
-			$("#ndd_id").text(nddId);	
-			$("#cms_res").text(current_cms);	
-			$("#select_cms").val(current_cms_id);	
-
-			$.ajax({
-				url: "<?=site_url('domaine/get_techno_by_domaine')?>",
-				data: { id: nddId},
-				dataType: "json",
-				type: "GET",                  
-				success: function(data){   				
-					
-					if(!jQuery.isEmptyObject(data)){
-					
-
-						$("#serveur_res").text(data[0].ftp_server);	
-						$("#login_res").text(data[0].ftp_login);	
-						$("#pass_res").val(data[0].ftp_password);	
-
-						$("#url_res").text(data[0].admin_url);	
-						$("#bologin_res").text(data[0].admin_login);			
-						$("#bopass_res").val(data[0].admin_password);	
-						
-						$("#txt_serveur_res").val(data[0].ftp_server);	
-						$("#txt_login_res").val(data[0].ftp_login);	
-						$("#txt_pass_res").val(data[0].ftp_password);	
-
-						$("#txt_url_res").val(data[0].admin_url);	
-						$("#txt_bologin_res").val(data[0].admin_login);			
-						$("#txt_bopass_res").val(data[0].admin_password);		
-
-						var techno_result = $("#techno_result");  
-						techno_result.empty();       
-						$.each(data, function (index, ndd) {
-							techno_result.append("<li>" +ndd.techno+ "<span>x</span></li>");   
-						})
-					}					
-					$('#technoModal').modal('show');
-				}
-			});        
-		});
-
-		  $('.btn_update_techno').click(function(e){ 
-			$("#technoModal").addClass("in-modification");
-			$("#view_bopass").hide();$("#view_ftppass").hide();$("#bopass_res").hide();$("#pass_res").hide();
-			var nddId = $("#ndd_id").text();	
-			$('.div_update_techno').hide();	
-			var current_cms = $("#"+nddId).children('td.td_cms').attr('data-type');  
-			var current_cms_id = $("#"+nddId).children('td.td_cms').attr('data-id'); 
-			$("#cms_res").text(current_cms);	
-			$("#select_cms").val(current_cms_id);	
-
-			$.ajax({
-				url: "<?=site_url('domaine/get_techno_list')?>",				
-				dataType: "json",
-				type: "GET",                  
-				success: function(data){   
-					$("#technoModal .select_techno_result").removeAttr("style");
-					var $popInput = $('#technoModal input[type="text"]');	
-					$popInput.show();
-									
-					$(".btn_save_acces").show();						
-					var $popSpan = $('#technoModal span');	
-					$popSpan.hide();
-					$("#cms_res").show();	
-					$(".div_cms").show();	
-
-					var technos = new Bloodhound({
-						datumTokenizer: Bloodhound.tokenizers.obj.whitespace('label'),
-						queryTokenizer: Bloodhound.tokenizers.whitespace,                   
-						local:data
-					});
-					technos.initialize();
-					var elt = $('input.n-tag');
-					elt.materialtags({
-						itemValue: 'id',
-						itemText: 'label',
-						typeaheadjs: {
-							name: 'technos',
-							displayKey: 'label',
-							source: technos.ttAdapter()
-						}
-					});	
-			
+			$("#select_cms").change(function(){
+				var value = $(this).find("option:selected").val();
+				switch (value){
+					case "6":
+						$("#bo-acces").hide()
+					break;
+					default:
+						$("#bo-acces").show()
 				}
 			});
+			
+			
+
+			var $popInput = $('#technoModal input[type="text"]');	
+			$popInput.hide();
+			$("#technoModal .select_techno_result").hide();	
+			$(".btn_save_acces").hide();
+			
+			$(".div_cms").hide();	
+
+			$("#dp_heberg").hide();
+			$("#dp_registrar").hide();
+			$(".btn_save_ip").hide();
+			$(".div-addr-ip").hide();
+			$(".div_ip").hide();
+			
+			$("#dp_theme").hide();
+			$(".sel_theme").hide();
+			
+			$('#technoModal').modal({
+					backdrop: 'static',
+					keyboard: false,
+					show: false
+			})
+	   
+			$('.techno').click(function(e){
+				var str = $(this).attr("data-type");					
+				var nddId = $(this).attr('data-ndd'); 		
+				var current_cms = $(this).attr('data-type'); 
+				var current_cms_id = $("#"+nddId).children('td.td_cms').attr('data-id'); 
+				$("#ndd_id").text(nddId);	
+				$("#cms_res").text(current_cms);	
+				$("#select_cms").val(current_cms_id);	
+
+				$.ajax({
+					url: "<?=site_url('domaine/get_techno_by_domaine')?>",
+					data: { id: nddId},
+					dataType: "json",
+					type: "GET",                  
+					success: function(data){   				
+						
+						if(!jQuery.isEmptyObject(data)){
+						
+
+							$("#serveur_res").text(data[0].ftp_server);	
+							$("#login_res").text(data[0].ftp_login);	
+							$("#pass_res").val(data[0].ftp_password);	
+
+							$("#url_res").text(data[0].admin_url);	
+							$("#bologin_res").text(data[0].admin_login);			
+							$("#bopass_res").val(data[0].admin_password);	
+							
+							$("#txt_serveur_res").val(data[0].ftp_server);	
+							$("#txt_login_res").val(data[0].ftp_login);	
+							$("#txt_pass_res").val(data[0].ftp_password);	
+
+							$("#txt_url_res").val(data[0].admin_url);	
+							$("#txt_bologin_res").val(data[0].admin_login);			
+							$("#txt_bopass_res").val(data[0].admin_password);		
+
+							var techno_result = $("#techno_result");  
+							techno_result.empty();       
+							$.each(data, function (index, ndd) {
+								techno_result.append("<li>" +ndd.techno+ "<span>x</span></li>");   
+							})
+						}					
+						
+						if (str.toLowerCase().indexOf("html") >= 0) {
+							$("#bo-acces").hide()
+						}
+						$('#technoModal').modal('show');
+					}
+				}); 
+       
+			});
+
+			$('.btn_update_techno').click(function(e){ 
+				$("#technoModal").addClass("in-modification");
+				$("#view_bopass").hide();$("#view_ftppass").hide();$("#bopass_res").hide();$("#pass_res").hide();
+				var nddId = $("#ndd_id").text();	
+				$('.div_update_techno').hide();	
+				var current_cms = $("#"+nddId).children('td.td_cms').attr('data-type');  
+				var current_cms_id = $("#"+nddId).children('td.td_cms').attr('data-id'); 
+				$("#cms_res").text(current_cms);	
+				$("#select_cms").val(current_cms_id);	
+
+				$.ajax({
+					url: "<?=site_url('domaine/get_techno_list')?>",				
+					dataType: "json",
+					type: "GET",                  
+					success: function(data){   
+						$("#technoModal .select_techno_result").removeAttr("style");
+						var $popInput = $('#technoModal input[type="text"]');	
+						$popInput.show();
+										
+						$(".btn_save_acces").show();						
+						var $popSpan = $('#technoModal span');	
+						$popSpan.hide();
+						$("#cms_res").show();	
+						$(".div_cms").show();	
+
+						var technos = new Bloodhound({
+							datumTokenizer: Bloodhound.tokenizers.obj.whitespace('label'),
+							queryTokenizer: Bloodhound.tokenizers.whitespace,                   
+							local:data
+						});
+						technos.initialize();
+						var elt = $('input.n-tag');
+						elt.materialtags({
+							itemValue: 'id',
+							itemText: 'label',
+							typeaheadjs: {
+								name: 'technos',
+								displayKey: 'label',
+								source: technos.ttAdapter()
+							}
+						});	
+				
+					}
+				});
 
 			
 		});
@@ -538,6 +563,7 @@
 				});
 			$('#technoModal input:checkbox').removeAttr('checked');
 			$("#technoModal").removeClass("in-modification");
+			$("#bo-acces").show();
 		});		
 
 		$('#ipModal').modal({
