@@ -112,7 +112,7 @@
 				<a href=""  title="Status domaine"  class="btn btn-danger" data-toggle="modal" data-target="#statusModal<?php echo $t->id; ?>">Voir</a>
 			</td>
 			<td class="actions">				
-				<a href=""  title="Supprimer domaine"  class="btn btn-danger" data-toggle="modal" data-target="#myModal<?php echo $t->id; ?>">Supprimer</a>
+				<a href=""  title="Supprimer domaine"  class="btn btn-danger act-delete-btn" data-toggle="modal" data-target="#myModal<?php echo $t->id; ?>"></a>
 			</td>
 		</tr>
 		<div class="modal fade" id="myModal<?php echo $t->id; ?>" role="dialog">
@@ -236,7 +236,6 @@
 						<input class="typeahead" name="techno_tags" type="text" data-role="materialtags" placeholder="Saisissez vos plugins ici">			
 					</div>
 				</div>
-			<?php //} ?>
 				
 			</form>
 			<input type="button" class="submit btn_save_acces" value="Enregistrer">
@@ -270,11 +269,9 @@
 					<div class="content-chips">
 						<ul  id="theme_res">						
 						</ul>									
-					</div>			
-					
+					</div>
 				</div>
-				<div class="field other-field sel_theme">
-					
+				<div class="field other-field sel_theme">					
 						<select name="registrar" id="dp_theme"  >
 						<option value="">Selectionner theme</option>
 						<?php 
@@ -305,21 +302,21 @@
 					<label for="">Hébergement : </label>					
 					<span id="heberg_res" data-id="" ></span>
 					<select name="hebergement"  id="dp_heberg" >
-							<option value="">Selectionner hebergement</option>
-							<?php 
-							foreach($all_t_hebergement as $t_hebergement)
-							{
-								$selected = "";
-								echo '<option value="'.$t_hebergement['id'].'" '.$selected.'>'.$t_hebergement['name'].'</option>';
-							} 
-							?>
+						<option value="">Selectionner hebergement</option>
+						<?php 
+						foreach($all_t_hebergement as $t_hebergement)
+						{
+							$selected = "";
+							echo '<option value="'.$t_hebergement['id'].'" '.$selected.'>'.$t_hebergement['name'].'</option>';
+						} 
+						?>
 					</select>
 				</div>	
 				<div class="field other-field div_ip">
-						<label for="">Adresse IP :</label>
-						<span id="ip_res" data-id="" ></span>
-						<select id="dp_ip" name="addr-ip" class="div-addr-ip" >
-						</select>
+					<label for="">Adresse IP :</label>
+					<span id="ip_res" data-id="" ></span>
+					<select id="dp_ip" name="addr-ip" class="div-addr-ip" >
+					</select>
 				</div>	
 				<input type="button" class="submit btn_save_ip" value="Enregistrer">
 			</form>

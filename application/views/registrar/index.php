@@ -19,8 +19,8 @@
 		<td><?php echo $t['name']; ?></td>
 		<td><button class="cust-btn dark-btn small-btn acces-registrar"  data-registrar="<?php echo $t['id']; ?>">VOIR</button></td>
 		<td>
-            <a href="<?php echo site_url('registrar/edit/'.$t['id']); ?>" class="btn btn-info btn-xs">Editer</a> 
-			<a href=""  title="Supprimer registrar"  class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal<?php echo $t['id'] ?>">Supprimer</a>
+            <a href="<?php echo site_url('registrar/edit/'.$t['id']); ?>" class="btn btn-info btn-xs act-edit-btn"></a> 
+			<a href=""  title="Supprimer registrar"  class="btn btn-danger btn-xs act-delete-btn" data-toggle="modal" data-target="#myModal<?php echo $t['id'] ?>"></a>
 
         </td>
     </tr>

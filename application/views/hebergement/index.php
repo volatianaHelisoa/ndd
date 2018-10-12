@@ -24,8 +24,8 @@
 		<td><?php echo $t->nb_ip; ?></td>
 		<td><?php echo $t->nb_site; ?></td>
 		<td>
-            <a href="<?php echo site_url('hebergement/edit/'.$t->id); ?>" class="btn btn-info btn-xs">Editer</a> 
-			<a href=""  title="Supprimer hebergement"  class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal<?php echo $t->id; ?>">Supprimer</a>
+            <a href="<?php echo site_url('hebergement/edit/'.$t->id); ?>" class="btn btn-info btn-xs act-edit-btn"></a> 
+			<a href=""  title="Supprimer hebergement act-delete-btn"  class="btn btn-danger btn-xs act-delete-btn" data-toggle="modal" data-target="#myModal<?php echo $t->id; ?>"></a>
         </td>
     </tr>
 	<div class="modal fade" id="myModal<?php echo $t->id; ?>" role="dialog">

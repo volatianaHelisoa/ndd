@@ -33,8 +33,8 @@
 		<td><?php echo $t->email; ?></td>	
 		<td><?php echo $t->role ?></td>	
 		<td>
-            <a href="<?php echo site_url('user/edit/'.$t->id); ?>" class="btn btn-info btn-xs">Editer</a> 
-            <a href=""  title="Supprimer user"  class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal<?php echo $t->id; ?>">Supprimer</a>
+            <a href="<?php echo site_url('user/edit/'.$t->id); ?>" class="btn btn-info btn-xs act-edit-btn"></a> 
+            <a href=""  title="Supprimer user"  class="btn btn-danger btn-xs act-delete-btn" data-toggle="modal" data-target="#myModal<?php echo $t->id; ?>"></a>
 
         </td>
     </tr>
