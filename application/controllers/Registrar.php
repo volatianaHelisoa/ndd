@@ -18,7 +18,23 @@ class Registrar extends CI_Controller{
     {
         $data['t_registrar'] = $this->Registrar_model->get_all_t_registrar();
         $data['nb_registrar'] = ($data['t_registrar'] != null && count($data['t_registrar']) >0 ) ? count($data['t_registrar']) : 0;
-     
+        $res = array();
+        foreach($data['t_registrar'] as $row) {
+			$element = new stdClass();
+            $element->id = $row['id'];
+            $element->name =  $row['name'];
+            $element->url =  $row['url'];
+            $element->login =  $row['login'];
+            $element->password =  $row['password'];   
+           
+            $this->load->model('Domaine_model');
+            $domaine_data = $this->Domaine_model->get_by_id_registrar($row['id']);
+            $element->nb_site = ($domaine_data != null && count($domaine_data) >0 ) ? count($domaine_data) : 0;
+		
+            $res[] = $element;	
+        }
+       
+        $data['t_registrar'] = $res;  
         $data['_view'] = 'registrar/index';
         $this->load->view('layouts/main',$data);
     }
@@ -40,6 +56,7 @@ class Registrar extends CI_Controller{
             {
                 $t_registrar_id = $this->Registrar_model->add_t_registrar($params);
                 redirect('registrar');
+            }
             else
             {    
                 $data['error_nom'] = "Ce registrar existe déjà !";             
@@ -72,17 +89,17 @@ class Registrar extends CI_Controller{
 					'url' => $this->input->post('url'),
 					'login' => $this->input->post('login'),
                 );
-                if($this->Registrar_model->get_t_registrar_by_name($this->input->post('name')) == 0)  
-                {
+                // if($this->Registrar_model->get_t_registrar_by_name($this->input->post('name')) == 0)  
+                // {
                     $this->Registrar_model->update_t_registrar($id,$params);            
                     redirect('registrar');
-                }
-                else
-                {    
-                    $data['error_nom'] = "Ce registrar existe déjà !";    
-                    $data['_view'] = 'registrar/edit';
-                    $this->load->view('layouts/main',$data);
-                }       
+                // }
+                // else
+                // {    
+                //     $data['error_nom'] = "Ce registrar existe déjà !";    
+                //     $data['_view'] = 'registrar/edit';
+                //     $this->load->view('layouts/main',$data);
+                // }       
             }
             else
             {

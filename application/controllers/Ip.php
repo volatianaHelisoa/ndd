@@ -56,7 +56,7 @@ class Ip extends CI_Controller{
                 'adresse' => $this->input->post('adresse'),
                 'reverseip' => $this->input->post('reverseip'),
             );
-            if($this->Ip_model->get_t_ip_by_ip_hebergement($this->input->post('id_heberg'),$this->input->post('adresse')) == 0)                    
+            if($this->Ip_model->get_t_ip_by_ip_hebergement($this->input->post('id_heberg'),$this->input->post('adresse')) == null)                  
                {
                     if($this->Ip_model->get_t_ip_by_adresse($this->input->post('adresse')) == 0)  
                     {
@@ -111,23 +111,25 @@ class Ip extends CI_Controller{
                     'adresse' => $this->input->post('adresse'),
                     'reverseip' => $this->input->post('reverseip'),
                 );
-                if($this->Ip_model->get_t_ip_by_ip_hebergement($this->input->post('id_heberg'),$this->input->post('adresse')) == 0)                    
+              
+                if($this->Ip_model->get_t_ip_by_ip_hebergement($this->input->post('id_heberg'),$this->input->post('adresse')) == null)                       
                {
-                    if($this->Ip_model->get_t_ip_by_adresse($this->input->post('adresse')) == 0)  
-                    {
+                   
+                    // if($this->Ip_model->get_t_ip_by_adresse($this->input->post('adresse')) == 0)  
+                    // {
                         $this->Ip_model->update_t_ip($id,$params);            
                         redirect('ip');
-                    }
-                    else
-                    {
+                    // }
+                    // else
+                    // {
                       
-                        $data['error_nom'] = "Cet IP existe déjà !";    
-                        $this->load->model('Hebergement_model');
-                        $data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
+                    //     $data['error_nom'] = "Cet IP existe déjà !";    
+                    //     $this->load->model('Hebergement_model');
+                    //     $data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
 
-                        $data['_view'] = 'ip/edit';
-                        $this->load->view('layouts/main',$data);
-                    }
+                    //     $data['_view'] = 'ip/edit';
+                    //     $this->load->view('layouts/main',$data);
+                    // }
                 }
                 else
                 {

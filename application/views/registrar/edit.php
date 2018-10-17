@@ -16,11 +16,11 @@
 	</div>
 	<div class="field">
 		<label for="login">Login</label>
-		<input type="text" name="login" value="<?php echo ($this->input->post('login') ? $this->input->post('login') : $t_registrar['login']); ?>" class="form-control" id="login" required />
+		<input type="text" name="login" value="<?php echo ($this->input->post('login') ? $this->input->post('login') : $t_registrar['login']); ?>" class="form-control" id="login"  />
 	</div>
 	<div class="field">
 		<label for="password">Mot de passe</label>		
-		<input type="text" name="password" value="<?php echo ($this->input->post('password') ? $this->input->post('password') : $t_registrar['password']); ?>" class="form-control" id="password" required />
+		<input type="text" name="password" value="<?php echo ($this->input->post('password') ? $this->input->post('password') : $t_registrar['password']); ?>" class="form-control" id="password"  />
 	</div>
 	
 	<button type="submit" class="btn submit">Enregistrer</button>

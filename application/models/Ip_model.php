@@ -21,7 +21,18 @@ class Ip_model extends CI_Model
 
     function get_t_ip_by_ip_hebergement($id_heberg,$adresse)
     {
-        return $this->db->get_where('t_ip',array('id_heberg'=>$id_heberg,'adresse'=>$adresse))->row_array();
+        $this->load->database();       
+
+        $this->db->select( "*" );
+        $this->db->from( 't_ip' );
+        $this->db->where( 'id_heberg', $id_heberg );     
+        $this->db->where( 'adresse', $adresse );   
+        $this->db->order_by('id_heberg', 'asc');
+        $query = $this->db->get();
+        $ip_data = $query->row_array();
+      
+        return $ip_data;
+       
     }
         
      /*

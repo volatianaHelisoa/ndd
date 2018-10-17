@@ -78,4 +78,18 @@ class Domaine_model extends CI_Model
         
         return $domaine_data;   
     }
+
+    function get_by_id_registrar($id_registrar)
+    {   
+        $this->load->database();       
+
+        $this->db->select( "*" );
+        $this->db->from( 't_domaine' );
+        $this->db->like( 'id_registrar', $id_registrar );
+        $this->db->order_by('id_registrar', 'asc');
+        $query = $this->db->get();
+        $domaine_data = $query->result();
+        
+        return $domaine_data;   
+    }
 }

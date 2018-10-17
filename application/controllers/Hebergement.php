@@ -95,17 +95,17 @@ class Hebergement extends CI_Controller{
 					'url' => $this->input->post('url'),
 					'login' => $this->input->post('login'),
                 );
-                if($this->Hebergement_model->get_t_hebergement_by_name($this->input->post('name')) == 0)  
-                {
+                // if($this->Hebergement_model->get_t_hebergement_by_name($this->input->post('name') ) == 0 && $data['t_hebergement']['name'] != $this->input->post('name'))  
+                // {
                     $this->Hebergement_model->update_t_hebergement($id,$params);            
                     redirect('hebergement');
-                }
-                else
-                {
-                    $data['error_nom'] = "Cet hébergement existe déjà !";  
-                    $data['_view'] = 'hebergement/edit';
-                    $this->load->view('layouts/main',$data);
-                }
+                // }
+                // else
+                // {
+                //     $data['error_nom'] = "Cet hébergement existe déjà !";  
+                //     $data['_view'] = 'hebergement/edit';
+                //     $this->load->view('layouts/main',$data);
+                // }
             }
             else
             {

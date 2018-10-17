@@ -7,26 +7,26 @@
 				</div>
 	<?php endif ?>
 	<div class="field">
-		<label for="name">Nom</label>
+		<label for="name">Nom (*)</label>
 		
 			<input type="text" name="name" value="<?php echo $this->input->post('name'); ?>" id="name" required />
 	</div>
 	<div class="field">
-		<label for="url">Url (*)</label>
+		<label for="url">Url</label>
 		
-		<input type="text" name="url" value="<?php echo $this->input->post('url'); ?>" id="url" required/>
+		<input type="text" name="url" value="<?php echo $this->input->post('url'); ?>" id="url" />
 	</div>
 
 	<div class="field">
-		<label for="login">Login (*)</label>
+		<label for="login">Login </label>
 		
-		<input type="text" name="login" value="<?php echo $this->input->post('login'); ?>" id="login" required/>
+		<input type="text" name="login" value="<?php echo $this->input->post('login'); ?>" id="login" />
 	</div>
 	
 	<div class="field">
-		<label for="password">Mot de passe (*)</label>
+		<label for="password">Mot de passe </label>
 		
-			<input type="password" name="password" value="<?php echo $this->input->post('password'); ?>" id="password" required/>
+			<input type="password" name="password" value="<?php echo $this->input->post('password'); ?>" id="password" />
 	</div>
 	
 	

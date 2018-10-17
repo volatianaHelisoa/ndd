@@ -11,20 +11,22 @@
 	<thead class="customized-thead">
 		<th>Name</th>
 		<th>Accès</th>	
+		<th>Nombre de site</th> 
 		<th>Actions</th>
     </thead>
 	<tbody>
 	<?php foreach($t_registrar as $t){ ?>
     <tr> 
-		<td><?php echo $t['name']; ?></td>
-		<td><button class="cust-btn dark-btn small-btn acces-registrar"  data-registrar="<?php echo $t['id']; ?>">VOIR</button></td>
+		<td><?php echo $t->name; ?></td>
+		<td><button class="cust-btn dark-btn small-btn acces-registrar"  data-registrar="<?php echo $t->id; ?>">VOIR</button></td>
+		<td><?php echo $t->nb_site; ?></td>
 		<td>
-            <a href="<?php echo site_url('registrar/edit/'.$t['id']); ?>" class="btn btn-info btn-xs act-edit-btn"></a> 
-			<a href=""  title="Supprimer registrar"  class="btn btn-danger btn-xs act-delete-btn" data-toggle="modal" data-target="#myModal<?php echo $t['id'] ?>"></a>
+            <a href="<?php echo site_url('registrar/edit/'.$t->id); ?>" class="btn btn-info btn-xs act-edit-btn"></a> 
+			<a href=""  title="Supprimer registrar"  class="btn btn-danger btn-xs act-delete-btn" data-toggle="modal" data-target="#myModal<?php echo $t->id ?>"></a>
 
         </td>
     </tr>
-	<div class="modal fade" id="myModal<?php echo $t['id']; ?>" role="dialog">
+	<div class="modal fade" id="myModal<?php echo $t->id; ?>" role="dialog">
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">      
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>                
@@ -34,7 +36,7 @@
                            
                             <p>Êtes-vous sûr de vouloir supprimer ?</p>
                              <div class="modal-footer">
-								<a  href="<?php echo site_url('registrar/remove/'. $t['id']); ?>" class="submit"  >Oui</a>
+								<a  href="<?php echo site_url('registrar/remove/'. $t->id); ?>" class="submit"  >Oui</a>
 								<button type="button" class="submit" data-dismiss="modal">Non</button>
 							</div>
 				</div>

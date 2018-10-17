@@ -11,7 +11,7 @@
 				</div>
 		<?php endif ?>
 		<div class="field">
-			<label for="name">Name (*)</label>
+			<label for="name">Nom (*)</label>
 			<input type="text" name="name" value="<?php echo $this->input->post('name'); ?>" id="name" required/>
 		</div>
 		<div class="field">
@@ -19,12 +19,12 @@
 			<input type="text" name="url" value="<?php echo $this->input->post('url'); ?>" id="url" required/>
 		</div>
 		<div class="field">
-			<label for="login">Login (*)</label>
-			<input type="text" name="login" value="<?php echo $this->input->post('login'); ?>" id="login" required/>
+			<label for="login">Login</label>
+			<input type="text" name="login" value="<?php echo $this->input->post('login'); ?>" id="login" />
 		</div>
 		<div class="field">
-			<label for="password">Password (*)</label>
-			<input type="password" name="password" value="<?php echo $this->input->post('password'); ?>" id="password" required/>
+			<label for="password">Password</label>
+			<input type="password" name="password" value="<?php echo $this->input->post('password'); ?>" id="password" />
 		</div>
 		<button type="submit" class="btn submit">Enregistrer</button>
 	</div>
