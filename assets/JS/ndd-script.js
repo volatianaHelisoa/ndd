@@ -49,6 +49,7 @@ $('#reset_filter').click(function () {
     $("#filter-registar" ).val("tous");
     $("#filter-heberg" ).val("tous");
     $("#filter-theme" ).val("tous");
+    $("#filter-type" ).val("tous");
     table.draw();
 });
 
@@ -58,26 +59,33 @@ $.fn.dataTable.ext.search.push(
        var registrarVal = $('#filter-registar').val();
        var hebergVal = $('#filter-heberg').val();
        var themeVal = $('#filter-theme').val();
-
+       var typeVal = $('#filter-type').val();
       
         is_valid = true; 
+
+        if(typeVal != '' &&  typeVal != "tous"  && is_valid){
+           
+            is_valid = false;                
+                if ( data[1].indexOf(typeVal) !== -1)
+                    is_valid = true;                                
+        }   
    
         if(registrarVal != '' &&  registrarVal != "tous"  && is_valid){
            
             is_valid = false;                
-                if ( data[1].indexOf(registrarVal) !== -1)
+                if ( data[2].indexOf(registrarVal) !== -1)
                     is_valid = true;                                
         }   
 
         if(hebergVal != '' &&  hebergVal != "tous" && is_valid){
             is_valid = false;                
-                if (data[2] == hebergVal)
+                if (data[3] == hebergVal)
                     is_valid = true;      
         }
 
         if(themeVal != '' &&  themeVal != "tous" && is_valid){
             is_valid = false;                
-                if (data[4] == themeVal)
+                if (data[5] == themeVal)
                     is_valid = true;      
         }
 

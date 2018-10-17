@@ -133,6 +133,9 @@ class Domaine extends CI_Controller{
         $this->load->model('Theme_model');
         $data['all_t_theme'] = $this->Theme_model->get_all_t_theme();      
 
+        $this->load->model('Type_model');
+        $data['all_t_type'] = $this->Type_model->get_all_t_type();
+       
 
         $this->load->model('Domaine_model');
         $domaine_data = $this->Domaine_model->get_all_t_domaine();
@@ -591,7 +594,8 @@ class Domaine extends CI_Controller{
 
 				$this->load->model('Type_model');
                 $data['all_t_type'] = $this->Type_model->get_all_t_type();
-                   /**IP */               
+                
+                      
                  $this->load->model('Domaine_theme_ip_model');
                  $domaine_theme = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_theme_by_domaine($id);   
                

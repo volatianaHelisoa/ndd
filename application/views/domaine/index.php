@@ -13,6 +13,20 @@
 		</div>
 	</div>
 	<label>
+		Type
+		<select name="select_type" id="filter-type" >
+				<option value="tous">Tous</option>
+				<?php 
+				foreach($all_t_type as $t_type)
+				{
+					$selected =  "";
+
+					echo '<option value="'.$t_type['name'].'" '.$selected.'>'.$t_type['name_type'].'</option>';
+				} 
+				?>
+			</select>
+	</label>
+	<label>
 		Registrar
 		<select name="select_registrar" id="filter-registar" >
 				<option value="tous">Tous</option>
