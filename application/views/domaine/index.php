@@ -21,7 +21,7 @@
 				{
 					$selected =  "";
 
-					echo '<option value="'.$t_type['name'].'" '.$selected.'>'.$t_type['name_type'].'</option>';
+					echo '<option value="'.$t_type['name_type'].'" '.$selected.'>'.$t_type['name_type'].'</option>';
 				} 
 				?>
 			</select>
