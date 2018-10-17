@@ -35,7 +35,7 @@ class Role extends CI_Controller{
             );
             
             $t_role_id = $this->Role_model->add_t_role($params);
-            redirect('role/index');
+            redirect('role');
         }
         else
         {            
@@ -61,7 +61,7 @@ class Role extends CI_Controller{
                 );
 
                 $this->Role_model->update_t_role($id,$params);            
-                redirect('role/index');
+                redirect('role');
             }
             else
             {
@@ -84,7 +84,7 @@ class Role extends CI_Controller{
         if(isset($t_role['id']))
         {
             $this->Role_model->delete_t_role($id);
-            redirect('role/index');
+            redirect('role');
         }
         else
             show_error('The t_role you are trying to delete does not exist.');

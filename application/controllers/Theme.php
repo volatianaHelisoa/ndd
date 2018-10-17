@@ -48,9 +48,17 @@ class Theme extends CI_Controller{
             $params = array(
 				'name' => $this->input->post('name'),
             );
-            
-            $t_theme_id = $this->Theme_model->add_t_theme($params);
-            redirect('theme/index');
+            if($this->Theme_model->get_t_theme_by_name($this->input->post('name')) == 0)  
+            {
+                $t_theme_id = $this->Theme_model->add_t_theme($params);
+                redirect('theme'); 
+            }
+            else
+            {        
+                $data['error_nom'] = "Ce theme existe déjà !";                 
+                $data['_view'] = 'theme/add';
+                $this->load->view('layouts/main',$data);
+            }
         }
         else
         {            
@@ -74,9 +82,18 @@ class Theme extends CI_Controller{
                 $params = array(
 					'name' => $this->input->post('name'),
                 );
-
-                $this->Theme_model->update_t_theme($id,$params);            
-                redirect('theme/index');
+                if($this->Theme_model->get_t_theme_by_name($this->input->post('name')) == 0)  
+                {
+                    $this->Theme_model->update_t_theme($id,$params);            
+                     redirect('theme');
+                }
+                else
+                {        
+                    $data['error_nom'] = "Ce theme existe déjà !";                 
+                    $data['_view'] = 'theme/edit';
+                    $this->load->view('layouts/main',$data);
+                }
+               
             }
             else
             {
@@ -99,7 +116,7 @@ class Theme extends CI_Controller{
         if(isset($t_theme['id']))
         {
             $this->Theme_model->delete_t_theme($id);
-            redirect('theme/index');
+            redirect('theme');
         }
         else
             show_error('The t_theme you are trying to delete does not exist.');

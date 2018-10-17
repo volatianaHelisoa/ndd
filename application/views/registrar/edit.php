@@ -1,6 +1,11 @@
 <?php echo form_open('registrar/edit/'.$t_registrar['id'],array("class"=>"form-horizontal")); ?>
 <div class="wrap-field info-gen carte">
 	<div class="title-field">Modifier le registrar</div>
+	<?php if(isset($error_nom)) :?>
+				<div class="alert alert-info" role="alert">
+					<?php echo $error_nom; ?>
+				</div>
+		<?php endif ?>
 	<div class="field">
 		<label for="name">Nom</label>
 		<input type="text" name="name" value="<?php echo ($this->input->post('name') ? $this->input->post('name') : $t_registrar['name']); ?>" class="form-control" id="name" required />

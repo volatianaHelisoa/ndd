@@ -48,13 +48,13 @@
             <nav class="menu">
                 <ul>
                     <li><a href="<?php echo site_url('dashboard'); ?>">Dashboard</a></li>
-                    <li><a href="<?php echo site_url('domaine/index'); ?>">Nom de domaine</a></li>
-                    <li><a href="<?php echo site_url('hebergement/index'); ?>">Hebergement</a></li>
-                    <li><a href="<?php echo site_url('ip/index'); ?>">IP</a></li>
-                    <li><a href="<?php echo site_url('theme/index'); ?>">Gestion thématique</a></li>
-                    <li><a href="<?php echo site_url('registrar/index'); ?>">Registrar</a></li>
-                    <li><a href="<?php echo site_url('user/index'); ?>">Utilisateurs</a></li>
-                    <li><a href="<?php echo site_url('user/detail/'.$token); ?>">Mon compte</a></li>
+                    <li><a href="<?php echo site_url('domaine'); ?>">Nom de domaine</a></li>
+                    <li><a href="<?php echo site_url('hebergement'); ?>">Hebergement</a></li>
+                    <li><a href="<?php echo site_url('ip'); ?>">IP</a></li>
+                    <li><a href="<?php echo site_url('theme'); ?>">Gestion thématique</a></li>
+                    <li><a href="<?php echo site_url('registrar'); ?>">Registrar</a></li>
+                    <li><a href="<?php echo site_url('utilisateur'); ?>">Utilisateurs</a></li>
+                    <li><a href="<?php echo site_url('utilisateur/compte/'.$token); ?>">Mon compte</a></li>
                 </ul>
             </nav>
 		</aside>

@@ -64,7 +64,7 @@ class User_model extends CI_Model
 		$this->db->where( 'email', $login );
 		$this->db->where( 'password', $password );
         $query = $this->db->get();
-        var_dump($query->num_rows() );
+       
 		if ( $query->num_rows() == 1 ) {
 			return TRUE;
 		} else {

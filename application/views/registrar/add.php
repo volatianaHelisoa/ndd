@@ -1,7 +1,11 @@
 <?php echo form_open('registrar/add',array("class"=>"form-horizontal")); ?>
 <div class="wrap-field info-gen carte ">
 	<div class="title-field">Ajouter registrar</div>
-
+	<?php if(isset($error_nom)) :?>
+				<div class="alert alert-info" role="alert">
+					<?php echo $error_nom; ?>
+				</div>
+	<?php endif ?>
 	<div class="field">
 		<label for="name">Nom</label>
 		

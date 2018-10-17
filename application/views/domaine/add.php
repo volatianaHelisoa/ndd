@@ -18,9 +18,29 @@
 				<label for="">Nom de domaine (*) :</label>
 				<input type="text" name="nom" value="<?php echo $this->input->post('nom'); ?>"  id="nom" >
 			</div>
+
 			<div class="field">
-				<label for="">Thématique :</label>
-				<input type="text" id="theme" name="theme" placeholder="Saisir thème" >
+				<label >Type</label>
+			
+					<select name="id_type" >
+						<option value="">Selectionner type</option>
+						<?php 
+						foreach($all_t_type as $t_type)
+						{
+							$selected = ($t_type['id_type'] == $this->input->post('id_type')) ? ' selected="selected"' : "";
+
+							echo '<option value="'.$t_type['id_type'].'" '.$selected.'>'.$t_type['name_type'].'</option>';
+						} 
+						?>
+					</select>
+			
+			</div>
+
+			<div class="field">
+				<label for="">Thématique :</label>				
+				<div class="content-chips theme_tags">
+					<input class="typeahead" name="theme_tags" type="text" data-role="materialtags" placeholder="Saisir thème" >						
+				</div>	
 			</div>
 			
 			<div class="field">
@@ -55,6 +75,14 @@
 					} 
 					?>
 				</select>
+			</div>
+			<div class="field">
+				<label for="">Site SSL : </label>						
+				<input type="checkbox"  name="is_ssl"  />					
+			</div>
+			<div class="field">
+				<label for="">Repertoire WWW : </label>						
+				<input type="checkbox"  name="is_www"  />				
 			</div>
 			<input type="button" class="btn submit btn-next prevnext" value="Suivant">
 			<input type="submit" class="btn submit btn-save-first" value="Ajouter">
@@ -102,12 +130,12 @@
 				<div class="field">
 					<label for="">Mot de passe :</label>
 					<input type="text" name="admin_password" value="<?php echo $this->input->post('admin_password'); ?>"  id="admin_password" />
-				</div>
-			
-				<div class="sub-title">Plugin</div>
-				<div class="content-chips">
+				</div>			
+				<div class="sub-title">Technologies :</div>
+				<div class="content-chips techno_tags ">
 					<input class="typeahead" name="techno_tags" type="text" data-role="materialtags" >						
-				</div>
+				</div>				
+
 			</div>
 			<input type="button" class="btn submit btn-previous prevnext" value="Precedent">
 			<input type="submit" class="btn submit btn-save" value="Ajouter">
@@ -118,14 +146,12 @@
  <script type="text/javascript">
         $(document).ready(function(){ 
 			$("#cms_select").change(function(){
-				var value = $(this).find("option:selected").val();
-				switch (value){
-					case "6":
-						$("#bo-acces").hide()
-					break;
-					default:
-						$("#bo-acces").show()
-				}
+				var value = $(this).find("option:selected").text();
+				if (value.toLowerCase().indexOf("html") >= 0) 
+					$("#bo-acces").hide();
+				else
+					$("#bo-acces").show();
+				
 			});
 		$.ajax({
 			url: "<?=site_url('domaine/get_techno_list')?>",				
@@ -139,7 +165,7 @@
 				local:data
 			});
 			technos.initialize();
-			var elt = $('input.n-tag');
+			var elt = $('.techno_tags input.n-tag');
 			elt.materialtags({
 				itemValue: 'id',
 				itemText: 'label',
@@ -153,39 +179,36 @@
 			}
         });
 
+		$.ajax({
+			url: "<?=site_url('domaine/get_theme_list')?>",				
+			dataType: "json",
+			type: "GET",                  
+			success: function(data){   
+			//console.log(data);                
+			var themes = new Bloodhound({
+				datumTokenizer: Bloodhound.tokenizers.obj.whitespace('label'),
+				queryTokenizer: Bloodhound.tokenizers.whitespace,                   
+				local:data
+			});
+			themes.initialize();
+			var elt = $('.theme_tags input.n-tag');
+			elt.materialtags({
+				itemValue: 'id',
+				itemText: 'label',
+				typeaheadjs: {
+					name: 'themes',
+					displayKey: 'label',
+					source: themes.ttAdapter()
+				}
+			});					   
+					
+			}
+        });
+
 		$(".preference" ).hide();	
 		$(".div-addr-ip").hide();	
 		$(".btn-next").hide();	
-		// auto complete
-		$( "#theme" ).autocomplete({
-				source: function(request, response) {					
-					$.ajax({
-						//q: request.term,
-						url: "<?=site_url('domaine/get_autocomplete_theme')?>",
-						data: { term: $("#theme").val()},
-						dataType: "json",
-						type: "GET",
-						success: function(data) {
-							// console.log(data);
-							//response(data);
-							response($.map(data, function (val, item) {
-								
-								return {
-									value: val.label,
-									text: val.value
-								}
-							}))
-						}
-					});
-				},
-				select: function (event, ui) {
-					//event.preventDefault();
-                    $("#theme").val(ui.item.text);
-				
-                  //  console.log($("#theme").val(ui.item.text));
-                },
-				minLength: 2
-		});
+		
 
 
 		$("#id_heberg").change(function(){
@@ -245,14 +268,24 @@
 		});
 
 
-		$('.btn-save').click(function(e){ 				
+		$('.btn').click(function(e){ 				
 			var tags = [];			
-            $('.materialize-tags').find('span.chip').each(function() {               
-				var value = $(this).text();	
+            $('.content-chips.techno_tags .materialize-tags .materialize-tags').find('span.chip').each(function() {               
+				var value = $(this).text();					
 				var res = value.replace("close", "");			
 				tags.push(res); 				           
 			});
-			setCookie('tags',tags,1);				
+			
+			var theme_tags = [];		
+			$('.content-chips.theme_tags .materialize-tags .materialize-tags').find('span.chip').each(function() {               
+				var theme_value = $(this).text();					
+				var theme_res = theme_value.replace("close", "");			
+				theme_tags.push(theme_res); 				           
+			});
+
+			
+			setCookie('tags',tags,1);	
+			setCookie('theme_tags',theme_tags,1);				
 		});
 
 	function setCookie(name,value,days) {

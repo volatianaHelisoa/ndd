@@ -7,10 +7,16 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['login'] = 'User/login';
-$route['users'] = 'User/index';
-$route['user-add'] = 'User/add';
+$route['utilisateur'] = 'User/index';
 $route['role'] = 'Role/index';
-$route['role-add'] = 'Role/add';
-$route['role-edit'] = 'Role/edit';
+$route['domaine'] = 'Domaine/index';
+$route['hebergement'] = 'Hebergement/index';
+$route['ip'] = 'Ip/index';
+$route['theme'] = 'Theme/index';
+$route['registrar'] = 'Registrar/index';
+$route['utilisateur/compte/(:any)'] = 'User/detail/$1';
+$route['cms'] = 'Cms/index';
+$route['techno'] = 'Techno/index';
+$route['type'] = 'Type/index';
 
 $route['authentification'] = 'pages/authentificationfailed';

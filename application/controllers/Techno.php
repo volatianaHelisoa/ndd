@@ -35,7 +35,7 @@ class Techno extends CI_Controller{
             );
             
             $t_techno_id = $this->Techno_model->add_t_techno($params);
-            redirect('techno/index');
+            redirect('techno');
         }
         else
         {            
@@ -61,7 +61,7 @@ class Techno extends CI_Controller{
                 );
 
                 $this->Techno_model->update_t_techno($id,$params);            
-                redirect('techno/index');
+                redirect('techno');
             }
             else
             {
@@ -84,7 +84,7 @@ class Techno extends CI_Controller{
         if(isset($t_techno['id']))
         {
             $this->Techno_model->delete_t_techno($id);
-            redirect('techno/index');
+            redirect('techno');
         }
         else
             show_error('The t_techno you are trying to delete does not exist.');

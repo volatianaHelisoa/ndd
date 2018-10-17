@@ -58,15 +58,23 @@ class Hebergement extends CI_Controller{
 				'url' => $this->input->post('url'),
 				'login' => $this->input->post('login'),
             );
-            
-            $t_hebergement_id = $this->Hebergement_model->add_t_hebergement($params);
-            redirect('hebergement/index');
+            if($this->Hebergement_model->get_t_hebergement_by_name($this->input->post('name')) == 0)  
+            {
+                $t_hebergement_id = $this->Hebergement_model->add_t_hebergement($params);
+                redirect('hebergement');
+            }
+            else
+            {     
+                $data['error_nom'] = "Cet hébergement existe déjà !";         
+                $data['_view'] = 'hebergement/add';
+                $this->load->view('layouts/full',$data);
+            }
         }
         else
         {            
             $data['_view'] = 'hebergement/add';
             $this->load->view('layouts/full',$data);
-        }
+        }  
     }  
 
     /*
@@ -87,9 +95,17 @@ class Hebergement extends CI_Controller{
 					'url' => $this->input->post('url'),
 					'login' => $this->input->post('login'),
                 );
-
-                $this->Hebergement_model->update_t_hebergement($id,$params);            
-                redirect('hebergement/index');
+                if($this->Hebergement_model->get_t_hebergement_by_name($this->input->post('name')) == 0)  
+                {
+                    $this->Hebergement_model->update_t_hebergement($id,$params);            
+                    redirect('hebergement');
+                }
+                else
+                {
+                    $data['error_nom'] = "Cet hébergement existe déjà !";  
+                    $data['_view'] = 'hebergement/edit';
+                    $this->load->view('layouts/main',$data);
+                }
             }
             else
             {
@@ -112,7 +128,7 @@ class Hebergement extends CI_Controller{
         if(isset($t_hebergement['id']))
         {
             $this->Hebergement_model->delete_t_hebergement($id);
-            redirect('hebergement/index');
+            redirect('hebergement');
         }
         else
             show_error('The t_hebergement you are trying to delete does not exist.');

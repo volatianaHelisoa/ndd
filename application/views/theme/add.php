@@ -5,6 +5,11 @@
 
 	<div class="wrap-field info-gen carte ">
 	<div class="title-field">Thématique</div>
+	<?php if(isset($error_nom)) :?>
+			<div class="alert alert-info" role="alert">
+				<?php echo $error_nom; ?>
+			</div>
+		<?php endif ?>		
 		<div class="field">
 			<label for="name">Nom (*)</label>
 			<input type="text" name="name" value="<?php echo $this->input->post('name'); ?>" id="name" required/>

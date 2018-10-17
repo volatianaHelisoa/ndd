@@ -18,6 +18,11 @@ class Registrar_model extends CI_Model
     {
         return $this->db->get_where('t_registrar',array('id'=>$id))->row_array();
     }
+
+    function get_t_registrar_by_name($name)
+    {
+        return $this->db->get_where('t_registrar',array('name'=>$name))->row_array();
+    }
         
     /*
      * Get all t_registrar

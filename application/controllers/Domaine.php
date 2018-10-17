@@ -38,6 +38,9 @@ class Domaine extends CI_Controller{
             $domain = $this->getHost($row['nom']);
             $element->domaine = $domain;
            
+            $this->load->model('Type_model');
+            $type_obj = $this->Type_model->get_t_type($row['id_type']);    
+            $element->type =  $type_obj ['name_type'];
                        
             $this->load->model('Registrar_model');
             $registrar_obj = $this->Registrar_model->get_t_registrar($row['id_registrar']);    
@@ -99,6 +102,7 @@ class Domaine extends CI_Controller{
                
                  if($domaine_theme != null )                
                      $element->theme =  $domaine_theme;  
+                     
             }            
             
             $url =  $row['nom'];               
@@ -115,6 +119,9 @@ class Domaine extends CI_Controller{
 
             $res[] = $element;	
         }
+
+
+       
 
         $this->load->model('Registrar_model');
         $data['all_t_registrar'] = $this->Registrar_model->get_all_t_registrar();
@@ -223,18 +230,25 @@ class Domaine extends CI_Controller{
                 $id_heberg = $this->input->post('id_heberg');   
              
                 $protocol = 'http://'; 
-                $domain =  $protocol.$this->getHost($this->input->post('nom'));               
-                
+                $domain =  $protocol.$this->getHost($this->input->post('nom'));  
+                $is_ssl = empty($this->input->post('is_ssl')) ? false :true ;
+                $is_www = empty($this->input->post('is_www')) ? false :true ;
+
                 if($id_heberg == ""){
                     $params = array(
                         'nom' =>  $domain,
+                        'id_type' => $this->input->post('id_type'),
                         'id_registrar' => $this->input->post('id_registrar'),		
                         'date_creation' =>  $today,
+                        'is_ssl' => $is_ssl,
+				        'is_www' => $is_www
                     );
                 }
                 else{
+                  
                     $params = array(
-                        'nom' =>  $domain,                   
+                        'nom' =>  $domain,   
+                        'id_type' => $this->input->post('id_type'),                
                         'id_registrar' => $this->input->post('id_registrar'),
                         'id_heberg' => $this->input->post('id_heberg'),
                         'id_cms' => $this->input->post('id_cms'),
@@ -245,62 +259,154 @@ class Domaine extends CI_Controller{
                         'admin_login' => $this->input->post('admin_login'),
                         'admin_password' => $this->input->post('admin_password'),                   
                         'date_creation' =>  $today,
+                        'is_ssl' => $is_ssl,
+				        'is_www' => $is_www
                     );              
                 }  
 
                 if($this->Domaine_model->get_t_domaine_by_name($domain) == 0)  
                 {
-                        $t_domaine_id = $this->Domaine_model->add_t_domaine($params);
-                        
-                        /**ajout ip */                    
-                        $id_theme = empty( $this->input->post('theme')) ? NULL :  $this->input->post('theme')   ;
-                    
-                        if(!empty( $this->input->post('theme'))){
-                            $theme = $this->input->post('theme');
-                            $this->load->model('Theme_model');
-                            $theme_obj = $this->Theme_model->get_t_theme_by_name($theme);   
-                            $id_theme  = $theme_obj['id'];       
-                        }            
-                        
-                        $id_ip = empty($_POST['addr-ip']) ? NULL : $_POST['addr-ip'];   
+                        $t_domaine_id = $this->Domaine_model->add_t_domaine($params);                        
 
-                        if( $id_ip || $id_theme){
-                            
-                            $params_ip = array(
-                                'id_domaine' => $t_domaine_id,
-                                'id_ip' =>  $id_ip,
-                                'id_theme' => $id_theme,
-                            );
-                            $this->load->model('Domaine_theme_ip_model');        
-                            $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);                
+                        $theme_tags = isset($_COOKIE['theme_tags']) ? $_COOKIE['theme_tags'] : NULL;  
+                        $theme_tags_array = null;     
+                        if (isset($theme_tags))
+                        {			
+                            unset($_COOKIE['theme_tags']);
+                            setcookie('theme_tags', '', time() - 3600, '/');   
+                            if(strpos($theme_tags, ',') !== false) {
+                              
+                                $theme_tags_array = array_filter(explode(",", $theme_tags)) ;
+                              } else { 
+                                $theme_tags_array =  $theme_tags ;
+                              } 
+                        }
+                                   
+                        if($theme_tags_array != null )     
+                        {    
+                            if(count($theme_tags_array) > 1)  {
+                                foreach($theme_tags_array as $key){  
+                                    
+                                    $this->load->model('Theme_model');
+                                    $theme_obj = $this->Theme_model->get_t_theme_by_name($key);   
+
+                                    if(isset($theme_obj)){                                      
+                                        $id_theme  = $theme_obj['id'];   
+                                        $id_ip = empty($_POST['addr-ip']) ? NULL : $_POST['addr-ip'];   
+
+                                        if( $id_ip || $id_theme){
+                                            
+                                            $params_ip = array(
+                                                'id_domaine' => $t_domaine_id,
+                                                'id_ip' =>  $id_ip,
+                                                'id_theme' => $id_theme,
+                                            );
+                                            $this->load->model('Domaine_theme_ip_model');        
+                                            $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);                
+                                        }          
+                                    }  
+                                 }
+                            }
+                            else{
+                                $this->load->model('Theme_model');
+                                $theme_obj = $this->Theme_model->get_t_theme_by_name($theme_tags_array);   
+
+                                if(isset($theme_obj)){                                      
+                                    $id_theme  = $theme_obj['id'];   
+                                    $id_ip = empty($_POST['addr-ip']) ? NULL : $_POST['addr-ip'];   
+
+                                    if( $id_ip || $id_theme){
+                                        
+                                        $params_ip = array(
+                                            'id_domaine' => $t_domaine_id,
+                                            'id_ip' =>  $id_ip,
+                                            'id_theme' => $id_theme,
+                                        );
+                                        $this->load->model('Domaine_theme_ip_model');        
+                                        $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);                
+                                    }          
+                                } 
+                            }     
+                        }
+                        else
+                        {
+                            $id_ip = empty($_POST['addr-ip']) ? NULL : $_POST['addr-ip'];   
+
+                            if( $id_ip){
+                                
+                                $params_ip = array(
+                                    'id_domaine' => $t_domaine_id,
+                                    'id_ip' =>  $id_ip,
+                                    'id_theme' => null,
+                                );
+                                $this->load->model('Domaine_theme_ip_model');        
+                                $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);                
+                            }          
                         }
                         
-                        $tags = isset($_COOKIE['tags']) ? $_COOKIE['tags'] : NULL;   
+                        $tags = isset($_COOKIE['tags']) ? $_COOKIE['tags'] : NULL;  
                         $techno_array = null;     
                         if (isset($tags))
                         {			
                             unset($_COOKIE['tags']);
                             setcookie('tags', '', time() - 3600, '/');   
-                            $techno_array = array_filter(explode(",", $tags)) ;
-                        }
-                       
-                       // $techno_array = empty($_POST['select_ml_techno']) ? NULL : $_POST['select_ml_techno'];   
-                        if(isset($techno_array) && count($techno_array) > 0)     
-                        {                            
-                            $this->load->model('Domaine_techno_model');                            
-                            foreach($techno_array as $key){    
+                            if(strpos($tags, ',') !== false) {
+                              
+                                $techno_array = array_filter(explode(",", $tags)) ;
+                              } else { 
+                                $techno_array =  $tags ;
+                              }  
+                        }       
+                    
+                        if($techno_array != null )     
+                        {                                       
+                            $this->load->model('Domaine_techno_model');      
+                            if(count($techno_array) > 1)  {
+                                foreach($techno_array as $key){    
                             
+                                    $this->load->model('Techno_model');
+                                    $t_techno = $this->Techno_model->get_t_techno_by_name($key);
+                                    if($t_techno){
+                                        $params = array(
+                                            'id_domaine' => $t_domaine_id,
+                                            'id_techno' => $t_techno['id'],
+                                        );
+                                        
+                                        $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);
+        
+                                        if($is_www) 
+                                        { 
+                                            $domaine_nom =  $this->getHost( $domain);
+                                            $domaine_nom =  "www.". $domaine_nom;  
+                                            $protocol = 'http://'; 
+                                            $domaine_nom =  $protocol.$domaine_nom;   
+                                        }
+    
+                                        if($is_ssl) {                               
+                                            
+                                            $domaine_nom  =  str_replace('http', 'https',  $domain);                               
+                                        }  
+    
+                                        $params_domaine = array(                                
+                                            'nom' => $domaine_nom                                
+                                        );                    
+                                        $this->Domaine_model->update_t_domaine($t_domaine_id,$params_domaine);
+                                    }  
+                                }
+                            }
+                            else
+                            {
                                 $this->load->model('Techno_model');
-                                $t_techno = $this->Techno_model->get_t_techno_by_name($key);
+                                $t_techno = $this->Techno_model->get_t_techno_by_name($techno_array);
                                 if($t_techno){
                                     $params = array(
                                         'id_domaine' => $t_domaine_id,
                                         'id_techno' => $t_techno['id'],
                                     );
-                                        
+                                   
                                     $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);
     
-                                    if($key == "WWW") 
+                                    if($is_www) 
                                     { 
                                         $domaine_nom =  $this->getHost( $domain);
                                         $domaine_nom =  "www.". $domaine_nom;  
@@ -308,7 +414,7 @@ class Domaine extends CI_Controller{
                                         $domaine_nom =  $protocol.$domaine_nom;   
                                     }
 
-                                    if($key == "SSL") {                               
+                                    if($is_ssl) {                               
                                         
                                         $domaine_nom  =  str_replace('http', 'https',  $domain);                               
                                     }  
@@ -317,11 +423,11 @@ class Domaine extends CI_Controller{
                                         'nom' => $domaine_nom                                
                                     );                    
                                     $this->Domaine_model->update_t_domaine($t_domaine_id,$params_domaine);
-                                }  
+                                }
                             }
                         }
                     
-                    redirect('domaine/index');
+                    redirect('domaine');
                 }else{                  
 
                     $this->bind_domaine(1);
@@ -339,7 +445,10 @@ class Domaine extends CI_Controller{
         if($error == 1)
             $data['error_nom'] = "Ce nom de domaine est invalide ou existe déjà !";  
         if($error == 2)
-            $data['error_nom'] = "Le registrar selectionné est invalide !";  
+            $data['error_nom'] = "Le registrar selectionné est invalide !"; 
+            
+        $this->load->model('Type_model');
+        $data['all_t_type'] = $this->Type_model->get_all_t_type();
 
         $this->load->model('Cms_model');
         $data['all_t_cms'] = $this->Cms_model->get_all_t_cms();
@@ -359,150 +468,290 @@ class Domaine extends CI_Controller{
         $this->load->view('layouts/full',$data);
     }
 
-    /*
+ /*
      * Editing a t_domaine
      */
     function edit($id)
-    {   
+    { 
         // check if the t_domaine exists before trying to edit it
-      
-        $row  =   $this->Domaine_model->get_t_domaine($id);
-        $element = $this->get_current_domaine($row);
-        $data['t_domaine'] =   $element;
-
-        if(isset( $element->id))
+        $data['t_domaine'] = $this->Domaine_model->get_t_domaine($id);
+        
+        if(isset($data['t_domaine']['id']))
         {
-
             if(isset($_POST) && count($_POST) > 0)     
             {   
-                $today = date("Y-m-d"); 
-                $params = array(
-					'id_cms' => $this->input->post('id_cms'),
-					'id_registrar' => $this->input->post('id_registrar'),
-					'id_heberg' => $this->input->post('id_heberg'),
-					'ftp_login' => $this->input->post('ftp_login'),
-					'ftp_password' => $this->input->post('ftp_password'),
-					'ftp_server' => $this->input->post('ftp_server'),
-					'admin_url' => $this->input->post('admin_url'),
-					'admin_login' => $this->input->post('admin_login'),
-					'admin_password' => $this->input->post('admin_password'),
-					'nom' => $this->input->post('nom'),
-					'date_creation' => $today,
-                );
-
-                $this->Domaine_model->update_t_domaine($id,$params);   
-                
-            
-                /**ajout ip */
+                $is_ssl = $is_www = false;
+                if($this->input->post('is_ssl') != null) 
+                    $is_ssl = true;
+                if($this->input->post('is_www') != null) 
+                    $is_www = true;
                
-                $id_theme = empty( $this->input->post('theme')) ? NULL :  $this->input->post('theme')   ;
-             
-                if(!empty( $this->input->post('theme'))){
-                    $theme = $this->input->post('theme');
-                    $this->load->model('Theme_model');
-                    $theme_obj = $this->Theme_model->get_t_theme_by_name($theme);   
-                    $id_theme  = $theme_obj['id'];       
-                }            
-                
-                $id_ip = empty($_POST['addr-ip']) ? NULL : $_POST['addr-ip'];   
-                
-                $params_ip = array(
-                    'id_domaine' => $element->id,
-                    'id_ip' =>  $id_ip,
-                    'id_theme' => $id_theme,
-                );
-
-                $this->load->model('Domaine_theme_ip_model');
               
-                /*delete relation */
+                $current_domaine = $data['t_domaine']['nom'];
                
-                $t_domaine_theme = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_by_param($element->id);
-                if(isset($t_domaine_theme['id']))
+                if($is_www) 
                 {
-                    $this->Domaine_theme_ip_model->delete_t_domaine_theme_ip($t_domaine_theme['id']);  
-                }              
+                    $domaine_nom =  $this->getHost( $current_domaine);
+                    $domaine_nom  =  "www.". $domaine_nom ;     
+                    $protocol = 'http://'; 
+                    $current_domaine =  $protocol.$domaine_nom;    
+                } 
+                if($is_ssl) {                       
+                    $current_domaine  =  str_replace('http', 'https', $current_domaine);
+                }  
+                $params_domaine = array(                                
+                    'nom' => $current_domaine,
+                    'id_registrar' => $this->input->post('id_registrar'),					
+                    'id_type' => $this->input->post('id_type')	,
+                    'is_ssl' => $is_ssl,
+				    'is_www' => $is_www
+                );   
 
-                $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip); 
-               
-                $tags = isset($_COOKIE['tags']) ? $_COOKIE['tags'] : NULL;   
-                $techno_array = null;     
-                if (isset($tags))
-                {		
-                    $techno_array = array_filter(explode(",", $tags)) ;
+                $this->Domaine_model->update_t_domaine($id,$params_domaine);               
+                
+                $theme_tags = isset($_COOKIE['theme_tags']) ? $_COOKIE['theme_tags'] : NULL;  
+              
+                $theme_tags_array = null;     
+                if (isset($theme_tags))
+                {			
+                    unset($_COOKIE['theme_tags']);
+                    setcookie('theme_tags', '', time() - 3600, '/');   
+                    if(strpos($theme_tags, ',') !== false) {
+                      
+                        $theme_tags_array = array_filter(explode(",", $theme_tags)) ;
+                      } else { 
+                        $theme_tags_array =  $theme_tags ;
+                      } 
                 }
+                           
+                if($theme_tags_array != null )     
+                {    
+                    if(count($theme_tags_array) > 1 )  { 
+                        foreach($theme_tags_array as $key){  
+                            
+                            $this->load->model('Theme_model');
+                            $theme_obj = $this->Theme_model->get_t_theme_by_name($key);   
 
-               // $techno_array = empty($_POST['select_ml_techno']) ? NULL : $_POST['select_ml_techno']; 
-                if(isset($techno_array) && count($techno_array) > 0)     
-                { 
-                    $this->load->model('Domaine_techno_model');
-                    if($element->techno != null)
-                    { 
-                        $this->Domaine_techno_model->delete_t_domaine_techno_by_domaine($element->techno[0]['id_domaine']);  
-                    }
-                 
-                    $this->load->model('Domaine_techno_model');                            
-                    foreach($techno_array as $key){    
-                    
-                        $this->load->model('Techno_model');
-                        $t_techno = $this->Techno_model->get_t_techno_by_name($key);
-                        if($t_techno){
-                            $params = array(
-                                'id_domaine' => $t_domaine_id,
-                                'id_techno' => $t_techno['id'],
-                            );
-                                
-                            $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);
+                            if(isset($theme_obj)){                                      
+                                $id_theme  = $theme_obj['id'];  
+                               
+                                $this->load->model('Domaine_theme_ip_model');
+                            
+                                /*delete relation */               
+                                $t_domaine_theme = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_by_param_domaine_theme($id,$id_theme);
+                                $id_ip =  empty($t_domaine_theme["id_ip"]) ? NULL : $t_domaine_theme["id_ip"];  
+                
+                                $params_ip = array(
+                                    'id_domaine' => $id,
+                                    'id_ip' =>  $id_ip,
+                                    'id_theme' => $id_theme,
+                                );
+                               
+                                if(isset( $t_domaine_theme) )                                
+                                    $this->Domaine_theme_ip_model->delete_t_domaine_theme_ip_by_domaine($id); 
 
-                            if($key == "WWW") 
-                            { 
-                                $domaine_nom =  $this->getHost( $domain);
-                                $domaine_nom =  "www.". $domaine_nom;  
-                                $protocol = 'http://'; 
-                                $domaine_nom =  $protocol.$domaine_nom;   
-                            }
-
-                            if($key == "SSL") {                               
-                                
-                                $domaine_nom  =  str_replace('http', 'https',  $domain);                               
+                                $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip); 
+                                     
                             }  
-
-                            $params_domaine = array(                                
-                                'nom' => $domaine_nom                                
-                            );                    
-                            $this->Domaine_model->update_t_domaine($t_domaine_id,$params_domaine);
-                        }  
+                         }
                     }
-                }
-               
-                redirect('domaine/index');
-            } 
+                    else{
+                        $this->load->model('Theme_model');
+                        $theme_obj = $this->Theme_model->get_t_theme_by_name($theme_tags_array);   
+
+                        if(isset($theme_obj)){                                      
+                            $id_theme  = $theme_obj['id'];   
+                            $this->load->model('Domaine_theme_ip_model');
+                            
+                            /*delete relation */               
+                            $t_domaine_theme = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_by_param_domaine_theme($id,$id_theme);
+                            $id_ip =  empty($t_domaine_theme["id_ip"]) ? NULL : $t_domaine_theme["id_ip"];  
+            
+                            $params_ip = array(
+                                'id_domaine' => $id,
+                                'id_ip' =>  $id_ip,
+                                'id_theme' => $id_theme,
+                            );
+
+                            if(isset( $t_domaine_theme) )                            
+                                $this->Domaine_theme_ip_model->delete_t_domaine_theme_ip_by_domaine($id); 
+                                
+                            $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip); 
+                                     
+                        } 
+                    }     
+                }      
+
+                redirect('domaine');
+            }
             else
-            {               
-                if( $element->id_heberg != "" && $element->id_heberg  != null )
-                {                    
-                    $this->load->model('Ip_model');               
-                    $data['all_t_ip'] = $this->Ip_model->get_ip_id_hebergement( $element->id_heberg );  
-                }   
-
-				$this->load->model('Cms_model');
-				$data['all_t_cms'] = $this->Cms_model->get_all_t_cms();
-
+            {
 				$this->load->model('Registrar_model');
 				$data['all_t_registrar'] = $this->Registrar_model->get_all_t_registrar();
 
-				$this->load->model('Hebergement_model');
-                $data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
+				$this->load->model('Type_model');
+                $data['all_t_type'] = $this->Type_model->get_all_t_type();
+                   /**IP */               
+                 $this->load->model('Domaine_theme_ip_model');
+                 $domaine_theme = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_theme_by_domaine($id);   
                
-                $this->load->model('Techno_model');
-                $data['all_t_techno'] = $this->Techno_model->get_all_t_techno();
-              
+                 if($domaine_theme != null )                
+                 $data['all_theme'] =  $domaine_theme;  
+             
                 $data['_view'] = 'domaine/edit';
-                $this->load->view('layouts/full',$data);
+                $this->load->view('layouts/main',$data);
             }
         }
         else
             show_error('The t_domaine you are trying to edit does not exist.');
     } 
+
+
+
+    // /*
+    //  * Editing a t_domaine
+    //  */
+    // function edit($id)
+    // {   
+    //     // check if the t_domaine exists before trying to edit it
+      
+    //     $row  =   $this->Domaine_model->get_t_domaine($id);
+    //     $element = $this->get_current_domaine($row);
+    //     $data['t_domaine'] =   $element;
+
+    //     if(isset( $element->id))
+    //     {
+
+    //         if(isset($_POST) && count($_POST) > 0)     
+    //         {   
+    //             $today = date("Y-m-d"); 
+    //             $params = array(
+	// 				'id_cms' => $this->input->post('id_cms'),
+	// 				'id_registrar' => $this->input->post('id_registrar'),
+	// 				'id_heberg' => $this->input->post('id_heberg'),
+	// 				'ftp_login' => $this->input->post('ftp_login'),
+	// 				'ftp_password' => $this->input->post('ftp_password'),
+	// 				'ftp_server' => $this->input->post('ftp_server'),
+	// 				'admin_url' => $this->input->post('admin_url'),
+	// 				'admin_login' => $this->input->post('admin_login'),
+	// 				'admin_password' => $this->input->post('admin_password'),
+	// 				'nom' => $this->input->post('nom'),
+	// 				'date_creation' => $today,
+    //             );
+
+    //             $this->Domaine_model->update_t_domaine($id,$params);   
+                
+            
+    //             /**ajout ip */
+               
+    //             $id_theme = empty( $this->input->post('theme')) ? NULL :  $this->input->post('theme')   ;
+             
+    //             if(!empty( $this->input->post('theme'))){
+    //                 $theme = $this->input->post('theme');
+    //                 $this->load->model('Theme_model');
+    //                 $theme_obj = $this->Theme_model->get_t_theme_by_name($theme);   
+    //                 $id_theme  = $theme_obj['id'];       
+    //             }            
+                
+    //             $id_ip = empty($_POST['addr-ip']) ? NULL : $_POST['addr-ip'];   
+                
+    //             $params_ip = array(
+    //                 'id_domaine' => $element->id,
+    //                 'id_ip' =>  $id_ip,
+    //                 'id_theme' => $id_theme,
+    //             );
+
+    //             $this->load->model('Domaine_theme_ip_model');
+              
+    //             /*delete relation */
+               
+    //             $t_domaine_theme = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_by_param($element->id);
+    //             if(isset($t_domaine_theme['id']))
+    //             {
+    //                 $this->Domaine_theme_ip_model->delete_t_domaine_theme_ip($t_domaine_theme['id']);  
+    //             }              
+
+    //             $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip); 
+               
+    //             $tags = isset($_COOKIE['tags']) ? $_COOKIE['tags'] : NULL;   
+    //             $techno_array = null;     
+    //             if (isset($tags))
+    //             {		
+    //                 $techno_array = array_filter(explode(",", $tags)) ;
+    //             }
+
+    //            // $techno_array = empty($_POST['select_ml_techno']) ? NULL : $_POST['select_ml_techno']; 
+    //             if(isset($techno_array) && count($techno_array) > 0)     
+    //             { 
+    //                 $this->load->model('Domaine_techno_model');
+    //                 if($element->techno != null)
+    //                 { 
+    //                     $this->Domaine_techno_model->delete_t_domaine_techno_by_domaine($element->techno[0]['id_domaine']);  
+    //                 }
+                 
+    //                 $this->load->model('Domaine_techno_model');                            
+    //                 foreach($techno_array as $key){    
+                    
+    //                     $this->load->model('Techno_model');
+    //                     $t_techno = $this->Techno_model->get_t_techno_by_name($key);
+    //                     if($t_techno){
+    //                         $params = array(
+    //                             'id_domaine' => $t_domaine_id,
+    //                             'id_techno' => $t_techno['id'],
+    //                         );
+                                
+    //                         $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);
+
+    //                         if($key == "WWW") 
+    //                         { 
+    //                             $domaine_nom =  $this->getHost( $domain);
+    //                             $domaine_nom =  "www.". $domaine_nom;  
+    //                             $protocol = 'http://'; 
+    //                             $domaine_nom =  $protocol.$domaine_nom;   
+    //                         }
+
+    //                         if($key == "SSL") {                               
+                                
+    //                             $domaine_nom  =  str_replace('http', 'https',  $domain);                               
+    //                         }  
+
+    //                         $params_domaine = array(                                
+    //                             'nom' => $domaine_nom                                
+    //                         );                    
+    //                         $this->Domaine_model->update_t_domaine($t_domaine_id,$params_domaine);
+    //                     }  
+    //                 }
+    //             }
+               
+    //             redirect('domaine');
+    //         } 
+    //         else
+    //         {               
+    //             if( $element->id_heberg != "" && $element->id_heberg  != null )
+    //             {                    
+    //                 $this->load->model('Ip_model');               
+    //                 $data['all_t_ip'] = $this->Ip_model->get_ip_id_hebergement( $element->id_heberg );  
+    //             }   
+
+	// 			$this->load->model('Cms_model');
+	// 			$data['all_t_cms'] = $this->Cms_model->get_all_t_cms();
+
+	// 			$this->load->model('Registrar_model');
+	// 			$data['all_t_registrar'] = $this->Registrar_model->get_all_t_registrar();
+
+	// 			$this->load->model('Hebergement_model');
+    //             $data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
+               
+    //             $this->load->model('Techno_model');
+    //             $data['all_t_techno'] = $this->Techno_model->get_all_t_techno();
+              
+    //             $data['_view'] = 'domaine/edit';
+    //             $this->load->view('layouts/full',$data);
+    //         }
+    //     }
+    //     else
+    //         show_error('The t_domaine you are trying to edit does not exist.');
+    // } 
 
 
      /*
@@ -535,27 +784,7 @@ class Domaine extends CI_Controller{
                  );
                 $this->Domaine_model->update_t_domaine($id,$params);                  
             
-                /**ajout ip */               
-                $id_theme = empty( $param["theme"]) ? NULL :  $param["theme"];  
-                $id_ip = empty($param["ip"]) ? NULL : $param["ip"];   
-                
-                $params_ip = array(
-                    'id_domaine' => $element->id,
-                    'id_ip' =>  $id_ip,
-                    'id_theme' => $id_theme,
-                );
-
-                $this->load->model('Domaine_theme_ip_model');
-              
-                /*delete relation */               
-                $t_domaine_theme = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_by_param($element->id);
-                if(!empty( $param["ip"]) || !empty( $param["theme"]  ) )
-                {
-                    $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip); 
-                    $this->Domaine_theme_ip_model->delete_t_domaine_theme_ip_by_domaine($element->id); 
-
-                    $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip); 
-                }                   
+               
                 echo "index";
                 die; 
         }
@@ -599,21 +828,7 @@ class Domaine extends CI_Controller{
                                 
                             $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);
 
-                            if($key == "WWW") 
-                            {
-                                $domaine_nom =  $this->getHost( $element->nom);
-                                $domaine_nom  =  "www.". $domaine_nom ;     
-                                $protocol = 'http://'; 
-                                $element->nom =  $protocol.$domaine_nom;    
-                            } 
-                            if($key== "SSL") {                       
-                                $element->nom  =  str_replace('http', 'https', $element->nom);
-                            }  
-                            $params_domaine = array(                                
-                                'nom' =>  $element->nom                               
-                            );   
-
-                            $this->Domaine_model->update_t_domaine($element->id,$params_domaine);
+                            
                         }
                 }
             }
@@ -703,8 +918,6 @@ class Domaine extends CI_Controller{
             show_error('The t_domaine you are trying to delete does not exist.');
     }
 
-
-
     /*
      * Deleting t_domaine
      */
@@ -716,20 +929,17 @@ class Domaine extends CI_Controller{
         if(isset($t_domaine['id']))
         {
             $this->Domaine_model->delete_t_domaine($id);
-            redirect('domaine/index');
+            redirect('domaine');
         }
         else
             show_error('The t_domaine you are trying to delete does not exist.');
     }
 
-    function get_autocomplete_theme(){
-    
+    function get_autocomplete_theme(){       
         if (isset($_GET['term'])) {
             $this->load->model('Theme_model');
-            $result = $this->Theme_model->suggested_theme($_GET['term']);
-           
-            echo json_encode($result);
-            
+            $result = $this->Theme_model->suggested_theme($_GET['term']);           
+            echo json_encode($result);            
         }
     }
 
@@ -755,6 +965,25 @@ class Domaine extends CI_Controller{
             die;       
            
         }
+    }
+
+    function get_theme_list(){  
+        /* plugins */               
+        $this->load->model('Theme_model');
+        $theme = $this->Theme_model->get_all_t_theme();
+        $themes = array();
+        foreach($theme as $key):    
+           
+            $a = array(
+                'id' => trim($key['id']),
+                'label' => trim($key['name']),
+                'value' => trim($key['name'])
+            );
+
+            $themes[] = $a;
+        endforeach;
+        echo json_encode( $themes);
+        die;        
     }
 
     function get_techno_list(){  

@@ -5,7 +5,7 @@
             <div class="dash-item1">
                 <div class="content">
                     <div>
-                    <a href="<?php echo site_url('domaine/index'); ?>" >
+                    <a href="<?php echo site_url('domaine'); ?>" >
                         <span>NDD</span>  
                         <div class="display-nbr"><?php echo $t_dashboard->nb_site; ?></div>
                     </a>
@@ -15,7 +15,7 @@
             <div class="dash-item2">
                 <div class="content">
                     <div>
-                    <a href="<?php echo site_url('registrar/index'); ?>" > 
+                    <a href="<?php echo site_url('registrar'); ?>" > 
                         <span>Registrar</span>
                         <div class="display-nbr"><?php echo $t_dashboard->nb_registrar ?></div>
                     </a>
@@ -25,7 +25,7 @@
             <div class="dash-item3">
                 <div class="content">
                     <div>
-                    <a href="<?php echo site_url('hebergement/index'); ?>" >
+                    <a href="<?php echo site_url('hebergement'); ?>" >
                        <span>Hebergements</span>
                         <div class="display-nbr"><?php echo $t_dashboard->nb_hebergement ?></div>
                     </a>
@@ -35,7 +35,7 @@
             <div class="dash-item4">
                 <div class="content">
                     <div>
-                    <a href="<?php echo site_url('ip/index'); ?>" >
+                    <a href="<?php echo site_url('ip'); ?>" >
                         <span>Nombre d'ip</span>
                         <div class="display-nbr"><?php echo $t_dashboard->nb_ip ?></div>
                     </a>
@@ -49,7 +49,7 @@
             <!--<div class="dash-item5">
                 <div class="content">
                     <div>
-                    <a href="<?php //echo site_url('user/index'); ?>" >
+                    <a href="<?php //echo site_url('user'); ?>" >
                         <span>Utilisateurs</span>
                         <div class="display-nbr"><?php //echo $t_dashboard->nb_user ?></div>
                         </a>

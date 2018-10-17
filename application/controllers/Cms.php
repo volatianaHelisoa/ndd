@@ -35,7 +35,7 @@ class Cms extends CI_Controller{
             );
             
             $t_cms_id = $this->Cms_model->add_t_cms($params);
-            redirect('cms/index');
+            redirect('cms');
         }
         else
         {            
@@ -61,7 +61,7 @@ class Cms extends CI_Controller{
                 );
 
                 $this->Cms_model->update_t_cms($id,$params);            
-                redirect('cms/index');
+                redirect('cms');
             }
             else
             {
@@ -84,7 +84,7 @@ class Cms extends CI_Controller{
         if(isset($t_cms['id']))
         {
             $this->Cms_model->delete_t_cms($id);
-            redirect('cms/index');
+            redirect('cms');
         }
         else
             show_error('The t_cms you are trying to delete does not exist.');

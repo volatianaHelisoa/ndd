@@ -19,6 +19,8 @@ class Theme_model extends CI_Model
         return $this->db->get_where('t_theme',array('id'=>$id))->row_array();
     }
         
+ 
+
     /*
      * Get all t_theme
      */

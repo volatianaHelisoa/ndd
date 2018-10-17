@@ -6,6 +6,11 @@
 
 	<div class="wrap-field info-gen carte ">
 		<div class="title-field">Ajouter un IP</div>
+		<?php if(isset($error_nom)) :?>
+				<div class="alert alert-info" role="alert">
+					<?php echo $error_nom; ?>
+				</div>
+		<?php endif ?>
 		<div class="field">
 			<label for="id_heberg" >Sélectionner hébergement</label>
 			<select name="id_heberg" class="form-control">

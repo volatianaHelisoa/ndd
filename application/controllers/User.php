@@ -65,7 +65,7 @@ class User extends CI_Controller{
             );
             
             $t_user_id = $this->User_model->add_t_user($params);
-            redirect('user/index');
+            redirect('utilisateur');
         }
         else
         {
@@ -104,7 +104,7 @@ class User extends CI_Controller{
                 );
 
                 $this->User_model->update_t_user($id,$params);            
-                redirect('user/index');
+                redirect('utilisateur');
             }
             else
             {
@@ -130,7 +130,7 @@ class User extends CI_Controller{
         if(isset($t_user['id']))
         {
             $this->User_model->delete_t_user($id);
-            redirect('user/index');
+            redirect('utilisateur');
         }
         else
             show_error('The t_user you are trying to delete does not exist.');

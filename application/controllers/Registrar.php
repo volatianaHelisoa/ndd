@@ -36,9 +36,16 @@ class Registrar extends CI_Controller{
 				'url' => $this->input->post('url'),
 				'login' => $this->input->post('login'),
             );
-            
-            $t_registrar_id = $this->Registrar_model->add_t_registrar($params);
-            redirect('registrar/index');
+            if($this->Registrar_model->get_t_registrar_by_name($this->input->post('name')) == 0)  
+            {
+                $t_registrar_id = $this->Registrar_model->add_t_registrar($params);
+                redirect('registrar');
+            else
+            {    
+                $data['error_nom'] = "Ce registrar existe déjà !";             
+                $data['_view'] = 'registrar/add';
+                $this->load->view('layouts/main',$data);
+            }
         }
         else
         {            
@@ -65,9 +72,17 @@ class Registrar extends CI_Controller{
 					'url' => $this->input->post('url'),
 					'login' => $this->input->post('login'),
                 );
-
-                $this->Registrar_model->update_t_registrar($id,$params);            
-                redirect('registrar/index');
+                if($this->Registrar_model->get_t_registrar_by_name($this->input->post('name')) == 0)  
+                {
+                    $this->Registrar_model->update_t_registrar($id,$params);            
+                    redirect('registrar');
+                }
+                else
+                {    
+                    $data['error_nom'] = "Ce registrar existe déjà !";    
+                    $data['_view'] = 'registrar/edit';
+                    $this->load->view('layouts/main',$data);
+                }       
             }
             else
             {
@@ -90,7 +105,7 @@ class Registrar extends CI_Controller{
         if(isset($t_registrar['id']))
         {
             $this->Registrar_model->delete_t_registrar($id);
-            redirect('registrar/index');
+            redirect('registrar');
         }
         else
             show_error('The t_registrar you are trying to delete does not exist.');

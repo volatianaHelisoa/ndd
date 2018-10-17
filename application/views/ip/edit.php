@@ -1,6 +1,11 @@
 <?php echo form_open('ip/edit/'.$t_ip['id'],array("class"=>"form-horizontal")); ?>
 <div class="wrap-field info-gen carte">
-	<div class="title-field">Modifier l'hébergement</div>
+	<div class="title-field">Modifier IP</div>
+	<?php if(isset($error_nom)) :?>
+				<div class="alert alert-info" role="alert">
+					<?php echo $error_nom; ?>
+				</div>
+		<?php endif ?>
 	<div class="field">
 		<label for="id_heberg">Hébergement</label>		
 		<select name="id_heberg" class="form-control" required>
@@ -10,7 +15,7 @@
 			{
 				$selected = ($t_hebergement['id'] == $t_ip['id_heberg']) ? ' selected="selected"' : "";
 
-				echo '<option value="'.$t_hebergement['id'].'" '.$selected.'>'.$t_hebergement['id'].'</option>';
+				echo '<option value="'.$t_hebergement['id'].'" '.$selected.'>'.$t_hebergement['name'].'</option>';
 			} 
 			?>
 		</select>
@@ -20,7 +25,7 @@
 		<input
 				type="text"
 				name="adresse"
-				value="<?php echo $this->input->post('adresse'); ?>"
+				value="<?php echo ($this->input->post('adresse') ? $this->input->post('adresse') : $t_ip['adresse']); ?>"
 				id="adresse"
 				required
 				placeholder="192.168.0.255"
@@ -33,7 +38,7 @@
 	</div>
 	
 	
-	<button type="submit" class="btn btn-success">Save</button>
+	<button type="submit" class="btn btn-success">Enregistrer</button>
 
 </div>
 	
