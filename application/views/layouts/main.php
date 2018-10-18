@@ -11,7 +11,7 @@
 		<script type="text/javascript"	src="<?php echo base_url(); ?>assets/JS/jquery-ui-1.12.1.js"></script>
 
 		
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/JS/materialize.min.js"></script>
 
 		<script src="<?php echo base_url(); ?>assets/plugins/typeahead/typeahead.bundle.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/plugins/materialize-tags/js/materialize-tags.min.js"></script> 
@@ -39,8 +39,7 @@
 	<body>
 	<?php	
 		$current_user = $this->session->userdata('sessiondata');  
-		$token =  $current_user["token"];	
-		
+		$token =  $current_user["token"];			
 	?>
 	<div class="flex-wrapper-dashboard">
         <aside class="nav-panel">
@@ -53,6 +52,7 @@
                     <li><a href="<?php echo site_url('ip'); ?>">IP</a></li>
                     <li><a href="<?php echo site_url('theme'); ?>">Gestion thématique</a></li>
                     <li><a href="<?php echo site_url('registrar'); ?>">Registrar</a></li>
+					<li><a href="<?php echo site_url('type'); ?>">Type</a></li>
                     <li><a href="<?php echo site_url('utilisateur'); ?>">Utilisateurs</a></li>
                     <li><a href="<?php echo site_url('utilisateur/compte/'.$token); ?>">Mon compte</a></li>
                 </ul>
@@ -70,12 +70,13 @@
 					</div>
 				</div>
 			<div class="main-wrapper">
-				<?php				
-					if($this->session->userdata('sessiondata')) {					
-						if(isset($_view) && $_view)
-							$this->load->view($_view);
-					}else
-						redirect(base_url() . '/login');  				
+				<?php	
+					if(isset($_view) && $_view) $this->load->view($_view);			
+					// if($this->session->userdata('sessiondata')) {					
+					// 	if(isset($_view) && $_view)
+					// 		$this->load->view($_view);
+					// }else
+					// 	redirect(base_url() . '/login');  				
 				?>
 			</div>
      	</main>

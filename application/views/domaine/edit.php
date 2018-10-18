@@ -38,7 +38,7 @@
 			<div class="content-chips plug-list">
 				
 						<ul id="techno_result">	
-						<?php if($all_theme != null ) {?>				
+						<?php if( isset($all_theme) ) { ?>				
 							<?php	foreach($all_theme as $theme){	?>
 								<li><?php echo  $theme["name"]; ?> </li>
 							<?php	} ?>	
@@ -66,16 +66,13 @@
 			</select>
 		</div>
 
-		<div class="field">
-			<label for="">Site SSL : </label>						
-			<input type="checkbox"  name="is_ssl" value="<?php echo ($this->input->post('is_ssl') ? $this->input->post('is_ssl') : $t_domaine['is_ssl']); ?>" />					
-		</div>
-		<div class="field">
-			<label for="">Repertoire WWW : </label>						
-			<input type="checkbox"  name="is_www" value="<?php echo ($this->input->post('is_www') ? $this->input->post('is_www') : $t_domaine['is_www']); ?>" />				
+		<div class="field row">
+			<label for="is_ssl" class="col-md-6"><input type="checkbox"  name="is_ssl" id="is_ssl" value="<?php echo ($this->input->post('is_ssl') ? $this->input->post('is_ssl') : $t_domaine['is_ssl']); ?>" /><small>Site SSL</small></label>						
+			<label for="is_www" class="col-md-6"><input type="checkbox"  name="is_www" id="is_www" value="<?php echo ($this->input->post('is_www') ? $this->input->post('is_www') : $t_domaine['is_www']); ?>" /><small>Repertoire WWW</small> </label>				
 		</div>
 	
-		<input type="submit" class="btn submit" value="Enregistrer">
+		<input type="submit" class="btn submit primary-action" value="Enregistrer">
+		<a href="<?php echo site_url('domaine'); ?>" class="submit">Annuler</a>
 </div>
 <?php echo form_close(); ?>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">

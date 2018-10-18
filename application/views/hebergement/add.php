@@ -3,7 +3,7 @@
 		<span class="title-l"></span>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla laoreet mauriss</p>
 	</div>
-	<div class="wrap-field info-gen carte ">
+	<div class="wrap-field info-gen carte">
 		<div class="title-field">Ajouter un hébergement</div>
 		<?php if(isset($error_nom)) :?>
 				<div class="alert alert-info" role="alert">
@@ -26,6 +26,7 @@
 			<label for="password">Password</label>
 			<input type="password" name="password" value="<?php echo $this->input->post('password'); ?>" id="password" />
 		</div>
-		<button type="submit" class="btn submit">Enregistrer</button>
+		<button type="submit" class="btn submit primary-action">Enregistrer</button>
+		<a href="<?php echo site_url('hebergement'); ?>" class="submit">Annuler</a>
 	</div>
 <?php echo form_close(); ?>

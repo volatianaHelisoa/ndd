@@ -42,6 +42,7 @@
                     <li><a href="<?php echo site_url('ip'); ?>">IP</a></li>
                     <li><a href="<?php echo site_url('theme'); ?>">Gestion thématique</a></li>
                     <li><a href="<?php echo site_url('registrar'); ?>">Registrar</a></li>
+					<li><a href="<?php echo site_url('type'); ?>">Type</a></li>
                     <li><a href="<?php echo site_url('utilisateur'); ?>">Utilisateurs</a></li>
                     <li><a href="<?php echo site_url('utilisateur/compte/'.$token); ?>">Mon compte</a></li>
                 </ul>

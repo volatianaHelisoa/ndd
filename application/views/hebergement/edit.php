@@ -24,7 +24,8 @@
 		<input type="text" name="password" value="<?php echo ($this->input->post('password') ? $this->input->post('password') : $t_hebergement['password']); ?>" class="form-control" id="password" />
 	</div>
 	
-	<button type="submit" class="btn submit">Enregistrer</button>
+	<button type="submit" class="btn submit primary-action">Enregistrer</button>
+	<a href="<?php echo site_url('hebergement'); ?>" class="submit">Annuler</a>
 </div>
 	
 <?php echo form_close(); ?>

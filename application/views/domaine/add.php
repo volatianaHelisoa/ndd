@@ -76,14 +76,11 @@
 					?>
 				</select>
 			</div>
-			<div class="field">
-				<label for="">Site SSL : </label>						
-				<input type="checkbox"  name="is_ssl"  />					
+			<div class="field row">
+				<label for="is_ssl" class="col-md-6"><input type="checkbox"  name="is_ssl" id="is_ssl"/><small>Site SSL</small></label>
+				<label for="is_www" class="col-md-6"><input type="checkbox"  name="is_www"  id="is_www"/><small>Repertoire WWW</small></label>
 			</div>
-			<div class="field">
-				<label for="">Repertoire WWW : </label>						
-				<input type="checkbox"  name="is_www"  />				
-			</div>
+			
 			<input type="button" class="btn submit btn-next prevnext" value="Suivant">
 			<input type="submit" class="btn submit btn-save-first" value="Ajouter">
 	</div>
@@ -277,7 +274,7 @@
 			});
 			
 			var theme_tags = [];		
-			$('.content-chips.theme_tags .materialize-tags .materialize-tags').find('span.chip').each(function() {               
+			$('.theme_tags .materialize-tags .materialize-tags').find('span.chip').each(function() {               
 				var theme_value = $(this).text();					
 				var theme_res = theme_value.replace("close", "");			
 				theme_tags.push(theme_res); 				           
