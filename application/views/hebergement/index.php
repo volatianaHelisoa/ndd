@@ -22,7 +22,7 @@
 		<td id="<?php echo $t->id; ?>"><?php echo $t->name;  ?></td>
 		<td><button class="cust-btn dark-btn small-btn acces-heberg"  data-heberg ="<?php echo $t->id; ?>">VOIR</button></td>
 		<td><?php echo $t->nb_ip; ?></td>
-		<td><?php echo $t->nb_site; ?></td>
+		<td><a href="<?php echo site_url('domaine?heberg='.$t->id) ?>"><?php echo $t->nb_site; ?></a></td>
 		<td>
             <a href="<?php echo site_url('hebergement/edit/'.$t->id); ?>" class="btn btn-info btn-xs act-edit-btn"></a> 
 			<a href=""  title="Supprimer hebergement act-delete-btn"  class="btn btn-danger btn-xs act-delete-btn" data-toggle="modal" data-target="#myModal<?php echo $t->id; ?>"></a>

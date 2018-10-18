@@ -30,7 +30,7 @@
 			<td><?php echo $t->adresse; ?></td>
 			<td><?php echo $t->hebergement; ?></td>
 			<td><?php echo $t->reverseip; ?></td>
-			<td><a href="<?php echo site_url('domaine?ip='.$t->adresse)."&heberg=".$t->id_heberg ?>"><?php echo $t->nb_site; ?></a></td>
+			<td><a href="<?php echo site_url('domaine?ip='.$t->adresse) ?>"><?php echo $t->nb_site; ?></a></td>
 			<td>
 				<a href="<?php echo site_url('ip/edit/'.$t->id); ?>" class="btn btn-info btn-xs act-edit-btn"></a> 
 				<a href=""  title="Supprimer ip"  class="btn btn-danger btn-xs act-delete-btn" data-toggle="modal" data-target="#myModal<?php echo $t->id; ?>"></a>

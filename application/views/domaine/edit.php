@@ -79,6 +79,11 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){ 	
+		var is_ssl = $('#is_ssl').val();
+		if(is_ssl != 0) $('#is_ssl').prop("checked",true);
+		
+		var is_www = $('#is_www').val();
+		if(is_www != 0) $('#is_www').prop("checked",true);
 		$.ajax({
 			url: "<?=site_url('domaine/get_theme_list')?>",				
 			dataType: "json",
