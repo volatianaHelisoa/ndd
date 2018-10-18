@@ -97,6 +97,7 @@ class Domaine_theme_ip_model extends CI_Model
        
         $query = $this->db->get();
         $domaine_theme = $query->result_array();
+      
         return $domaine_theme;
     }
 
@@ -132,9 +133,10 @@ class Domaine_theme_ip_model extends CI_Model
         $this->db->from('t_domaine_theme_ip');      
         $this->db->join('t_ip', 't_domaine_theme_ip.id_ip = t_ip.id', 'inner');
         $this->db->where( 't_ip.id', $id_ip );     
-       
+        $this->db->group_by('t_ip.id');
         $query = $this->db->get();
         $domaine_theme = $query->result_array();
+       
         return $domaine_theme;
     }
 
@@ -185,7 +187,7 @@ class Domaine_theme_ip_model extends CI_Model
     {
         $this->load->database();
 
-        $this->db->select('t_domaine_theme_ip.id as id');
+        $this->db->select('t_domaine_theme_ip.*');
         $this->db->from('t_domaine_theme_ip');
         $this->db->join('t_domaine', 't_domaine_theme_ip.id_domaine = t_domaine.id', 'inner');
        
@@ -194,8 +196,8 @@ class Domaine_theme_ip_model extends CI_Model
       
        
         $query = $this->db->get();
-        $domaine_theme = $query->row_array();
-      
+        $domaine_theme = $query->result_array();
+      //var_dump($domaine_theme);die;
         return $domaine_theme;
     }
 
@@ -233,9 +235,11 @@ class Domaine_theme_ip_model extends CI_Model
         $this->db->from('t_domaine_theme_ip');
         $this->db->join('t_domaine', 't_domaine_theme_ip.id_domaine = t_domaine.id', 'inner');
         $this->db->join('t_ip', 't_domaine_theme_ip.id_ip = t_ip.id', 'inner');
-        $this->db->where( 't_ip.id', $id_ip );     
+        $this->db->where( 't_ip.id', $id_ip );   
+        $this->db->group_by('t_ip.id');  
         $query = $this->db->get();
-        $domaine_theme = $query->row_array();
+        $domaine_theme = $query->result_array();
+       
         return $domaine_theme;
     }
 

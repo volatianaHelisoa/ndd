@@ -28,17 +28,18 @@ class Ip extends CI_Controller{
             /**IP */               
             $this->load->model('Domaine_theme_ip_model');
             $domaine_ip = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_by_ip($row['id']);   
-        
+      
             $element->nb_site = ($domaine_ip != null && count($domaine_ip) >0 ) ? count($domaine_ip) : 0;
-           
+    
             $this->load->model('Hebergement_model');
 			$hebergement = $this->Hebergement_model->get_t_hebergement($row['id_heberg']);
-            $element->hebergement = $hebergement['name'];   
-		
+            $element->hebergement = $hebergement['name'];  
+            $element->id_heberg = $row['id_heberg']; 
+            
             $res[] = $element;	
         }
         $data['nb_ip'] = ($data['t_ip'] != null && count($data['t_ip']) >0 ) ? count($data['t_ip']) : 0;
-     
+       
         $data['t_ip'] = $res;  
         $data['_view'] = 'ip/index';
         $this->load->view('layouts/main',$data);
