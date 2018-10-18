@@ -1,7 +1,8 @@
 <?php echo form_open('hebergement/add',array("class"=>"form-horizontal")); ?>
+	
 	<div class="head-section centered-el">
-		<span class="title-l"></span>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla laoreet mauriss</p>
+		<span class="title-l">Hébergement</span>
+		<p>Vous avez <span><?php echo $nb_hebergement ?></span></span> hébergement(s)</p>
 	</div>
 	<div class="wrap-field info-gen carte">
 		<div class="title-field">Ajouter un hébergement</div>

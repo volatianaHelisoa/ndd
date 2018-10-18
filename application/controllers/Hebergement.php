@@ -65,6 +65,8 @@ class Hebergement extends CI_Controller{
             }
             else
             {     
+                $t_hebergement = $this->Hebergement_model->get_all_t_hebergement();        
+                $data['nb_hebergement'] = ( $t_hebergement != null && count( $t_hebergement) >0 ) ? count( $t_hebergement) : 0;
                 $data['error_nom'] = "Cet hébergement existe déjà !";         
                 $data['_view'] = 'hebergement/add';
                 $this->load->view('layouts/full',$data);
@@ -72,6 +74,8 @@ class Hebergement extends CI_Controller{
         }
         else
         {            
+            $t_hebergement = $this->Hebergement_model->get_all_t_hebergement();        
+            $data['nb_hebergement'] = ( $t_hebergement != null && count( $t_hebergement) >0 ) ? count( $t_hebergement) : 0;
             $data['_view'] = 'hebergement/add';
             $this->load->view('layouts/full',$data);
         }  
