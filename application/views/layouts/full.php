@@ -12,6 +12,7 @@
 		<script src="<?php echo base_url(); ?>assets/JS/bootstrap.min.js" type="text/javascript"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/JS/jquery.dataTables.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/JS/dataTables.js"></script>
+		<script src="<?php echo base_url(); ?>assets/JS/materialize.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/JS/customscript.js"> </script>
 		<script src="<?php echo base_url(); ?>assets/JS/bootstrap-multiselect.js"></script>
 
