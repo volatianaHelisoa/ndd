@@ -53,6 +53,14 @@ $('#reset_filter').click(function () {
     table.draw();
 });
 
+$('#recherche').on('change', function(){   
+    table
+    .column(0)
+    .search(this.value)
+    .draw();
+
+  });
+
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
