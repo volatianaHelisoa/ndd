@@ -17,8 +17,7 @@ $(document).ready(function() {
     $(".main-wrapper,.nav-panel").click(function() {
         $(".bloc-user").removeClass("show");
     });
-    $('#ndd-list').DataTable();
-    
+   
     $(".content-chips span").click(function(){
         var hideChip = $(this).parent(".content-chips li");
         hideChip.hide();

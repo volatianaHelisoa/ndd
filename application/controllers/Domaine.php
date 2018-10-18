@@ -30,11 +30,35 @@ class Domaine extends CI_Controller{
                 $data['t_domaine']  = $this->Domaine_theme_ip_model->get_t_domaine_by_ip($current_ip['id']); 
             }            
        }  
+       if (isset($_GET['heberg']) ) {
+            $heberg = trim($_GET['heberg']);
+            $domaine_data = $this->Domaine_model->get_by_id_hebergement($heberg);
+           
+            if($domaine_data)
+            {               
+                $data['t_domaine']  = $domaine_data; 
+            }  
+            else
+             $data['t_domaine']  = null;       
+        }      
+        if (isset($_GET['registrar']) ) {
+            $registrar = trim($_GET['registrar']);
+            $domaine_data = $this->Domaine_model->get_by_id_registrar($registrar);
+           
+            if($domaine_data)
+            {               
+                $data['t_domaine']  = $domaine_data; 
+            }  
+            else
+             $data['t_domaine']  = null;       
+        }   
+        
       
+        $res = array();
+        if($data['t_domaine'] != null){
 
-            $res = array();
             foreach($data['t_domaine'] as $row) {
-            
+        
                 $element = new stdClass();
                 $element->id = $row['id'];
                 $domain = $this->getHost($row['nom']);
@@ -118,30 +142,30 @@ class Domaine extends CI_Controller{
                     $element->available = "Le domaine n'est pas enregistré ou inactif.";               
 
                 $res[] = $element;	
-            }      
+                }      
+        }   
+        $this->load->model('Registrar_model');
+        $data['all_t_registrar'] = $this->Registrar_model->get_all_t_registrar();
 
-            $this->load->model('Registrar_model');
-            $data['all_t_registrar'] = $this->Registrar_model->get_all_t_registrar();
+        $this->load->model('Hebergement_model');
+        $data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();                
 
-            $this->load->model('Hebergement_model');
-            $data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();                
+        $this->load->model('Theme_model');
+        $data['all_t_theme'] = $this->Theme_model->get_all_t_theme();      
 
-            $this->load->model('Theme_model');
-            $data['all_t_theme'] = $this->Theme_model->get_all_t_theme();      
+        $this->load->model('Type_model');
+        $data['all_t_type'] = $this->Type_model->get_all_t_type();
+    
+        $this->load->model('Domaine_model');
+        $domaine_data = $this->Domaine_model->get_all_t_domaine();
+        $data['nb_site'] = ($domaine_data != null && count($domaine_data) >0 ) ? count($domaine_data) : 0;
 
-            $this->load->model('Type_model');
-            $data['all_t_type'] = $this->Type_model->get_all_t_type();
-        
-            $this->load->model('Domaine_model');
-            $domaine_data = $this->Domaine_model->get_all_t_domaine();
-            $data['nb_site'] = ($domaine_data != null && count($domaine_data) >0 ) ? count($domaine_data) : 0;
+        $this->load->model('Cms_model');
+        $data['all_t_cms'] = $this->Cms_model->get_all_t_cms();
 
-            $this->load->model('Cms_model');
-            $data['all_t_cms'] = $this->Cms_model->get_all_t_cms();
-
-            $data['t_domaine'] = $res;  
-            $data['_view'] = 'domaine/index';
-            $this->load->view('layouts/main', $data);
+        $data['t_domaine'] = $res;  
+        $data['_view'] = 'domaine/index';
+        $this->load->view('layouts/main', $data);
      
 
     }
@@ -576,8 +600,7 @@ class Domaine extends CI_Controller{
                             if(isset( $t_domaine_theme) )                            
                                 $this->Domaine_theme_ip_model->delete_t_domaine_theme_ip_by_domaine($id); 
                                 
-                            $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip); 
-                                     
+                            $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);                                      
                         } 
                     }     
                 }      
@@ -596,7 +619,7 @@ class Domaine extends CI_Controller{
                  $domaine_theme = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_theme_by_domaine($id);   
                
                 if($domaine_theme != null )                
-                $data['all_t_theme'] =  $domaine_theme;                  
+                $data['all_theme'] =  $domaine_theme;                  
              
                 $data['_view'] = 'domaine/edit';
                 $this->load->view('layouts/main',$data);

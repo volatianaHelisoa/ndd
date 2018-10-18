@@ -74,7 +74,7 @@ class Domaine_model extends CI_Model
         $this->db->like( 'id_heberg', $id_hebergement );
         $this->db->order_by('id_heberg', 'asc');
         $query = $this->db->get();
-        $domaine_data = $query->result();
+        $domaine_data = $query->result_array();
         
         return $domaine_data;   
     }
@@ -88,7 +88,7 @@ class Domaine_model extends CI_Model
         $this->db->like( 'id_registrar', $id_registrar );
         $this->db->order_by('id_registrar', 'asc');
         $query = $this->db->get();
-        $domaine_data = $query->result();
+        $domaine_data = $query->result_array();
         
         return $domaine_data;   
     }
