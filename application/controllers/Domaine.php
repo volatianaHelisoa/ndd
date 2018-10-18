@@ -512,7 +512,12 @@ class Domaine extends CI_Controller{
                
               
                 $current_domaine = $data['t_domaine']['nom'];
-               
+                
+                if(!$is_ssl && !$is_www){
+                    $domaine_nom =  $this->getHost( $current_domaine);                   
+                    $protocol = 'http://'; 
+                    $current_domaine =  $protocol.$domaine_nom;    
+                }
                 if($is_www) 
                 {
                     $domaine_nom =  $this->getHost( $current_domaine);
@@ -520,9 +525,13 @@ class Domaine extends CI_Controller{
                     $protocol = 'http://'; 
                     $current_domaine =  $protocol.$domaine_nom;    
                 } 
-                if($is_ssl) {                       
+                if($is_ssl) {       
+                    $domaine_nom =  $this->getHost( $current_domaine);                    
+                    $protocol = 'http://'; 
+                    $current_domaine =  $protocol.$domaine_nom;                    
                     $current_domaine  =  str_replace('http', 'https', $current_domaine);
                 }  
+               
                 $params_domaine = array(                                
                     'nom' => $current_domaine,
                     'id_registrar' => $this->input->post('id_registrar'),					
@@ -609,6 +618,7 @@ class Domaine extends CI_Controller{
             }
             else
             {
+                $data['nom'] =  $this->getHost( $data['t_domaine']['nom']);
 				$this->load->model('Registrar_model');
 				$data['all_t_registrar'] = $this->Registrar_model->get_all_t_registrar();
 

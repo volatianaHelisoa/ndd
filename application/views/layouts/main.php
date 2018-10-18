@@ -72,11 +72,11 @@
 			<div class="main-wrapper">
 				<?php	
 					if(isset($_view) && $_view) $this->load->view($_view);			
-					if($this->session->userdata('sessiondata')) {					
-						if(isset($_view) && $_view)
-							$this->load->view($_view);
-					}else
-						redirect(base_url() . 'login');  				
+					// if($this->session->userdata('sessiondata')) {					
+					// 	if(isset($_view) && $_view)
+					// 		$this->load->view($_view);
+					// }else
+					// 	redirect(base_url() . '/login');  				
 				?>
 			</div>
      	</main>

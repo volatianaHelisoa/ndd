@@ -9,7 +9,7 @@
 </div>				
 
 <div class="wrap-field info-gen carte">
-		<div class="title-field">Information générale</div>
+		<div class="title-field"><?php echo $nom; ?></div>
 		<?php if(isset($error_nom)) :?>
 			<div class="alert alert-info" role="alert">
 				<?php echo $error_nom; ?>
