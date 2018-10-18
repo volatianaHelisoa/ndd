@@ -5,7 +5,8 @@
 		<label for="type">Type</label>
 		<input type="text" name="type" value="<?php echo ($this->input->post('type') ? $this->input->post('type') : $t_role['type']); ?>" id="type" required />
 	</div>
-	<button type="submit" class="btn submit">Enregistrer</button>
+	<button type="submit" class="btn submit primary-action">Enregistrer</button>
+	<a href="<?php echo site_url('role'); ?>" class="submit">Annuler</a>
 </div>
 	
 <?php echo form_close(); ?>

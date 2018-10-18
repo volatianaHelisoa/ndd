@@ -61,7 +61,8 @@
 			<li id="pass-number">Pensez à ajouter des chiffres</li>
 		</ul>  
 	<div id="result"></div> 
-	<button type="submit" class="submit">Enregistrer</button>
+	<button type="submit" class="submit primary-action">Enregistrer</button>
+	<a href="<?php echo site_url('utilisateur'); ?>" class="submit">Annuler</a>
 </div>
 	
 <?php echo form_close(); ?>

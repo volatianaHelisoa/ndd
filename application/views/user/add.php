@@ -33,11 +33,9 @@
 			} 
 			?>
 		</select>
-	</div>
-	
-	<div class="field">
-		<button type="submit" class="btn submit">Ajouter</button>
-	</div>
+	</div>	
+	<button type="submit" class="btn submit primary-action">Ajouter</button>
+	<a href="<?php echo site_url('utilisateur'); ?>" class="submit">Annuler</a>
 </div>
 
 <?php echo form_close(); ?>

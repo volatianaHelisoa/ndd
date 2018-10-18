@@ -11,7 +11,7 @@ input[type="checkbox"] { width: auto; width: auto; display: inline-block; vertic
 .submit { width:auto !important}
 a.submit { display:inline-block; vertical-align: middle;}
 a.submit + .submit { background-color: #141324}
-.submit.primary-action {background-color: #141324}
+.submit.primary-action {background-color: #141324; vertical-align: middle;}
 .prevnext { background-color:#337ab7 !important}
 .field { padding-bottom:20px; text-align:left}
 .field select { border: 1px solid #eaeaea;padding: 10px;min-height: 45px;font:normal 15px/21px Rl; color:#231f20; width:100%}

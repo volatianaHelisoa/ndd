@@ -26,32 +26,32 @@
     </thead> 
 	<tbody>
 	<?php foreach($t_ip as $t){ ?>
-    <tr id="<?php echo $t->id; ?>">
-		<td><?php echo $t->adresse; ?></td>
-		<td><?php echo $t->hebergement; ?></td>
-		<td><?php echo $t->reverseip; ?></td>
-		<td><a href="<?php echo site_url('domaine?ip='.$t->adresse)."&heberg=".$t->id_heberg ?>"><?php echo $t->nb_site; ?></a></td>
-		<td>
-            <a href="<?php echo site_url('ip/edit/'.$t->id); ?>" class="btn btn-info btn-xs act-edit-btn"></a> 
-            <a href=""  title="Supprimer ip"  class="btn btn-danger btn-xs act-delete-btn" data-toggle="modal" data-target="#myModal<?php echo $t->id; ?>"></a>
-        </td>
-    </tr>
-    <div class="modal fade" id="myModal<?php echo $t->id; ?>" role="dialog">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">      
+		<tr id="<?php echo $t->id; ?>">
+			<td><?php echo $t->adresse; ?></td>
+			<td><?php echo $t->hebergement; ?></td>
+			<td><?php echo $t->reverseip; ?></td>
+			<td><a href="<?php echo site_url('domaine?ip='.$t->adresse)."&heberg=".$t->id_heberg ?>"><?php echo $t->nb_site; ?></a></td>
+			<td>
+				<a href="<?php echo site_url('ip/edit/'.$t->id); ?>" class="btn btn-info btn-xs act-edit-btn"></a> 
+				<a href=""  title="Supprimer ip"  class="btn btn-danger btn-xs act-delete-btn" data-toggle="modal" data-target="#myModal<?php echo $t->id; ?>"></a>
+			</td>
+		</tr>
+		<div class="modal fade" id="myModal<?php echo $t->id; ?>" role="dialog">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">      
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>                
-                      <div class="modal-body">
-                        <div class="wrap-field carte">
-                          <div class="title-field">Confirmation</div>
-                           
-                            <p>Êtes-vous sûr de vouloir supprimer ?</p>
-                             <div class="modal-footer">
-								<a  href="<?php echo site_url('ip/remove/'. $t->id); ?>" class="submit"  >Oui</a>
+					<div class="modal-body">
+						<div class="wrap-field carte">
+							<div class="title-field">Confirmation</div>
+						   
+							<p>Êtes-vous sûr de vouloir supprimer ?</p>
+							<div class="modal-footer">
+								<a  href="<?php echo site_url('ip/remove/'. $t->id); ?>" class="submit">Oui</a>
 								<button type="button" class="submit" data-dismiss="modal">Non</button>
 							</div>
+						</div>
+					</div>
 				</div>
-				</div>
-			</div>
 			</div>
 		</div>
 	<?php } ?>

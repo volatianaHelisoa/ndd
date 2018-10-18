@@ -30,7 +30,8 @@
 	</div>
 	
 	
-	<button type="submit" class="btn submit">Enregistrer</button>
+	<button type="submit" class="btn submit primary-action">Enregistrer</button>
+	<a href="<?php echo site_url('registrar'); ?>" class="submit">Annuler</a>
 	</div>
 
 <?php echo form_close(); ?>
