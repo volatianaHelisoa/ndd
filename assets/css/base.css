@@ -112,3 +112,9 @@ select {
 .modal-body p {
     margin: 0 0 10px;
 }
+textarea{
+    text-align: left;
+    width: 100%;
+    min-height: 250px;
+    resize: none;
+}

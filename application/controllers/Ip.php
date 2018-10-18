@@ -52,41 +52,64 @@ class Ip extends CI_Controller{
     {   
         if(isset($_POST) && count($_POST) > 0)     
         {   
-            $params = array(
-				'id_heberg' => $this->input->post('id_heberg'),
-                'adresse' => $this->input->post('adresse'),
-                'reverseip' => $this->input->post('reverseip'),
-            );
-            if($this->Ip_model->get_t_ip_by_ip_hebergement($this->input->post('id_heberg'),$this->input->post('adresse')) == null)                  
-               {
-                    if($this->Ip_model->get_t_ip_by_adresse($this->input->post('adresse')) == 0)  
+            $adresses = explode(PHP_EOL,  $this->input->post('adresse'));
+            $adresses = preg_replace("(\r\n|\n|\r)",'',$adresses);
+            $regex = "(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])"; // Host or IP 
+            $error_list = array();
+            $row = 1;
+          
+            foreach($adresses as $ip_adresse){
+              
+                if(preg_match("/^$regex$/", $ip_adresse)) 
+                {                   
+                    $params = array(
+                        'id_heberg' => $this->input->post('id_heberg'),
+                        'adresse' => $ip_adresse,
+                        'reverseip' => $this->input->post('reverseip'),
+                    );
+
+                    if($this->Ip_model->get_t_ip_by_ip_hebergement($this->input->post('id_heberg'),trim($ip_adresse)) == null)                  
                     {
-                        $t_ip_id = $this->Ip_model->add_t_ip($params);
-                        redirect('ip');
+                        if($this->Ip_model->get_t_ip_by_adresse($ip_adresse) == 0)  
+                        {
+                            $t_ip_id = $this->Ip_model->add_t_ip($params);                           
+                        }
+                        else
+                        {    
+                            $error_list[$row] = $ip_adresse . "  Cet IP existe déjà !";                              
+                        }
                     }
                     else
-                    {
-                      
-                        $data['error_nom'] = "Cet IP existe déjà !";    
-                        $this->load->model('Hebergement_model');
-                        $data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
-                        
-                        $data['_view'] = 'ip/add';
-                        $this->load->view('layouts/main',$data);
+                    {           
+                        $error_list[$row] = $ip_adresse ."  Le couple Hébergement/IP existe déjà !";  
                     }
                 }
                 else
-                {
-                     $data['error_nom'] = "Ce couple Hébergement/IP existe déjà !";        
-                    $this->load->model('Hebergement_model');
-                    $data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
-                    
-                    $data['_view'] = 'ip/add';
-                    $this->load->view('layouts/main',$data);
+                {                     
+                    $error_list[$row] = $ip_adresse ."  IP invalide !";   
                 }
+                $row ++;               
+            }
+            if(count($error_list) > 0){
+                $data['error_nom'] = "Liste des erreurs </br> :";
+                foreach ($error_list as $k => $v ) {  
+                                     
+                    $data['error_nom'] .= "Ligne ".$k. " : ".$v ."</br>";  
+                }              
+                $all_ip = $this->Ip_model->get_all_t_ip();     
+                $data['nb_ip'] = ($all_ip != null && count($all_ip) >0 ) ? count($all_ip) : 0;
+                $this->load->model('Hebergement_model');
+                $data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();                        
+                $data['_view'] = 'ip/add';
+                $this->load->view('layouts/main',$data);
+            }
+            else
+                redirect('ip');
         }
         else
         {
+            $all_ip = $this->Ip_model->get_all_t_ip();     
+            $data['nb_ip'] = ($all_ip != null && count($all_ip) >0 ) ? count($all_ip) : 0;
 			$this->load->model('Hebergement_model');
 			$data['all_t_hebergement'] = $this->Hebergement_model->get_all_t_hebergement();
             
