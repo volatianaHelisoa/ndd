@@ -23,7 +23,7 @@ class Ip extends CI_Controller{
 			$element = new stdClass();
             $element->id = $row['id'];
             $element->adresse =  $row['adresse'];
-            $element->reverseip =  $row['reverseip'];     
+          //  $element->reverseip =  $row['reverseip'];     
 
             /**IP */               
             $this->load->model('Domaine_theme_ip_model');
@@ -65,7 +65,7 @@ class Ip extends CI_Controller{
                     $params = array(
                         'id_heberg' => $this->input->post('id_heberg'),
                         'adresse' => $ip_adresse,
-                        'reverseip' => $this->input->post('reverseip'),
+                        'reverseip' => $ip_adresse,
                     );
 
                     if($this->Ip_model->get_t_ip_by_ip_hebergement($this->input->post('id_heberg'),trim($ip_adresse)) == null)                  
@@ -133,7 +133,7 @@ class Ip extends CI_Controller{
                 $params = array(
 					'id_heberg' => $this->input->post('id_heberg'),
                     'adresse' => $this->input->post('adresse'),
-                    'reverseip' => $this->input->post('reverseip'),
+                    'reverseip' => $this->input->post('adresse'),
                 );
               
                 if($this->Ip_model->get_t_ip_by_ip_hebergement($this->input->post('id_heberg'),$this->input->post('adresse')) == null)                       

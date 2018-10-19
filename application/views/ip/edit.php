@@ -32,10 +32,7 @@
 				pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"
 			/>
 	</div>
-	<div class="field">
-		<label for="reverseip">Reverse IP</label>
-		<input type="text" name="reverseip" value="<?php echo ($this->input->post('reverseip') ? $this->input->post('reverseip') : $t_ip['reverseip']); ?>" id="reverseip" />
-	</div>
+	
 	
 	
 	<button type="submit" class="btn submit primary-action">Enregistrer</button>

@@ -20,7 +20,7 @@
 	<thead class="customized-thead">
 		<th>Liste IP</th>
 		<th>Hébergement</th>
-		<th>Reverse IP</th>
+	
 		<th>Nombre de site</th>
 		<th>Action</th>
     </thead> 
@@ -29,7 +29,7 @@
 		<tr id="<?php echo $t->id; ?>">
 			<td><?php echo $t->adresse; ?></td>
 			<td><?php echo $t->hebergement; ?></td>
-			<td><?php echo $t->reverseip; ?></td>
+			
 			<td><a href="<?php echo site_url('domaine?ip='.$t->adresse) ?>"><?php echo $t->nb_site; ?></a></td>
 			<td>
 				<a href="<?php echo site_url('ip/edit/'.$t->id); ?>" class="btn btn-info btn-xs act-edit-btn"></a> 

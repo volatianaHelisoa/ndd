@@ -29,10 +29,7 @@
 			<textarea  name="adresse"	id="adresse"><?php echo $this->input->post('adresse'); ?></textarea>
 			
 		</div>
-		<div class="field">
-		<label for="reverseip">Reverse IP</label>		
-		<input type="text" name="reverseip" value="<?php echo $this->input->post('reverseip'); ?>"  id="reverseip" />
-		</div>
+		
 		<button type="submit" class="btn submit primary-action">Enregistrer</button>
 		<a href="<?php echo site_url('ip'); ?>" class="submit">Annuler</a>
 		</div>
