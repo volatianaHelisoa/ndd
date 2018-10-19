@@ -563,6 +563,7 @@
 			$("#view_bopass").show();$("#view_ftppass").show();$("#bopass_res").show();$("#pass_res").show();
 			$('#technoModal input#pass_res').attr('type', 'password');
 			$('#technoModal input#bopass_res').attr('type', 'password');
+			$(".div_cms").hide();
 			$('#technoModal input[type=checkbox]').each(function() 
 				{ 
 						this.checked = false; 
