@@ -190,7 +190,7 @@ class User extends CI_Controller{
 				$sessiondata['checksession'] = $this->input->post( 'check_session' );
 				$sessiondata['username'] = $tname;
 			}
-
+           
             $this->session->set_userdata( 'sessiondata', $sessiondata );
           
 			redirect( 'dashboard' );	
