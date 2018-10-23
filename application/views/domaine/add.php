@@ -150,6 +150,7 @@
 					$("#bo-acces").show();
 				
 			});
+			$(".materialize-tags > input.n-tag").prop("autofocus", true);
 		$.ajax({
 			url: "<?=site_url('domaine/get_techno_list')?>",				
 			dataType: "json",
@@ -169,7 +170,10 @@
 				typeaheadjs: {
 					name: 'technos',
 					displayKey: 'label',
-					source: technos.ttAdapter()
+					source: technos.ttAdapter(),
+					addOnBlur: true,
+					trimValue: true,
+					confirmKeys: [enterKey, 188]
 				}
 			});					   
 					
