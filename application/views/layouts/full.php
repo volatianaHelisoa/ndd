@@ -15,6 +15,7 @@
 		<script src="<?php echo base_url(); ?>assets/JS/materialize.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/JS/customscript.js"> </script>
 		<script src="<?php echo base_url(); ?>assets/JS/bootstrap-multiselect.js"></script>
+		<script src="<?php echo base_url(); ?>assets/JS/Chart.min.js"></script>
 
 		<!-- CSS styles -->
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" />
@@ -66,7 +67,7 @@
 						if(isset($_view) && $_view)
 							$this->load->view($_view);
 					}else
-						redirect(base_url() . '/login');  			
+						redirect(base_url() . 'login');  			
 				?>
 			</div>
         </main>
