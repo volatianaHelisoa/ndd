@@ -78,7 +78,7 @@
 	<a href="<?php echo site_url('domaine/add'); ?>" class="cust-btn dark-btn add">Ajouter ndd</a> 
 </div>
 
-<table id="ndd-list" class="display compact custom-styled" style="width:100%">
+<table id="ndd-list" class="display compact responsive custom-styled" style="width:100%">
 	<thead class="customized-thead">
 		<th>Nom de domaine</th>
 		<th>Type</th>
@@ -371,34 +371,27 @@
 				$("#select_cms").val(current_cms_id);	
 											
 				if (str.toLowerCase().indexOf("html") >= 0) {
-					$("#bo-acces").hide();
-					
+					$("#bo-acces").hide();					
 					$.ajax({
 						url: "<?=site_url('domaine/get_by_domaine')?>",
 						data: { id: nddId},
 						dataType: "json",
-						type: "GET",                  
-						success: function(data){   				
-							
+						type: "GET",
+						success: function(data){							
 							if(!jQuery.isEmptyObject(data)){
-							
-								//console.log(data);
-								$("#serveur_res").text(data.ftp_server);	
-								$("#login_res").text(data.ftp_login);	
-								$("#pass_res").val(data.ftp_password);								
-								
+								console.log(url);
+								$("#serveur_res").text(data.ftp_server);
+								$("#login_res").text(data.ftp_login);
+								$("#pass_res").val(data.ftp_password);
 								$("#txt_serveur_res").val(data.ftp_server);	
 								$("#txt_login_res").val(data.ftp_login);	
-								$("#txt_pass_res").val(data.ftp_password);	
-								
+								$("#txt_pass_res").val(data.ftp_password);								
 							}
 							$('#technoModal').modal('show');
 						}
-					}); 
-				
+					});				
 				}
-				else{
-					
+				else{					
 					$.ajax({
 						url: "<?=site_url('domaine/get_techno_by_domaine')?>",
 						data: { id: nddId},
@@ -614,11 +607,7 @@
 				}
 			});
 		});
-
-		
-		
-
-		 $('.btn_update_ip').click(function(e){   
+		$('.btn_update_ip').click(function(e){   
 			var nddId = $("#ndd_domaine_id").text();	
 			var current_registrar = $("#"+nddId).children('td.td_registrar').attr('data-id'); 
 			var current_heberg = $("#"+nddId).children('td.td_heberg').attr('data-id'); 

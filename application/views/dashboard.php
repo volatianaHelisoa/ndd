@@ -44,7 +44,53 @@
             </div>
         </div>
         <div class="right-dash">
-            <div class="bloc-graph">
+            <div class="bloc-graph">  
+            <canvas id="graphCanvas" style="padding: 25px;"></canvas>      
+            <script>
+                $(document).ready(function () {
+                    showGraph();
+                });
+
+                function showGraph()
+                {
+                    {
+                    $.ajax({
+                        data: "data.php",                                       
+                        success: function(data){
+                            console.log(data);
+                            var ndd_id = [];
+                            var ndd_month = [];
+
+                            for (var i in data) {
+                                ndd_id.push(data[i].id);
+                                ndd_month.push(data[i].date_creation);
+                            }
+
+                            var chartdata = {
+                                labels: ndd_id,
+                                datasets: [
+                                    {
+                                        label: 'Noms de domaine',
+                                        backgroundColor: '#f15e53',
+                                        borderColor: '#d25147',
+                                        hoverBackgroundColor: '#080718',
+                                        hoverBorderColor: '#666666',
+                                        data: ndd_id
+                                    }
+                                ]
+                            };
+
+                            var graphTarget = $("#graphCanvas");
+
+                            var barGraph = new Chart(graphTarget, {
+                                type: 'bar',
+                                data: chartdata
+                            });
+                        }
+                    });
+                    }
+                }
+            </script>
             </div>
             <!--<div class="dash-item5">
                 <div class="content">
