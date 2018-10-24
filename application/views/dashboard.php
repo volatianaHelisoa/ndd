@@ -44,7 +44,9 @@
             </div>
         </div>
         <div class="right-dash">
-            <div class="bloc-graph">  
+            <div class="bloc-graph"> 
+			<span style="padding: 25px 0 0 25px; display: block; text-transform: uppercase; font-weight: bold; font-size: 18px;">Vos noms de domaines</span>
+			<p style="padding: 0 0 0 25px;">Ce tableau résume la totalité de vos nombres de domaines</p>
             <canvas id="graphCanvas" style="padding: 25px;"></canvas>      
             <script>
                 $(document).ready(function () {
