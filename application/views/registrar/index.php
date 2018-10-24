@@ -9,7 +9,7 @@
 
 <table id="registrarList" class="display compact custom-styled" style="width:100%">
 	<thead class="customized-thead">
-		<th>Name</th>
+		<th>Nom</th>
 		<th>Accès</th>	
 		<th>Nombre de site</th> 
 		<th>Actions</th>
