@@ -102,7 +102,7 @@ class Domaine_model extends CI_Model
         // $this->db->query("GROUP BY MONTH('date_creation')");
         // $query = $this->db->get(); 
        
-        $result = $this->db->select('DISTINCT DATE_FORMAT(`t`.`date_creation`, "%M") `mois`,COUNT(`t`.`id`) as nb', FALSE)->from('t_domaine `t`')->group_by('MONTH(`t`.`date_creation`)')->order_by('t.date_creation', 'ASC')->get()->result();
+        $result = $this->db->select('DISTINCT DATE_FORMAT(`t`.`date_creation`, "%m") `mois`,COUNT(`t`.`id`) as nb', FALSE)->from('t_domaine `t`')->group_by('MONTH(`t`.`date_creation`)')->order_by('t.date_creation', 'ASC')->get()->result();
        
         $domaine_data = $result;   
        

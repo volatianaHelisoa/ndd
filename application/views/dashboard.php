@@ -60,37 +60,38 @@
                           
                             var ndd_id = [];
                             var ndd_month = [];
-                            //console.log(data);
+                           
                             var JSONObject = JSON.parse(data);
                             for (var key in JSONObject) {
-                                if (JSONObject.hasOwnProperty(key)) {
-                                    ndd_month.push(JSONObject[key]["mois"]);
-                                    ndd_id.push(JSONObject[key]["nb"]);
-                               // console.log(JSONObject[key]["mois"] + ", " + JSONObject[key]["nb"]);
+                                if (JSONObject.hasOwnProperty(key)) {                                   
+                                    ndd_id.push(JSONObject[key]);                                  
                                 }
                             }
-
-                            // console.log(ndd_id);
-                            // console.log(ndd_month);
-                            var chartdata = {
-                                labels: ndd_month,
-                                datasets: [
-                                    {
-                                        label: 'Nombre de domaine',
-                                        backgroundColor: '#f15e53',
-                                        borderColor: '#d25147',
-                                        hoverBackgroundColor: '#080718',
-                                        hoverBorderColor: '#666666',
-                                        data: ndd_id
-                                    }
-                                ]
-                            };
+                       
 
                             var graphTarget = $("#graphCanvas");
+							
+							Chart.scaleService.updateScaleDefaults('linear', {
+								ticks: {
+									min: 0,
+								//	max: 150,
+									stepSize: 5,
+								},
+							});
 
                             var barGraph = new Chart(graphTarget, {
                                 type: 'bar',
-                                data: chartdata
+                                data: {
+									datasets: [{
+										label: 'Noms de domaines',
+										data: ndd_id,
+										backgroundColor: '#f15e53',
+										borderColor: '#d25147',
+										hoverBackgroundColor: '#080718',
+										hoverBorderColor: '#666666',									
+									}],
+									labels: ['Janv', 'Fév', 'Mars', 'Avr','Mai', 'Juin', 'Juil', 'Août','Sept', 'Oct', 'Nov', 'Déc']
+								  }								
                             });
                         }
                     });

@@ -1034,16 +1034,28 @@ class Domaine extends CI_Controller{
         $this->load->model('Techno_model');
         $domaine = $this->Domaine_model->get_domaine_by_month();
         $domaines = array();
-        foreach($domaine as $key){
-           $mois = strftime("%B", strtotime( trim($key->mois) ));
-            $a = array(              
-                'mois' => ucfirst($mois),
-                'nb' => trim($key->nb)
-            );
-
-            $domaines[] = $a;
+        setlocale (LC_TIME, 'fr_FR.utf8','fra'); 
+               
+        $months = [1 => 'January' ,  2 =>  'February',  3 => 'March', 4 => 'April' ,  5 =>  'May',  6 => 'June', 7 => 'July', 8 => 'August' ,  9 =>  'September',  10 => 'October',11 => 'November' ,  12 =>  'December'];
+      
+        foreach($domaine as $key){            
+            $mois = strftime("%B", strtotime(trim($key->mois)));    
+           
+            if (array_key_exists(intval(trim($key->mois)), $months)) {      
+                $a = trim($key->nb);              
+                $domaines[intval(trim($key->mois))] = $a; 
+            } 
         }  
-        echo json_encode( $domaines);
+     
+        foreach ($months as $key => $value){       
+           if (!array_key_exists($key, $domaines)) {  
+                $b = 0;
+                $domaines[$key] = $b; 
+            }          
+        }
+
+        $this->knatsort($domaines);
+        echo json_encode( $domaines, JSON_UNESCAPED_UNICODE );
         die;   
     }
     

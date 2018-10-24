@@ -15,7 +15,7 @@
 		<script src="<?php echo base_url(); ?>assets/JS/materialize.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/JS/customscript.js"> </script>
 		<script src="<?php echo base_url(); ?>assets/JS/bootstrap-multiselect.js"></script>
-		<script src="<?php echo base_url(); ?>assets/JS/Chart.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/JS/chart.min.js"></script>
 
 		<!-- CSS styles -->
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" />
