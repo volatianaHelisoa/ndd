@@ -11,11 +11,11 @@
 		<script type="text/javascript"	src="<?php echo base_url(); ?>assets/JS/jquery-ui-1.12.1.js"></script>
 
 		
-		<script src="<?php echo base_url(); ?>assets/JS/materialize.min.js"></script>
+
 
 		<script src="<?php echo base_url(); ?>assets/plugins/typeahead/typeahead.bundle.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/plugins/materialize-tags/js/materialize-tags.min.js"></script> 
-
+		<script src="<?php echo base_url(); ?>assets/JS/materialize.min.js"></script>
 
 		<script src="<?php echo base_url(); ?>assets/JS/bootstrap.min.js" type="text/javascript"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/JS/jquery.dataTables.js"></script>

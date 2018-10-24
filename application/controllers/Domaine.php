@@ -314,42 +314,57 @@ class Domaine extends CI_Controller{
                                     $this->load->model('Theme_model');
                                     $theme_obj = $this->Theme_model->get_t_theme_by_name($key);   
 
-                                    if(isset($theme_obj)){                                      
-                                        $id_theme  = $theme_obj['id'];   
+                                    if(!isset($theme_obj)){
+                                        $params_theme = array(
+                                            'name' => $key
+                                        );
+                                        
+                                        $t_theme_id = $this->Theme_model->add_t_theme($params_theme);
+                                    }
+                                    else
+                                        $t_theme_id = $theme_obj['id']; 
+                                      
                                         $id_ip = empty($_POST['addr-ip']) ? NULL : $_POST['addr-ip'];   
 
-                                        if( $id_ip || $id_theme){
+                                        if( $id_ip || $t_theme_id){
                                             
                                             $params_ip = array(
                                                 'id_domaine' => $t_domaine_id,
                                                 'id_ip' =>  $id_ip,
-                                                'id_theme' => $id_theme,
+                                                'id_theme' => $t_theme_id,
                                             );
                                             $this->load->model('Domaine_theme_ip_model');        
                                             $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);                
                                         }          
-                                    }  
+                                      
                                  }
                             }
                             else{
                                 $this->load->model('Theme_model');
                                 $theme_obj = $this->Theme_model->get_t_theme_by_name($theme_tags_array);   
+                                if(!isset($theme_obj)){
+                                    $params_theme = array(
+                                        'name' => $theme_tags_array
+                                    );
+                                    
+                                    $t_theme_id = $this->Theme_model->add_t_theme($params_theme);
+                                }
+                                else
+                                    $t_theme_id = $theme_obj['id'];                                                            
+                        
+                                $id_ip = empty($_POST['addr-ip']) ? NULL : $_POST['addr-ip'];   
 
-                                if(isset($theme_obj)){                                      
-                                    $id_theme  = $theme_obj['id'];   
-                                    $id_ip = empty($_POST['addr-ip']) ? NULL : $_POST['addr-ip'];   
-
-                                    if( $id_ip || $id_theme){
-                                        
-                                        $params_ip = array(
-                                            'id_domaine' => $t_domaine_id,
-                                            'id_ip' =>  $id_ip,
-                                            'id_theme' => $id_theme,
-                                        );
-                                        $this->load->model('Domaine_theme_ip_model');        
-                                        $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);                
-                                    }          
-                                } 
+                                if( $id_ip || $t_theme_id){
+                                    
+                                    $params_ip = array(
+                                        'id_domaine' => $t_domaine_id,
+                                        'id_ip' =>  $id_ip,
+                                        'id_theme' => $t_theme_id,
+                                    );
+                                    $this->load->model('Domaine_theme_ip_model');        
+                                    $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);                
+                                }          
+                                
                             }     
                         }
                         else
@@ -390,14 +405,23 @@ class Domaine extends CI_Controller{
                             
                                     $this->load->model('Techno_model');
                                     $t_techno = $this->Techno_model->get_t_techno_by_name($key);
-                                    if($t_techno){
+                                    if(!isset($t_techno)){
+                                        $params_techno = array(
+                                            'name' => $key
+                                        );
+                                        
+                                        $t_techno_id = $this->Techno_model->add_t_techno($params_techno);
+                                    }
+                                    else
+                                        $t_techno_id = $t_techno['id'];
+                                  
                                         $params = array(
                                             'id_domaine' => $t_domaine_id,
-                                            'id_techno' => $t_techno['id'],
+                                            'id_techno' => $t_techno_id,
                                         );
                                         
                                         $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);
-        
+                                       
                                         if($is_www) 
                                         { 
                                             $domaine_nom =  $this->getHost( $domain);
@@ -410,12 +434,14 @@ class Domaine extends CI_Controller{
                                             
                                             $domaine_nom  =  str_replace('http', 'https',  $domain);                               
                                         }  
-    
-                                        $params_domaine = array(                                
-                                            'nom' => $domaine_nom                                
-                                        );                    
-                                        $this->Domaine_model->update_t_domaine($t_domaine_id,$params_domaine);
-                                    }  
+                                        if($is_www || $is_ssl) {
+                                            $params_domaine = array(                                
+                                                'nom' => $domaine_nom                                
+                                            );                    
+                                            $this->Domaine_model->update_t_domaine($t_domaine_id,$params_domaine);
+                                        }
+                                       
+                                    
                                 }
                             }
                             else
@@ -443,10 +469,12 @@ class Domaine extends CI_Controller{
                                         $domaine_nom  =  str_replace('http', 'https',  $domain);                               
                                     }  
 
-                                    $params_domaine = array(                                
-                                        'nom' => $domaine_nom                                
-                                    );                    
-                                    $this->Domaine_model->update_t_domaine($t_domaine_id,$params_domaine);
+                                    if($is_www || $is_ssl) {
+                                        $params_domaine = array(                                
+                                            'nom' => $domaine_nom                                
+                                        );                    
+                                        $this->Domaine_model->update_t_domaine($t_domaine_id,$params_domaine);
+                                    }
                                 }
                             }
                         }
@@ -843,12 +871,23 @@ class Domaine extends CI_Controller{
         }
     }
 
+    private function knatsort(&$array) {
+        $keys = array_keys($array);
+        natsort($keys);
+        $new_sort = array();
+        foreach ($keys as $keys_2) {
+            $new_sort[$keys_2] = $array[$keys_2];
+        }
+        $array = $new_sort;
+        return true;
+    }
+
     function get_select_ip(){
     
         if (isset($_GET['id_heberg'])) {
             $this->load->model('Ip_model');
             $ip_data = $this->Ip_model->get_by_id_hebergement($_GET['id_heberg']);
-
+            $this->knatsort($ip_data);
             $ips = array();
             foreach($ip_data as $key):
                 
@@ -857,10 +896,10 @@ class Domaine extends CI_Controller{
                     'label' => trim($key->adresse),
                     'value' => trim($key->adresse)
                 );
-
-                $ips[] = $a;
+                
+                $ips[trim($key->adresse)] = $a;
             endforeach;
-            
+            $this->knatsort($ips);
             echo json_encode($ips);
             die;       
            
@@ -988,5 +1027,24 @@ class Domaine extends CI_Controller{
         $this->load->view('layouts/full',$data);
         
     }  
+
+    function get_domaine_by_month(){  
+
+        /* plugins */               
+        $this->load->model('Techno_model');
+        $domaine = $this->Domaine_model->get_domaine_by_month();
+        $domaines = array();
+        foreach($domaine as $key){
+           $mois = strftime("%B", strtotime( trim($key->mois) ));
+            $a = array(              
+                'mois' => ucfirst($mois),
+                'nb' => trim($key->nb)
+            );
+
+            $domaines[] = $a;
+        }  
+        echo json_encode( $domaines);
+        die;   
+    }
     
 }

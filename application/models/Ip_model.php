@@ -48,7 +48,8 @@ class Ip_model extends CI_Model
      */
     function get_all_t_ip()
     {
-        $this->db->order_by('id', 'desc');
+        
+        $this->db->order_by('adresse', 'asc');
         return $this->db->get('t_ip')->result_array();
     }
         
@@ -88,7 +89,7 @@ class Ip_model extends CI_Model
         $this->db->select( "*" );
         $this->db->from( 't_ip' );
         $this->db->like( 'id_heberg', $id_hebergement );
-        $this->db->order_by('id_heberg', 'asc');
+        $this->db->order_by('adresse', 'asc');
         $query = $this->db->get();
         $ip_data = $query->result();
       

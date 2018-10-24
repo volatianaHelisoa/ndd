@@ -24,7 +24,7 @@ class Type_model extends CI_Model
      */
     function get_all_t_type()
     {
-        $this->db->order_by('id_type', 'desc');
+        $this->db->order_by('name_type', 'asc');
         return $this->db->get('t_type')->result_array();
     }
         

@@ -470,7 +470,10 @@
 							typeaheadjs: {
 								name: 'technos',
 								displayKey: 'label',
-								source: technos.ttAdapter()
+								source: technos.ttAdapter(),
+								addOnBlur: true,
+								trimValue: true,
+								confirmKeys: [enterKey, 188]
 							}
 						});	
 				

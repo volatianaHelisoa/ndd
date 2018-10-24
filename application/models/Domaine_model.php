@@ -32,7 +32,7 @@ class Domaine_model extends CI_Model
      */
     function get_all_t_domaine()
     {
-        $this->db->order_by('id', 'desc');
+        $this->db->order_by('nom', 'asc');
         return $this->db->get('t_domaine')->result_array();
     }
         
@@ -90,6 +90,22 @@ class Domaine_model extends CI_Model
         $query = $this->db->get();
         $domaine_data = $query->result_array();
         
+        return $domaine_data;   
+    }
+
+    function get_domaine_by_month(){
+
+        // $this->load->database(); 
+        // $this->db->select( "*" );
+        // $this->db->from( 't_domaine' );
+        // $this->db->order_by('date_creation','asc');
+        // $this->db->query("GROUP BY MONTH('date_creation')");
+        // $query = $this->db->get(); 
+       
+        $result = $this->db->select('DISTINCT DATE_FORMAT(`t`.`date_creation`, "%M") `mois`,COUNT(`t`.`id`) as nb', FALSE)->from('t_domaine `t`')->group_by('MONTH(`t`.`date_creation`)')->order_by('t.date_creation', 'ASC')->get()->result();
+       
+        $domaine_data = $result;   
+       
         return $domaine_data;   
     }
 }

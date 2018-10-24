@@ -55,22 +55,28 @@
                 {
                     {
                     $.ajax({
-                        data: "data.php",                                       
+                        url: "<?=site_url('domaine/get_domaine_by_month')?>",
                         success: function(data){
-                            console.log(data);
+                          
                             var ndd_id = [];
                             var ndd_month = [];
-
-                            for (var i in data) {
-                                ndd_id.push(data[i].id);
-                                ndd_month.push(data[i].date_creation);
+                            //console.log(data);
+                            var JSONObject = JSON.parse(data);
+                            for (var key in JSONObject) {
+                                if (JSONObject.hasOwnProperty(key)) {
+                                    ndd_month.push(JSONObject[key]["mois"]);
+                                    ndd_id.push(JSONObject[key]["nb"]);
+                               // console.log(JSONObject[key]["mois"] + ", " + JSONObject[key]["nb"]);
+                                }
                             }
 
+                            // console.log(ndd_id);
+                            // console.log(ndd_month);
                             var chartdata = {
-                                labels: ndd_id,
+                                labels: ndd_month,
                                 datasets: [
                                     {
-                                        label: 'Noms de domaine',
+                                        label: 'Nombre de domaine',
                                         backgroundColor: '#f15e53',
                                         borderColor: '#d25147',
                                         hoverBackgroundColor: '#080718',

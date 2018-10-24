@@ -61,10 +61,14 @@
 	$(document).ready(function() {
 		$('#ipList').DataTable( {
 			columnDefs: [
-        { orderable: false, targets: -1 }
+			{ 
+				type: 'ip-address',
+				orderable: false,
+				targets: 0
+			}
      ],
     
-     "pageLength": 50,
+     "pageLength": 10,
      responsive : true,
     
      "language": {
@@ -105,3 +109,5 @@
 		})
 	})
 </script>
+
+<script src="https://cdn.datatables.net/plug-ins/1.10.19/sorting/ip-address.js" ></script>

@@ -156,7 +156,7 @@
 			dataType: "json",
 			type: "GET",                  
 			success: function(data){   
-			console.log(data);                
+			//console.log(data);                
 			var technos = new Bloodhound({
 				datumTokenizer: Bloodhound.tokenizers.obj.whitespace('label'),
 				queryTokenizer: Bloodhound.tokenizers.whitespace,                   
@@ -164,18 +164,28 @@
 			});
 			technos.initialize();
 			var elt = $('.techno_tags input.n-tag');
-			elt.materialtags({
-				itemValue: 'id',
-				itemText: 'label',
+			// elt.materialtags({
+			// 	itemValue: 'id',
+			// 	itemText: 'label',
+			// 	typeaheadjs: {
+			// 		name: 'technos',
+			// 		displayKey: 'label',
+			// 		source: technos.ttAdapter(),
+			// 		addOnBlur: true,
+			// 		trimValue: true,
+			// 		confirmKeys: [13, 44]
+			// 	}
+			// });		
+			elt.materialtags({								
+				confirmKeys: [188, 13,9],
 				typeaheadjs: {
 					name: 'technos',
 					displayKey: 'label',
-					source: technos.ttAdapter(),
-					addOnBlur: true,
-					trimValue: true,
-					confirmKeys: [enterKey, 188]
+					valueKey: 'label',
+					source: technos.ttAdapter(),	
+					trimValue: true
 				}
-			});					   
+			});				   
 					
 			}
         });
@@ -193,13 +203,16 @@
 			});
 			themes.initialize();
 			var elt = $('.theme_tags input.n-tag');
-			elt.materialtags({
-				itemValue: 'id',
-				itemText: 'label',
+
+		
+			elt.materialtags({								
+				confirmKeys: [188, 13,9],
 				typeaheadjs: {
 					name: 'themes',
 					displayKey: 'label',
-					source: themes.ttAdapter()
+					valueKey: 'label',
+					source: themes.ttAdapter(),
+					trimValue: true
 				}
 			});					   
 					
@@ -302,8 +315,8 @@
 	});
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"
-integrity="sha256-uWtSXRErwH9kdJTIr1swfHFJn/d/WQ6s72gELOHXQGM=" crossorigin="anonymous"></script>
-
 <script src="<?php echo base_url(); ?>assets/plugins/typeahead/typeahead.bundle.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/materialize-tags/js/materialize-tags.min.js"></script> 
+<script src="<?php echo base_url(); ?>assets/JS/materialize.min.js"></script>
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">

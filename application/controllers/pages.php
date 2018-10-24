@@ -28,11 +28,11 @@
 
 		/**
 		 * Page d'oblie de mot de passe
-		 */
+		 */ 
 		public function fpwd(){
 			$this->load->view('template/forgotpass');
 		}
-
+ 
 		/**
 		 * Callback pour l'oubli de mot de passe
 		 */

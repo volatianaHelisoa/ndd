@@ -17,7 +17,7 @@ class Ip extends CI_Controller{
     function index()
     {
         $data['t_ip'] = $this->Ip_model->get_all_t_ip();       
-
+    
         $res = array();
         foreach($data['t_ip'] as $row) {
 			$element = new stdClass();
@@ -36,13 +36,26 @@ class Ip extends CI_Controller{
             $element->hebergement = $hebergement['name'];  
             $element->id_heberg = $row['id_heberg']; 
             
-            $res[] = $element;	
+            $res[$row['adresse']] = $element;
         }
         $data['nb_ip'] = ($data['t_ip'] != null && count($data['t_ip']) >0 ) ? count($data['t_ip']) : 0;
-       
+        $this->knatsort($res);
+        
         $data['t_ip'] = $res;  
+       
         $data['_view'] = 'ip/index';
         $this->load->view('layouts/main',$data);
+    }
+
+    private function knatsort(&$array) {
+        $keys = array_keys($array);
+        natsort($keys);
+        $new_sort = array();
+        foreach ($keys as $keys_2) {
+            $new_sort[$keys_2] = $array[$keys_2];
+        }
+        $array = $new_sort;
+        return true;
     }
 
     /*

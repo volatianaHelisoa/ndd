@@ -29,7 +29,7 @@ class Registrar_model extends CI_Model
      */
     function get_all_t_registrar()
     {
-        $this->db->order_by('id', 'desc');
+        $this->db->order_by('name', 'asc');
         return $this->db->get('t_registrar')->result_array();
     }
         

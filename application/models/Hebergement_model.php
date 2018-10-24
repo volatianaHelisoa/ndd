@@ -29,7 +29,7 @@ class Hebergement_model extends CI_Model
      */
     function get_all_t_hebergement()
     {
-        $this->db->order_by('id', 'desc');
+        $this->db->order_by('name', 'asc');
         return $this->db->get('t_hebergement')->result_array();
     }
 
