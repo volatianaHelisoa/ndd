@@ -379,7 +379,7 @@
 						type: "GET",
 						success: function(data){							
 							if(!jQuery.isEmptyObject(data)){
-								console.log(url);
+								//console.log(url);
 								$("#serveur_res").text(data.ftp_server);
 								$("#login_res").text(data.ftp_login);
 								$("#pass_res").val(data.ftp_password);
@@ -398,31 +398,45 @@
 						dataType: "json",
 						type: "GET",                  
 						success: function(data){   				
-							console.log(data);
-							if(!jQuery.isEmptyObject(data)){						
+							if($.isArray(data)){
+								if(!jQuery.isEmptyObject(data)){						
 
-								$("#serveur_res").text(data[0].ftp_server);	
-								$("#login_res").text(data[0].ftp_login);	
-								$("#pass_res").val(data[0].ftp_password);	
+									$("#serveur_res").text(data[0].ftp_server);	
+									$("#login_res").text(data[0].ftp_login);	
+									$("#pass_res").val(data[0].ftp_password);	
 
-								$("#url_res").text(data[0].admin_url);	
-								$("#bologin_res").text(data[0].admin_login);			
-								$("#bopass_res").val(data[0].admin_password);	
-								
-								$("#txt_serveur_res").val(data[0].ftp_server);	
-								$("#txt_login_res").val(data[0].ftp_login);	
-								$("#txt_pass_res").val(data[0].ftp_password);	
+									$("#url_res").text(data[0].admin_url);	
+									$("#bologin_res").text(data[0].admin_login);			
+									$("#bopass_res").val(data[0].admin_password);	
 
-								$("#txt_url_res").val(data[0].admin_url);	
-								$("#txt_bologin_res").val(data[0].admin_login);			
-								$("#txt_bopass_res").val(data[0].admin_password);		
+									$("#txt_serveur_res").val(data[0].ftp_server);	
+									$("#txt_login_res").val(data[0].ftp_login);	
+									$("#txt_pass_res").val(data[0].ftp_password);	
 
-								var techno_result = $("#techno_result");  
-								techno_result.empty();       
-								$.each(data, function (index, ndd) {
-									techno_result.append("<li>" +ndd.techno+ "<span>x</span></li>");   
-								})
+									$("#txt_url_res").val(data[0].admin_url);	
+									$("#txt_bologin_res").val(data[0].admin_login);			
+									$("#txt_bopass_res").val(data[0].admin_password);		
+
+									var techno_result = $("#techno_result");  
+									techno_result.empty();       
+									
+									$.each(data, function (index, ndd) {										
+										
+										techno_result.append("<li>" +ndd.techno+ "</li>");   
+									})
+								}
+							}else{
+								if(!jQuery.isEmptyObject(data)){
+							
+									$("#serveur_res").text(data.ftp_server);
+									$("#login_res").text(data.ftp_login);
+									$("#pass_res").val(data.ftp_password);
+									$("#txt_serveur_res").val(data.ftp_server);	
+									$("#txt_login_res").val(data.ftp_login);	
+									$("#txt_pass_res").val(data.ftp_password);								
+								}
 							}
+							
 							$('#technoModal').modal('show');
 						}
 					});        
@@ -473,7 +487,7 @@
 								trimValue: true
 							}
 						});		
-				
+						
 					}
 				});
 
@@ -492,6 +506,7 @@
 			var cms = $("#select_cms").val();
 
 			var techno_list = get_techno_selected();
+		
 
 			var ndd_obj = {"ndd_id": nddId,"ftp_server":ftp_server, "ftp_login":ftp_login,"ftp_password":ftp_password,"admin_url":admin_url,"admin_login":admin_login,"admin_password":admin_password,"techno_list":techno_list,"cms":cms};
 			 $.ajax({
@@ -521,6 +536,9 @@
 				var res = value.replace("close", "");			
 				tags.push(res); 				           
 			});			
+		
+          
+		
 			return tags;
 		}
 

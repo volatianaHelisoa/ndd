@@ -448,34 +448,43 @@ class Domaine extends CI_Controller{
                             {
                                 $this->load->model('Techno_model');
                                 $t_techno = $this->Techno_model->get_t_techno_by_name($techno_array);
-                                if($t_techno){
-                                    $params = array(
-                                        'id_domaine' => $t_domaine_id,
-                                        'id_techno' => $t_techno['id'],
+                                if(!isset($t_techno)){
+                                    $params_techno = array(
+                                        'name' => $techno_array
                                     );
-                                   
-                                    $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);
-    
-                                    if($is_www) 
-                                    { 
-                                        $domaine_nom =  $this->getHost( $domain);
-                                        $domaine_nom =  "www.". $domaine_nom;  
-                                        $protocol = 'http://'; 
-                                        $domaine_nom =  $protocol.$domaine_nom;   
-                                    }
-
-                                    if($is_ssl) {                               
-                                        
-                                        $domaine_nom  =  str_replace('http', 'https',  $domain);                               
-                                    }  
-
-                                    if($is_www || $is_ssl) {
-                                        $params_domaine = array(                                
-                                            'nom' => $domaine_nom                                
-                                        );                    
-                                        $this->Domaine_model->update_t_domaine($t_domaine_id,$params_domaine);
-                                    }
+                                    
+                                    $t_techno_id = $this->Techno_model->add_t_techno($params_techno);
                                 }
+                                else
+                                    $t_techno_id = $t_techno['id'];
+                              
+                                $params = array(
+                                    'id_domaine' => $t_domaine_id,
+                                    'id_techno' => $t_techno_id,
+                                );
+                                
+                                $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);
+
+                                if($is_www) 
+                                { 
+                                    $domaine_nom =  $this->getHost( $domain);
+                                    $domaine_nom =  "www.". $domaine_nom;  
+                                    $protocol = 'http://'; 
+                                    $domaine_nom =  $protocol.$domaine_nom;   
+                                }
+
+                                if($is_ssl) {                               
+                                    
+                                    $domaine_nom  =  str_replace('http', 'https',  $domain);                               
+                                }  
+
+                                if($is_www || $is_ssl) {
+                                    $params_domaine = array(                                
+                                        'nom' => $domaine_nom                                
+                                    );                    
+                                    $this->Domaine_model->update_t_domaine($t_domaine_id,$params_domaine);
+                                }
+                                
                             }
                         }
                     
@@ -740,28 +749,64 @@ class Domaine extends CI_Controller{
         if(isset($element->id))
         {                 
             $techno_array = empty($param["techno_list"]) ? NULL :  $param["techno_list"];
-            if(isset($techno_array) && count($techno_array) > 1)     
-            {                   
-                $this->load->model('Domaine_techno_model');
-                
-                if($element->techno != "")
-                { 
-                    $this->Domaine_techno_model->delete_t_domaine_techno_by_domaine($element->techno[0]['id_domaine']);  
-                }
-               
-                foreach($techno_array as $key){   
+            if($techno_array != null)
+            {  
+                if(count($techno_array) > 1)     
+                {              
+                    $this->load->model('Domaine_techno_model');
                     
-                    $this->load->model('Techno_model');
+                    if($element->techno != "")
+                    { 
+                        $this->Domaine_techno_model->delete_t_domaine_techno_by_domaine($element->techno[0]['id_domaine']);  
+                    }
+                   
+                    foreach($techno_array as $key){   
+                        
+                        $this->load->model('Techno_model');
                         $t_techno = $this->Techno_model->get_t_techno_by_name($key);
-                        if($t_techno){
-                            $params = array(
-                                'id_domaine' => $element->id,
-                                'id_techno' => $t_techno['id'],
-                            );                                
-                            $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);                            
+                      
+                        if(!isset($t_techno)){
+                            $params_techno = array(
+                                'name' => $key
+                            );
+                            
+                            $t_techno_id = $this->Techno_model->add_t_techno($params_techno);
                         }
+                        else
+                            $t_techno_id = $t_techno['id'];
+                        
+                        $params = array(
+                            'id_domaine' => $element->id,
+                            'id_techno' => $t_techno_id 
+                        );                                
+                        $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);                            
+                        
+                    }
                 }
-            }
+                else
+                {
+                    $this->load->model('Techno_model');
+                    $techno_array = $techno_array[0];
+                    $t_techno = $this->Techno_model->get_t_techno_by_name($techno_array);
+                 
+                    if(!isset($t_techno)){
+                        $params_techno = array(
+                            'name' => $techno_array
+                        );
+                        
+                        $t_techno_id = $this->Techno_model->add_t_techno($params_techno);
+                    }
+                    else
+                        $t_techno_id = $t_techno['id'];
+                    
+                    $params = array(
+                        'id_domaine' => $element->id,
+                        'id_techno' => $t_techno_id 
+                    );                                
+                    $t_domaine_techno_id = $this->Domaine_techno_model->add_t_domaine_techno($params);  
+                }   
+            
+            }           
 
             $today = date("Y-m-d"); 
             $params = array(
@@ -985,7 +1030,7 @@ class Domaine extends CI_Controller{
 					$domaine_techno = $t_domaine;  
 				}
 			}
-			
+		
 			echo json_encode( $domaine_techno);		
             die;
         }
