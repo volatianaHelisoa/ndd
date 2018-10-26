@@ -73,9 +73,20 @@ select:focus option,
 .filter input.searchInTable { padding: 0 0 0 50px; flex: 1; max-width: 230px; background: url(../images/search_icon.png) no-repeat 15px center; border:1px solid #eaeaea; min-height:45px;}
 .filter label { font-size: 12px; padding: 0; width: inherit; }
 .filter input,
-.filter select { border-radius: 40px; }
-.filter select { margin-left: 10px;}
-.filter #do_filter { display: inline-block; vertical-align: middle; background: #00a1e4 url(../images/filter_icon.png) no-repeat 10px center; border: none; padding: 10px 10px 10px 40px; color: white; min-width: 100px; text-align: left; border-radius: 3px; text-transform: uppercase; font-size: 14px; }
+.filter select { border-radius: 40px; margin-left: 10px; max-width: 120px;}
+.filter #do_filter {
+	display: inline-block;
+    vertical-align: middle;
+    background: #00a1e4 url(../images/filter_icon.png) no-repeat 8px center;
+    border: none;
+    padding: 10px 9px 10px 30px;
+    color: white;
+    text-align: left;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-size: 12px;
+    background-size: 15px;
+}
 .filter #reset_filter { background: #f15e53; font-size: 29px; text-align: center; color: white; border: none; border-radius: 3px; vertical-align: middle; line-height: normal;}
 
 table.custom-styled .customized-thead th { text-align: center; border-bottom: none; background-color: #f15e53; color: white; padding: 18px 10px !important;}
