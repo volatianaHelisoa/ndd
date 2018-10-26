@@ -93,7 +93,7 @@ class Domaine extends CI_Controller{
                         $cms_obj = $this->Cms_model->get_t_cms($row['id_cms']);    
                         $element->cms =  $cms_obj['type'];
                     }
-                
+                //var_dump($element->cms);
                     $element->ftp_login = $row['ftp_login'];
                     $element->ftp_password = $row['ftp_password'];
                     $element->ftp_server = $row['ftp_server'];
@@ -736,7 +736,7 @@ class Domaine extends CI_Controller{
         $row  =   $this->Domaine_model->get_t_domaine($id);
         $element = $this->get_current_domaine($row);
         $data['t_domaine'] =   $element;
-       
+      
         if(isset($element->id))
         {                 
             $techno_array = empty($param["techno_list"]) ? NULL :  $param["techno_list"];
@@ -974,9 +974,20 @@ class Domaine extends CI_Controller{
             /* plugins */               
             $this->load->model('Domaine_techno_model');
             $domaine_techno = $this->Domaine_techno_model->get_t_domaine_cms_by_domaine($_GET['id']);  
-            $technos = array();                   
-            echo json_encode( $domaine_techno);
-           die;
+		
+			if(empty($domaine_techno))
+			{	
+				
+				$t_domaine = $this->Domaine_model->get_t_domaine($_GET['id']);
+				
+				if(isset($t_domaine['id_cms']))
+				{					
+					$domaine_techno = $t_domaine;  
+				}
+			}
+			
+			echo json_encode( $domaine_techno);		
+            die;
         }
     }
 

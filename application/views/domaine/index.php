@@ -69,7 +69,7 @@
 		</select>
 	</label>
 	<label>
-		<button id="do_filter">Filter</button>
+		<button id="do_filter">Filtrer</button>
 		<button id="reset_filter">&times;</button>
 	</label>
 </div>
@@ -237,7 +237,7 @@
 						<input type="checkbox" onclick='toggleView("bopass_res")' class="eye_toggle" id="view_bopass">
 						<input type="text" id="txt_bopass_res">
 					</div>
-					<div class="sub-title">Plugin</div>
+					<div class="sub-title">Techno</div>
 					<div class="content-chips plug-list">
 						<ul id="techno_result">					
 						</ul> 
@@ -398,7 +398,7 @@
 						dataType: "json",
 						type: "GET",                  
 						success: function(data){   				
-							//console.log(data);
+							console.log(data);
 							if(!jQuery.isEmptyObject(data)){						
 
 								$("#serveur_res").text(data[0].ftp_server);	
@@ -441,7 +441,6 @@
 				$("#cms_res").text(current_cms);	
 				$("#select_cms").val(current_cms_id);	
 
-				//console.log(nddId);
 				$.ajax({
 					url: "<?=site_url('domaine/get_techno_list')?>",				
 					dataType: "json",
@@ -464,18 +463,16 @@
 						});
 						technos.initialize();
 						var elt = $('input.n-tag');
-						elt.materialtags({
-							itemValue: 'id',
-							itemText: 'label',
+						elt.materialtags({								
+							confirmKeys: [188, 13,9],
 							typeaheadjs: {
 								name: 'technos',
 								displayKey: 'label',
-								source: technos.ttAdapter(),
-								addOnBlur: true,
-								trimValue: true,
-								confirmKeys: [enterKey, 188]
+								valueKey: 'label',
+								source: technos.ttAdapter(),	
+								trimValue: true
 							}
-						});	
+						});		
 				
 					}
 				});
@@ -493,11 +490,10 @@
 			var admin_login = $("#txt_bologin_res").val();
 			var admin_password = $("#txt_bopass_res").val();
 			var cms = $("#select_cms").val();
-			//console.log(nddId);
+
 			var techno_list = get_techno_selected();
 
-			var ndd_obj = {"ndd_id": nddId,"ftp_server":ftp_server, "ftp_login":ftp_login,"ftp_password":ftp_password,"admin_url":admin_url,"admin_login":admin_login,"admin_password":admin_password,"techno_list":techno_list,"cms":cms};      
-			//console.log(ndd_obj);
+			var ndd_obj = {"ndd_id": nddId,"ftp_server":ftp_server, "ftp_login":ftp_login,"ftp_password":ftp_password,"admin_url":admin_url,"admin_login":admin_login,"admin_password":admin_password,"techno_list":techno_list,"cms":cms};
 			 $.ajax({
 				type: "POST",
 				url:  "<?=site_url('domaine/edit_acces')?>",
@@ -552,6 +548,14 @@
 			
 			var $popSpan = $('#technoModal span');	
 			$popSpan.show();
+			
+			$("#txt_serveur_res").val();	
+			$("#txt_login_res").val();	
+			$("#txt_pass_res").val();	
+
+			$("#txt_url_res").val();	
+			$("#txt_bologin_res").val();			
+			$("#txt_bopass_res").val();	
 
 			$('.div_update_techno').show();	
 		}
@@ -567,6 +571,8 @@
 			$('#technoModal input:checkbox').removeAttr('checked');
 			$("#technoModal").removeClass("in-modification");
 			$("#bo-acces").show();
+			$("#technoModal form .field1 span").empty();
+			$("#technoModal form .field1 input").val("");
 		});		
 
 		$('#ipModal').modal({
@@ -598,7 +604,6 @@
 				success: function(data){   
 									 
 					$("#nb_ip_res").text(data['nb_site']);
-				//	console.log(data);
 					var theme_res = $("#theme_res");  
 					theme_res.empty();       
 					$.each(data['themes'], function (index, ndd) {
@@ -613,9 +618,7 @@
 		$('.btn_update_ip').click(function(e){   
 			var nddId = $("#ndd_domaine_id").text();	
 			var current_registrar = $("#"+nddId).children('td.td_registrar').attr('data-id'); 
-			var current_heberg = $("#"+nddId).children('td.td_heberg').attr('data-id'); 
-			//var theme = $("#dp_theme").val();	
-		
+			var current_heberg = $("#"+nddId).children('td.td_heberg').attr('data-id');
 			if(current_heberg)
 				get_ip_list_by_heberg(current_heberg);
 
@@ -726,11 +729,9 @@
 			var registrar = $("#dp_registrar").val();
 			var heberg = $("#dp_heberg").val();	
 			var ip = $("#dp_ip").val();	
-			var current_ip = ($("#dp_ip").val() == "") ? $("#"+nddId).children('td.td_ip').attr('data-id') : $("#dp_ip").val(); 
-			//var theme = $("#dp_theme").val();	
+			var current_ip = ($("#dp_ip").val() == "") ? $("#"+nddId).children('td.td_ip').attr('data-id') : $("#dp_ip").val();
 			
-			var ndd_obj = {"ndd_id": nddId,"registrar":registrar,"heberg":heberg, "ip":ip};      
-			//console.log(ndd_obj);
+			var ndd_obj = {"ndd_id": nddId,"registrar":registrar,"heberg":heberg, "ip":ip};
 			 $.ajax({
 				type: "POST",
 				url:  "<?=site_url('domaine/edit_ip')?>",
@@ -739,8 +740,7 @@
 				cache:false,
 				success: 
 					function(response){
-						if ( myTrim(response) == "index"  ){
-						//	console.log(response);  
+						if ( myTrim(response) == "index"  ){ 
 							reinit_ip();
 							$('#ipModal').modal('hide');
 							location.reload();
@@ -748,30 +748,6 @@
 					}
 				});		
 
-		});  		
-
- 	//	$('.btn_nb_ip').click(function(e){ 
-			// var nddId = $("#ndd_domaine_id").text();  
-			// var current_ip =  $("#"+nddId).children('td.td_ip').attr('data-id'); 
-			
-			// var ndd_obj = {"ip":current_ip};  
-
-			// console.log(ndd_obj);
-			//  $.ajax({
-			// 	type: "GET",
-			// 	url:  "<?=site_url('domaine/index')?>",
-			// 	data: ndd_obj,
-			// 	dataType: "text",  
-			// 	cache:false,
-			// 	success: 
-			// 		function(response){
-						
-			// 			//	location.reload();
-						
-			// 		}
-			// 	});		
-
-	//	});  		
-		
+		});
      });  
     </script>

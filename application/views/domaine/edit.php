@@ -97,15 +97,17 @@
 			});
 			themes.initialize();
 			var elt = $('.theme_tags input.n-tag');
-			elt.materialtags({
-				itemValue: 'id',
-				itemText: 'label',
+		
+			elt.materialtags({								
+				confirmKeys: [188, 13,9],
 				typeaheadjs: {
 					name: 'themes',
 					displayKey: 'label',
-					source: themes.ttAdapter()
+					valueKey: 'label',
+					source: themes.ttAdapter(),	
+					trimValue: true
 				}
-			});					   
+			});					
 					
 			}
         });

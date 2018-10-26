@@ -34,15 +34,14 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>                
                       <div class="modal-body">
                         <div class="wrap-field carte">
-                          <div class="title-field">Confirmation</div>
-                           
-                            <p>Êtes-vous sûr de vouloir supprimer ?</p>
-                             <div class="modal-footer">
+							<div class="title-field">Confirmation</div>
+							<p>Êtes-vous sûr de vouloir supprimer ?</p>
+							<div class="modal-footer">
 								<a  href="<?php echo site_url('hebergement/remove/'. $t->id); ?>" class="submit"  >Oui</a>
 								<button type="button" class="submit" data-dismiss="modal">Non</button>
 							</div>
-				</div>
-				</div>
+						</div>
+					</div>
 			</div>
 			</div>
 		</div>
@@ -159,7 +158,7 @@
 					this.checked = false; 
 			});
 		$('#hebergModal input:checkbox').removeAttr('checked');
-	});	
+	});
 		
 	})
 </script>
