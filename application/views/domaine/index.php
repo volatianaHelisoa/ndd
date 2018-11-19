@@ -93,8 +93,8 @@
 	<tbody>
 	<?php foreach($t_domaine as $t){  ?> 
 		<tr id="<?php echo $t->id; ?>"> 
-			<td><?php echo $t->domaine; ?></td>
-			<td ><?php echo $t->type; ?></td>
+			<td class="url"><?php echo $t->domaine; ?></td>
+			<td><?php echo $t->type; ?></td>
 			<td class="td_registrar" data-id ="<?php echo $t->id_registrar; ?>"><?php echo $t->registrar; ?></td>
 			<td class="td_heberg" data-id ="<?php echo $t->id_heberg; ?>"><?php echo $t->heberg; ?></td>
 			<td class="td_ip" data-id="<?php if($t->ip!= null ) echo $t->ip["id"];  ?>" data-ndd="<?php echo $t->id; ?>" data-backdrop="static" data-keyboard="false" > <span > <?php   if($t->ip != null ) echo $t->ip["adresse"]; ?></span></td>
@@ -118,7 +118,7 @@
 			</td>
 			
 			<td class="statut">				
-				<a href=""  title="Status domaine"  class="btn btn-danger" data-toggle="modal" data-target="#statusModal<?php echo $t->id; ?>">Voir</a>
+				<button title="Status domaine" class="btn btn-danger">Voir</button>
 			</td>
 			<td class="actions">	
 				<a href="<?php echo site_url('Domaine/edit/'.$t->id); ?>" class="btn btn-info btn-xs act-edit-btn"></a> 	
@@ -126,42 +126,20 @@
 			</td>
 		</tr>
 		<div class="modal fade" id="myModal<?php echo $t->id; ?>" role="dialog">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">      
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>                
-                      <div class="modal-body">
-                        <div class="wrap-field carte">
-                          <div class="title-field">Confirmation</div>
-                           
-                            <p>Êtes-vous sûr de vouloir supprimer ?</p>
-                             <div class="modal-footer">
-								<a  href="<?php echo site_url('domaine/remove/'. $t->id); ?>" class="submit"  >Oui</a>
-								<button type="button" class="submit" data-dismiss="modal">Non</button>
-							</div>
-				</div>
-				</div>
-			</div>
-			</div>
-		</div>
-
-		<div class="modal fade" id="statusModal<?php echo $t->id; ?>" role="dialog">
 			<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true"></span>
-				</button>
-				<div class="modal-body">
-				<div class="wrap-field carte">
-					<div class="title-field">Status du domaine : <?php echo $t->domaine; ?></div>									
-						<div class="field2 other-field">								
-								<?php echo $t->available; ?>
-								<?php if($t->headers != "" ) : ?>		
-									<span class="domaine_status"> statut <?php echo $t->headers; ?></span>
-								<?php endif; ?>
+				<div class="modal-content">      
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>                
+					<div class="modal-body">
+                        <div class="wrap-field carte">
+                          	<div class="title-field">Confirmation</div>
+                           
+							<p>Êtes-vous sûr de vouloir supprimer ?</p>
+							<div class="modal-footer">
+							<a  href="<?php echo site_url('domaine/remove/'. $t->id); ?>" class="submit"  >Oui</a>
+							<button type="button" class="submit" data-dismiss="modal">Non</button>
 						</div>
+					</div>
 				</div>
-				</div>
-			</div>
 			</div>
 		</div>				
 
@@ -169,7 +147,24 @@
 	</tbody>
 </table>
 
-
+<div class="modal fade" id="statusModal" role="dialog">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-content">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true"></span>
+		</button>
+		<div class="modal-body">
+		<div class="wrap-field carte">
+			<div class="title-field">Status du domaine : <?php echo $t->domaine; ?></div>									
+				<div class="field2 other-field">
+					<div class="msg-info"></div>				
+					<span class="domaine_status"></span>
+				</div>
+		</div>
+		</div>
+	</div>
+	</div>
+</div>
 
 <div class="modal fade" id="technoModal">
 	<div class="modal-dialog modal-dialog-centered" role="document">
@@ -245,10 +240,7 @@
 					<div class="select_techno_result">			
 						<input class="typeahead" name="techno_tags" type="text" data-role="materialtags" placeholder="Saisissez vos plugins ici">			
 					</div>
-				
 				</div>
-			
-				
 			</form>
 			<input type="button" class="submit btn_save_acces" value="Enregistrer">
 		
@@ -334,11 +326,9 @@
 				if (value.toLowerCase().indexOf("html") >= 0) 
 					$("#bo-acces").hide();
 				else
-					$("#bo-acces").show();
-				
+					$("#bo-acces").show();				
 			});
 			
-
 			var $popInput = $('#technoModal input[type="text"]');	
 			$popInput.hide();
 			$("#technoModal .select_techno_result").hide();	
@@ -633,6 +623,7 @@
 				}
 			});
 		});
+		
 		$('.btn_update_ip').click(function(e){   
 			var nddId = $("#ndd_domaine_id").text();	
 			var current_registrar = $("#"+nddId).children('td.td_registrar').attr('data-id'); 
@@ -766,6 +757,34 @@
 					}
 				});		
 
+		});
+
+		/* Statut domaine */
+		$('td.statut > button').click(function(e){           
+			var elm = $( e.target );
+			var id = elm.parents("tr").attr("id");
+			e.preventDefault();
+			
+			$.ajax({
+				url: "<?=site_url('domaine/get_domain_status')?>",
+				data: { id: id},
+				dataType: "json",
+				type: "GET",                  
+				success: function(data){					
+					var status= $('#statusModal .domaine_status'),
+					message = $('#statusModal .msg-info');
+
+					if(data == 200) {
+						status.addClass("valid").text("Statut "+data);
+						message.text("Le domaine est enregistré");
+					}
+					else {
+						status.removeClass("valid").text('Statut '+data);
+						message.text("Le domaine n'est pas enregistré ou inactif");
+					}
+					$('#statusModal').modal('show');
+				}
+			});
 		});
      });  
     </script>

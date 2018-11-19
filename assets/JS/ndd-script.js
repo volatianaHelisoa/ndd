@@ -71,8 +71,7 @@ $('#do_filter').click( function() {
     table.draw();
 } );
 
-$('#reset_filter').click(function () {
-  
+$('#reset_filter').click(function () {  
     $("#filter-registar" ).val("tous");
     $("#filter-heberg" ).val("tous");
     $("#filter-theme" ).val("tous");
@@ -85,9 +84,7 @@ $('#recherche').on('change', function(){
     .column(0)
     .search(this.value)
     .draw();
-
-  });
-
+});
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {

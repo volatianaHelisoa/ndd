@@ -77,7 +77,7 @@
 								ticks: {
 									min: 0,
 								//	max: 150,
-									stepSize: 50,
+									stepSize: 5,
 								},
 							});
 

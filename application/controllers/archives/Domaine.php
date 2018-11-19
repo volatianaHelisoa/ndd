@@ -1114,25 +1114,5 @@ class Domaine extends CI_Controller{
         echo json_encode( $domaines, JSON_UNESCAPED_UNICODE );
         die;   
     }
-
-    function get_domain_status(){  
-
-        if (isset($_GET['id'])) {
-            $id = trim($_GET['id']);
-            $dataUrl =  $this->Domaine_model->get_t_domaine($id);
-            $url =  $dataUrl['nom'];        
-
-            $headers = $this->get_contents($url) ;
-            $resultat  =  "";
-
-            if( $headers != null)
-            {
-                $resultat  = substr($headers[0], 9, 3);
-            }
-           
-            echo json_encode( $resultat);
-            die;
-        }
-    }
     
 }
