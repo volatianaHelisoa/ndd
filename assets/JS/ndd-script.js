@@ -30,6 +30,9 @@ var table = $('#ndd-list').DataTable({
     columnDefs: [
         { orderable: false, targets: -1 }
      ],
+     buttons: [
+        'copy', 'csv', 'excel', 'pdf', 'print'
+    ],
     
      "pageLength": 50,
      responsive : true,
@@ -116,12 +119,10 @@ $.fn.dataTable.ext.search.push(
         }
 
         if(themeVal != '' &&  themeVal != "tous" && is_valid){
-            is_valid = false;                
+            is_valid = false;		
                 if (data[5] == themeVal)
                     is_valid = true;      
         }
-
-
         return is_valid;
     }
 );

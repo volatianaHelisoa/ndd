@@ -99,11 +99,12 @@ td.thematique .tag { display: inline-block; background-color: #f5f5f5; border: 1
 table.custom-styled_wrapper .toolbar {float: left; }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button { min-width: inherit; padding: 0; border: none; font-size: 0; width: 35px; height: 35px; display: inline-block; vertical-align: middle;}
+.dataTables_wrapper .dataTables_paginate > span > .paginate_button{ font-size: 15px; line-height: 36px;}
 
 .dataTables_paginate .paginate_button.previous { background:#141324 url(../images/arrowdatatable.png) no-repeat left center !important;}
 .dataTables_paginate .paginate_button.next { background: #141324 url(../images/arrowdatatable.png) no-repeat right center !important;}
 
-.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover { font-size: 14px;line-height: 35px; background: none; border: none; margin: 4px;}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover { font-size: 14px;line-height: 35px; background: none; border: none; margin: 4px;color: #d9534f !important; font-weight: bold;}
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {background-color: #d4d4d4 !important;}
 
