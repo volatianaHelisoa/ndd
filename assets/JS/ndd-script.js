@@ -26,7 +26,6 @@ function(a){a=d(a);return{column:a.data("dtr-index"),row:a.parent().data("dtr-in
 c:{})}});return i});
 
 var table = $('#ndd-list').DataTable({
-       
     columnDefs: [
         { orderable: false, targets: -1 }
      ],
@@ -34,7 +33,7 @@ var table = $('#ndd-list').DataTable({
         'copy', 'csv', 'excel', 'pdf', 'print'
     ],
     
-     "pageLength": 50,
+     "pageLength": 300,
      responsive : true,
     
      "language": {
@@ -65,12 +64,23 @@ var table = $('#ndd-list').DataTable({
                     1: "1 ligne séléctionnée"
                 } 
             }
-        }
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+            extend: 'excelHtml5',
+            text: 'Exporter en Excel',
+            titleAttr: 'Exporter vers Excel',
+            title: 'Noms de domaines',
+            exportOptions: {
+                columns: ':visible(:not(.not-export))',
+                }
+            }
+        ]
     }
 );
 
 $('#do_filter').click( function() {
-
     table.draw();
 } );
 

@@ -86,9 +86,9 @@
 		<th>Hébergement</th>
 		<th>IP</th>
 		<th class="thematique">Thématique</th>
-		<th>CMS</th>		
-		<th>Statut</th>
-		<th>Action</th>
+		<th class="not-export">CMS</th>		
+		<th class="not-export">Statut</th>
+		<th class="not-export">Action</th>
 	</thead>
 	<tbody>
 	<?php foreach($t_domaine as $t){  ?> 
@@ -101,12 +101,12 @@
 			<td class="thematique">
 				<?php if($t->theme != null ) {?>				
 					<?php	foreach($t->theme as $theme){	?>
-						<span class="tag"><?php echo  $theme["name"]; ?> </span>
+						<span class="tag"><?php echo  $theme["name"]; ?></span>
 					<?php	} ?>	
 					
 				<?php }?>
 			</td>
-			<td class="td_cms" data-id ="<?php echo $t->id_cms; ?>" data-type="<?php echo $t->cms; ?>" >
+			<td class="td_cms not-export" data-id ="<?php echo $t->id_cms; ?>" data-type="<?php echo $t->cms; ?>" >
 				<div class="techno"  data-backdrop="static" data-keyboard="false" data-ndd="<?php echo $t->id; ?>"  data-type="<?php echo $t->cms; ?>">
 					<?php if($t->cms != "" ){				
 						echo  $t->cms;  }
@@ -117,10 +117,10 @@
 				</div>
 			</td>
 			
-			<td class="statut">				
+			<td class="statut not-export">				
 				<button title="Status domaine" class="btn btn-danger">Voir</button>
 			</td>
-			<td class="actions">	
+			<td class="actions not-export">	
 				<a href="<?php echo site_url('Domaine/edit/'.$t->id); ?>" class="btn btn-info btn-xs act-edit-btn"></a> 	
 				<a href=""  title="Supprimer domaine"  class="btn btn-danger act-delete-btn" data-toggle="modal" data-target="#myModal<?php echo $t->id; ?>"></a>
 			</td>
