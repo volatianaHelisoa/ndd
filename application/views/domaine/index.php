@@ -321,6 +321,7 @@
      // Start jQuery function after page is loaded
         $(document).ready(function(){
 		
+			
 			$("#select_cms").change(function(){
 				var value = $(this).find("option:selected").text();
 				if (value.toLowerCase().indexOf("html") >= 0) 
@@ -351,7 +352,8 @@
 					show: false
 			})
 	   
-			$('.techno').click(function(e){
+			$('#ndd-list').on('click', 'div.techno', function(e){
+			// $('.techno').click(function(e){
 				var str = $(this).attr("data-type");					
 				var nddId = $(this).attr('data-ndd'); 		
 				var current_cms = $(this).attr('data-type'); 
@@ -587,9 +589,10 @@
                 backdrop: 'static',
 				keyboard: false,
 				show: false
-       	})
-
-		 $('.td_ip').click(function(e){           
+		   })
+		   
+		$('#ndd-list').on('click', 'td.td_ip', function(e){
+		//  $('.td_ip').click(function(e){           
 			var nddId = $(this).attr('data-ndd'); 			
 		
 			var current_registrar = $("#"+nddId).children('td.td_registrar').text(); 

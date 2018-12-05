@@ -84,7 +84,8 @@ class User extends CI_Controller{
     {   
         // check if the t_user exists before trying to edit it
         $data['t_user'] = $this->User_model->get_t_user($id);
-        
+
+       
         if(isset($data['t_user']['id']))
         {
             if(isset($_POST) && count($_POST) > 0)     
@@ -94,6 +95,8 @@ class User extends CI_Controller{
                 $md5pass  = md5( $pass );
                 $sha1pass = sha1( $md5pass );
                 $password = crypt( $sha1pass, $md5pass );
+
+               
              
                 $params = array(
 					'id_role' => $this->input->post('id_role'),

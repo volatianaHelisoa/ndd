@@ -52,7 +52,11 @@ class Domaine extends CI_Controller{
             else
              $data['t_domaine']  = null;       
         }   
-        
+        if (isset($_GET['theme']) ) {
+            $id_theme = trim($_GET['theme']);
+            $this->load->model('Domaine_theme_ip_model');
+            $data['t_domaine']  = $this->Domaine_theme_ip_model->get_t_domaine_by_theme_id($id_theme);                        
+       }  
       
         $res = array();
         if($data['t_domaine'] != null){
@@ -555,29 +559,36 @@ class Domaine extends CI_Controller{
                     $protocol = 'http://'; 
                     $current_domaine =  $protocol.$domaine_nom;    
                 }
-                if($is_www) 
+                else
                 {
-                    $domaine_nom =  $this->getHost( $current_domaine);
-                    $domaine_nom  =  "www.". $domaine_nom ;     
-                    $protocol = 'http://'; 
-                    $current_domaine =  $protocol.$domaine_nom;    
-                } 
-                if($is_ssl) {       
-                    $domaine_nom =  $this->getHost( $current_domaine);                    
-                    $protocol = 'http://'; 
-                    $current_domaine =  $protocol.$domaine_nom;                    
-                    $current_domaine  =  str_replace('http', 'https', $current_domaine);
-                }  
-               
+                   
+                    if($is_ssl) {       
+                        $domaine_nom =  $this->getHost( $current_domaine);                    
+                        $protocol = 'http://'; 
+                        $current_domaine =  $protocol.$domaine_nom;                    
+                        $current_domaine  =  str_replace('http', 'https', $current_domaine);
+                    }
+
+                    if($is_www) 
+                    {
+                        $domaine_nom =  $this->getHost( $current_domaine);
+                        $domaine_nom  =  "www.". $domaine_nom ;     
+                        $protocol = 'http://'; 
+                        $current_domaine =  $protocol.$domaine_nom;    
+                    } 
+
+                }
+                
                 $params_domaine = array(                                
                     'nom' => $current_domaine,
                     'id_registrar' => $this->input->post('id_registrar'),					
                     'id_type' => $this->input->post('id_type')	,
                     'is_ssl' => $is_ssl,
-				    'is_www' => $is_www
+                    'is_www' => $is_www
                 );   
 
-                $this->Domaine_model->update_t_domaine($id,$params_domaine);               
+                $this->Domaine_model->update_t_domaine($id,$params_domaine);    
+                       
                 
                 $theme_tags = isset($_COOKIE['theme_tags']) ? $_COOKIE['theme_tags'] : NULL;  
               

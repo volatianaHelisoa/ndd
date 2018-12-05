@@ -17,7 +17,7 @@
 	<?php foreach($t_theme as $t){ ?>
     <tr>
 		<td><?php echo $t->name; ?></td>
-		<td><?php echo $t->nb_site; ?></td>
+        <td><a href="<?php echo site_url('domaine?theme='.$t->id) ?>"><?php echo $t->nb_site; ?></a></td>
 		<td>
             <a href="<?php echo site_url('theme/edit/'.$t->id); ?>" class="btn btn-info btn-xs act-edit-btn"></a> 
             <a href=""  title="Supprimer theme"  class="btn btn-danger btn-xs act-delete-btn" data-toggle="modal" data-target="#myModal<?php echo $t->id; ?>"></a>
