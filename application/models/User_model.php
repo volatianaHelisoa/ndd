@@ -62,7 +62,7 @@ class User_model extends CI_Model
 		$this->db->select( 'email', 'password' );
 		$this->db->from( 't_user' );
 		$this->db->where( 'email', $login );
-		$this->db->where( 'password', $password );
+        $this->db->where("password like binary",$password);
         $query = $this->db->get();
        
 		if ( $query->num_rows() == 1 ) {

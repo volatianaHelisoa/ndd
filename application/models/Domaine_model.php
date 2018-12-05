@@ -32,7 +32,7 @@ class Domaine_model extends CI_Model
      */
     function get_all_t_domaine()
     {
-        $this->db->order_by('nom', 'asc');
+        $this->db->order_by('nom', 'asc'); 
         return $this->db->get('t_domaine')->result_array();
     }
         

@@ -91,7 +91,15 @@ class Theme_model extends CI_Model
      */
     function get_t_theme_by_name($name)
     {
-        return $this->db->get_where('t_theme',array('name'=>$name))->row_array();
+        $this->load->database();
+         
+        $this->db->select('*');
+        $this->db->from("t_theme");      
+        $this->db->where("name like binary",$name);
+        $query = $this->db->get();
+        $theme_data = $query->row_array();
+        return $theme_data;
+
     }
 
  

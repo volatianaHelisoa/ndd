@@ -2,10 +2,7 @@
 <?php echo form_open('domaine/edit/'.$t_domaine['id']); ?>
 
 <div class="head-section centered-el">
-	<span class="title-l">Nom de domaine</span>
-	<p>Vous avez <?php $domaine_data = $this->Domaine_model->get_all_t_domaine(); echo(count($domaine_data));?> nom de domaines</p>
-	
-	
+	<span class="title-l">Modifier ce domaine</span>
 </div>				
 
 <div class="wrap-field info-gen carte">

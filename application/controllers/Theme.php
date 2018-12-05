@@ -66,7 +66,7 @@ class Theme extends CI_Controller{
             $this->load->view('layouts/main',$data);
         }
     }  
-
+ 
     /*
      * Editing a t_theme
      */
@@ -82,14 +82,18 @@ class Theme extends CI_Controller{
                 $params = array(
 					'name' => $this->input->post('name'),
                 );
+
                 if($this->Theme_model->get_t_theme_by_name($this->input->post('name')) == 0)  
                 {
+                    
                     $this->Theme_model->update_t_theme($id,$params);            
                      redirect('theme');
                 }
                 else
-                {        
-                    $data['error_nom'] = "Ce theme existe déjà !";                 
+                {       
+                 
+                    $data['t_theme']['error_nom'] = "Ce theme existe déjà !";    
+                   
                     $data['_view'] = 'theme/edit';
                     $this->load->view('layouts/main',$data);
                 }

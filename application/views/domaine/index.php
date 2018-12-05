@@ -218,7 +218,7 @@
 					<div class="sub-title">Administration</div>
 					<div class="field1">
 						<label for="">URL :</label>
-						<span id="url_res"></span>
+						<a href="#" id="url_a" rel="noopener noreferrer" target="_blank" ><span id="url_res"></span></a>
 						<input type="text" id="txt_url_res">
 					</div>
 					<div class="field1">
@@ -398,6 +398,7 @@
 									$("#pass_res").val(data[0].ftp_password);	
 
 									$("#url_res").text(data[0].admin_url);	
+									$("#url_a").attr("href", data[0].admin_url);
 									$("#bologin_res").text(data[0].admin_login);			
 									$("#bopass_res").val(data[0].admin_password);	
 
@@ -415,6 +416,7 @@
 									$.each(data, function (index, ndd) {										
 										
 										techno_result.append("<li>" +ndd.techno+ "</li>");   
+										
 									})
 								}
 							}else{
@@ -763,7 +765,8 @@
 		});
 
 		/* Statut domaine */
-		$('td.statut > button').click(function(e){           
+		$('#ndd-list').on('click', 'td.statut > button', function(e){
+		// $('td.statut > button').click(function(e){           
 			var elm = $( e.target );
 			var id = elm.parents("tr").attr("id");
 			e.preventDefault();
