@@ -19,4 +19,9 @@ $route['cms'] = 'Cms/index';
 $route['techno'] = 'Techno/index';
 $route['type'] = 'Type/index';
 
+$route['motDePasse'] = 'User/forgotpassword';
+$route['motDePasseError'] = 'User/mailFailed';
+$route['reinitMotDePasse'] = 'User/forgotpasswordconfirmation';
+$route['nouveauMotDePasse'] = 'User/npwd';
+
 $route['authentification'] = 'pages/authentificationfailed';

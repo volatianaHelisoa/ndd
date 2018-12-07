@@ -109,11 +109,41 @@ class User_model extends CI_Model
       /*
      * Get t_user by email
      */
-    function get_t_user_id($email)
+    function get_t_user_email($email)
     {
         return $this->db->get_where('t_user',array('email'=>$email))->row_array();
     }
 
+    /**
+	 * Creation guid numeric
+	 */
+	function get_rand_guid( $length ) {
+		if ( $length > 0 ) {
+			$rand_id = "";
+			for ( $i = 1; $i <= $length; $i ++ ) {
+				mt_srand( (double) microtime() * 1000000 );
+				$num = mt_rand( 1, 36 );
+				$rand_id .= $this->assign_rand_guid( $num );
+			}
+		}
 
+		return $rand_id;
+	}
+
+
+	/**
+	 * Requete qui retourne les informations d'un utilisateur par rapport a son email si existe
+	 */
+	public function get_email( $email ) {
+		$this->db->select( 'email' );
+		$this->db->from( 't_user' );
+		$this->db->where( 'email', $email );
+		$query = $this->db->get();
+		if ( $query->num_rows() == 1 ) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
 }
 

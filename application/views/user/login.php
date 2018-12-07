@@ -12,12 +12,14 @@
 					<input type="checkbox" id="SavePass" name="check_session">
 					Se souvenir de moi
 				</span>                            
-				<a href="" class="link forgotPass">Mot de passe oublié ?</a>
+				<a href="<?php echo site_url('motDePasse'); ?>" class="link forgotPass">Mot de passe oublié ?</a>
 			</div>
 
 			<button type="submit" class="cust-btn submit">Connexion</button>
+			<?php echo form_close(); ?>
 	</div>
 </div>
+
 
 </body>
 </html>

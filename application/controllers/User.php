@@ -169,14 +169,14 @@ class User extends CI_Controller{
 			$remember = $this->input->post( 'check_session' );
            
 			$tname = $this->input->post( 'email' );
-			$name  = str_replace( ' ', '', $tname );
+			$email  = str_replace( ' ', '', $tname );
 			$this->load->model( 'User_model' );
-            $fname     = $this->User_model->get_fname( $name );
+            $fname     = $this->User_model->get_fname( $email );
            
-			$lname     = $this->User_model->get_lname( $name );
+			$lname     = $this->User_model->get_lname( $email );
             $nameadmin = $fname . " " . $lname;
             
-            $user = $this->User_model->get_t_user_id($tname);
+            $user = $this->User_model->get_t_user_email($tname);
             $current_id = $user["id"];
 
 			$sessiondata = array(
@@ -251,6 +251,98 @@ class User extends CI_Controller{
            show_error('The t_user you are trying to edit does not exist.');
     }
 
-    
+    /**	* Page d'oblie de mot de passe
+		 */
+		public function forgotpassword(){
+            $this->load->view( 'template/head' );
+			$this->load->view('template/forgotpass');
+		}
+
+    function sendforgotpassword(){ 
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('form_validation');
+        	
+        $this->form_validation->set_rules('email','email','required|callback_verifyEmail');
+
+        $email = $this->input->post('email');
+        $name = $this->User_model->get_fname($email);
+        $user = $this->User_model->get_t_user_email($email);
+        $guid = $user["id"];
+       
+        $this->load->helper('string');
+        $newtoken = random_string('alnum', 32);
+
+        $link = 'Madama / Monsieur, '.ucfirst($name).' ,<br>Votre dernière demande de réinitialiser de votre mot de passe pour le compte  '.ucfirst($name).'. Cliquez sur le lien ci-dessous pour le réinitialiser :<br> <a href="'.$this->config->item('base_url').'nouveauMotDePasse/?hash='.$newtoken.'">'.$this->config->item('base_url').'nouveauMotDePasse</a> <br> Si vous n\'avez pas demandé la réinitialisation de mot de passe, veuillez ignorer cet email.<br>Cordialement.  ' ;
+
+
+        if ($this->form_validation->run() == FALSE) {
+            redirect('motDePasseError');
+        }
+        else{
+            $this->load->library('email');
+            $this->email->from( 'mediaclickdev18@gmail.com', 'NDD' );
+            $this->email->to($email);
+            $this->email->subject('MOT DE PASSE OUBLIÉ');
+            $this->email->message($link);
+            $this->email->send();
+           // $this->User_model->set_token($email,$newtoken);
+            redirect(base_url().'reinitMotDePasse/?hash='.$guid);
+        }
+    }
+
+        /**
+		 * Callback validation email
+		 */
+	 function verifyEmail(){
+			$email = $this->input->post('email');
+
+			if($this->User_model->get_email($email)){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+        
+		/**
+		 * Page confirmation d'obli de mot de passe
+		 */
+	 function forgotpasswordconfirmation(){
+			 $id = $_GET['hash'];
+             $data['t_user'] = $this->User_model->get_t_user($id);
+          
+			$this->load->view('template/forgotpassconfirmation', $data);			
+    }
+        
+        
+    /**
+     * Page d'erreur d'email
+     */
+    public  function mailfailed(){
+        $this->load->view( 'template/head' );
+        $this->load->view('template/mailfailed');			
+    }
+
+    /**
+     * Page de changement de mot de passe si token exist
+     */
+    public function npwd(){
+            
+        if(isset($_GET['hash'])&&!empty($_GET['hash'])){
+            $id = $_GET['hash'];
+            $user = $this->User_model->get_t_user($id);
+            if($user){
+              
+                $this->load->view('template/newpass');
+            }else {
+                redirect('login');
+            }            
+        }
+        else {
+            redirect('login');
+        }
+        
+    }
+
 }
 
