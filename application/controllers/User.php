@@ -363,13 +363,15 @@ class User extends CI_Controller{
         $pass = $this->input->post('password');
         $md5pass = md5($pass);
         $sha1pass = sha1($md5pass);
-        $password = crypt($sha1pass, $md5pass);
+        $newpassword = crypt($sha1pass, $md5pass);
+
+      
 
         if ($this->form_validation->run() == FALSE) { 
             redirect('nouveauMotDePasseError/?hash='.$token);
         }
         else{
-            $this->set_pass($password,$token);
+            $this->set_pass($newpassword,$token);
         }		
     }
 
@@ -389,11 +391,8 @@ class User extends CI_Controller{
 	 */
 	 function set_pass( $password, $id ) {
        
-            $pass     = str_replace( ' ', '', $password );
-            $md5pass  = md5( $pass );
-            $sha1pass = sha1( $md5pass );
-            $password = crypt( $sha1pass, $md5pass );
-
+           
+          
             $params = array(
               
                 'password' =>  $password,
