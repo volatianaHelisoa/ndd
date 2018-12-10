@@ -33,12 +33,12 @@
 		<div class="title-field">RÉINITIALISER MOT DE PASSE</div>
 		<span class="ltl-consign messlab"><i class="fa fa-3x fa-info-circle"></i>Veuillez entrer votre nouveau mot de passe et cliquer sur le bouton "Réinitialiser" pour le sauvegarder.</span>
 			<?php echo validation_errors(); $token = $_GET['hash'];		?>
-				<?php echo form_open('pages/newpassword',array('class' => 'formfields')); ?>	
+				<?php echo form_open('User/newpassword',array('class' => 'formfields')); ?>	
 				<fieldset>
 					<div class="inline-form clr">
 						<input type="hidden" name="nameuser" value="<?php echo $token ;?>"></input>
 						<input type="password" id="passwd" placeholder="New password" name="password" autofocus required class="input rwd"></input>
-						<input type="password" id="passwd" placeholder="Confirm new password" name="password2" autofocus required class="input rwd"></input>
+						<input type="password" id="newpasswd" placeholder="Confirm new password" name="password2" autofocus required class="input rwd"></input>
 						<ul class="policies">
 							<li><strong>Règles du mot de passe :</strong></li>
 							<li><span class="ltl-consign">- Doit contenir au moins 8 caractères </span></li>

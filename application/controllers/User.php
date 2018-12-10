@@ -269,17 +269,23 @@ class User extends CI_Controller{
         $user = $this->User_model->get_t_user_email($email);
         $guid = $user["id"];
        
-        $this->load->helper('string');
-        $newtoken = random_string('alnum', 32);
+        
 
-        $link = 'Madama / Monsieur, '.ucfirst($name).' ,<br>Votre dernière demande de réinitialiser de votre mot de passe pour le compte  '.ucfirst($name).'. Cliquez sur le lien ci-dessous pour le réinitialiser :<br> <a href="'.$this->config->item('base_url').'nouveauMotDePasse/?hash='.$newtoken.'">'.$this->config->item('base_url').'nouveauMotDePasse</a> <br> Si vous n\'avez pas demandé la réinitialisation de mot de passe, veuillez ignorer cet email.<br>Cordialement.  ' ;
+        $link = 'Madama / Monsieur, '.ucfirst($name).' ,<br>Votre dernière demande de réinitialiser de votre mot de passe pour le compte  '.ucfirst($name).'. Cliquez sur le lien ci-dessous pour le réinitialiser :<br> <a href="'.$this->config->item('base_url').'nouveauMotDePasse/?hash='.$guid.'"> Réinitialiser </a> <br> Si vous n\'avez pas demandé la réinitialisation de mot de passe, veuillez ignorer cet email.<br>Cordialement.  ' ;
 
 
         if ($this->form_validation->run() == FALSE) {
             redirect('motDePasseError');
         }
         else{
-            $this->load->library('email');
+            $config = Array(
+                'protocol' => 'sendmail',
+                'mailtype' => 'html', 
+                'charset' => 'utf-8',
+                'wordwrap' => TRUE
+      
+            );
+            $this->load->library('email', $config);
             $this->email->from( 'mediaclickdev18@gmail.com', 'NDD' );
             $this->email->to($email);
             $this->email->subject('MOT DE PASSE OUBLIÉ');
@@ -343,6 +349,75 @@ class User extends CI_Controller{
         }
         
     }
+	/**
+		 * Callback pour le changement de mot de passe
+		 */
+    public function newpassword(){
+        $token = $this->input->post('nameuser');
+
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('password','Password','required|callback_passwordcheck|min_length[8]');
+        $this->form_validation->set_rules('password2','Password2','required|matches[password]');
+
+        $pass = $this->input->post('password');
+        $md5pass = md5($pass);
+        $sha1pass = sha1($md5pass);
+        $password = crypt($sha1pass, $md5pass);
+
+        if ($this->form_validation->run() == FALSE) { 
+            redirect('nouveauMotDePasseError/?hash='.$token);
+        }
+        else{
+            $this->set_pass($password,$token);
+        }		
+    }
+
+    /**
+		 * Callback validation de mot de passe
+		 */
+		public function passwordcheck(){
+			$password = $this->input->post('password');
+		   if (preg_match('#[0-9]#', $password) && preg_match('#[a-z]#', $password) && preg_match('#[A-Z]#', $password) && preg_match('/[\'\/~`\!@#\$%\^&\*\(\)_\-\+=\{\}\[\]\|;:"\<\>,\.\?\\\]/', $password) ) {
+		     return TRUE;
+		   }
+		   return FALSE;
+		}	
+
+    /**
+	 * Met a jour le password par rapport a un $token si exist
+	 */
+	 function set_pass( $password, $id ) {
+       
+            $pass     = str_replace( ' ', '', $password );
+            $md5pass  = md5( $pass );
+            $sha1pass = sha1( $md5pass );
+            $password = crypt( $sha1pass, $md5pass );
+
+            $params = array(
+              
+                'password' =>  $password,
+            );
+
+            $params = $this->security->xss_clean( $params );
+            $this->User_model->update_t_user($id,$params);   
+            redirect('nouveauMotDePasseConfirmation');
+	}
+
+    /**
+     * Page de confirmation de nouvelle mot de passe
+     */
+    public function newpasswordconfirmation(){
+        $this->load->view('template/newpassconfirmation');
+
+    }
+
+    	/**
+		 * Page d'erreur de mot de passe
+		 */
+		public function passwordfailed(){
+			$this->load->view('template/pwdfailed');			
+		}
 
 }
 

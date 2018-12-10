@@ -23,5 +23,7 @@ $route['motDePasse'] = 'User/forgotpassword';
 $route['motDePasseError'] = 'User/mailFailed';
 $route['reinitMotDePasse'] = 'User/forgotpasswordconfirmation';
 $route['nouveauMotDePasse'] = 'User/npwd';
+$route['nouveauMotDePasseConfirmation'] = 'User/newpasswordconfirmation';
+$route['nouveauMotDePasseError'] = 'User/passwordfailed';
 
 $route['authentification'] = 'pages/authentificationfailed';
