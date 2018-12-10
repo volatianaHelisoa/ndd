@@ -30,9 +30,8 @@
 <main class="dashboard-container">
 
 		<div class="main-wrapper">
-			<div class="wrap-field carte">
-			<div class="title-field">OUPS  !</div>
-							
+			<div class="full-carte">
+			<div class="title-field">OUPS  !</div>							
 				<?php $guid=$_GET['hash'];?>
 				<span class="ltl-consign messlab"><i class="fa fa-3x fa-info-circle"></i>Invalid password.<br> Please clic on the button bellow to go to the reset passord page.</span>
 				<div class="btn-submit"><input type="submit" class="messok" value="Ok" onclick="window.location.href='<?php echo base_url(); ?>nouveauMotDePasse/?hash=<?php echo $guid;?>'"></input></div>				

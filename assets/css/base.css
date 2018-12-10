@@ -96,3 +96,5 @@ input.n-tag {
     padding: 0;
     vertical-align: middle;
 }
+
+.btn-submit { position: relative; z-index: 10}

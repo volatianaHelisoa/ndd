@@ -1,15 +1,16 @@
-
-		
-			<div class="main-wrapper">
-			<div class="wrap-field carte">
-			<div class="title-field">OUPS  !</div>
-							<span class="ltl-consign messlab"><i class="fa fa-3x fa-info-circle"></i>Un compte avec cette adresse e-mail n'existe pas.</span>
-							<div class="btn-submit"><input type="submit" class="messok" value="Ok" onclick="window.location.href='<?php echo base_url(); ?>SendResetPassword'"></input></div>				
-						</div>
+				<div class="login-page">
+					<div class="wrap-field carte">
+						<div class="fixed-entet">Mot de passe oublié ?</div>
+						<h2>OUPS  !</h2>
+						<span>Un compte avec cette adresse e-mail n'existe pas.</span>
+						<div class="btn-submit">
+							<input type="submit" class="cust-btn submit" value="Réessayer" onclick="window.location.href='<?php echo base_url(); ?>motDePasse'" />
+						</div>				
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 </main>
 
 </body>
