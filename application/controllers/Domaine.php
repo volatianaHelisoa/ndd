@@ -97,7 +97,7 @@ class Domaine extends CI_Controller{
                         $cms_obj = $this->Cms_model->get_t_cms($row['id_cms']);    
                         $element->cms =  $cms_obj['type'];
                     }
-                //var_dump($element->cms);
+					
                     $element->ftp_login = $row['ftp_login'];
                     $element->ftp_password = $row['ftp_password'];
                     $element->ftp_server = $row['ftp_server'];
@@ -124,10 +124,10 @@ class Domaine extends CI_Controller{
                         $element->ip = $domaine_ip;  
                     
                     }
-                    /**IP */               
+                    					
                     $this->load->model('Domaine_theme_ip_model');
-                    $domaine_theme = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_theme_by_domaine($row['id']);   
-                
+                    $domaine_theme = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_theme_by_domaine($row['id']); 
+					
                     if($domaine_theme != null )                
                         $element->theme =  $domaine_theme;  
                         
@@ -688,7 +688,7 @@ class Domaine extends CI_Controller{
     }     
 
      /*
-     * Editing a t_domaine
+     * Editing a t_domaine ip
      */
     function edit_ip()
     {   
@@ -698,6 +698,7 @@ class Domaine extends CI_Controller{
         $row  =   $this->Domaine_model->get_t_domaine($id);
         $element = $this->get_current_domaine($row);
         $data['t_domaine'] =   $element;
+		
 
         if(isset( $element->id))
         {
@@ -715,15 +716,14 @@ class Domaine extends CI_Controller{
                     'nom' => $element->nom,
                     'date_creation' => $today,
                  );
-                $this->Domaine_model->update_t_domaine($id,$params);                  
-            
+                $this->Domaine_model->update_t_domaine($id,$params);   
                 /**ajout ip */               
-               
                 $id_ip = empty($param["ip"]) ? NULL : $param["ip"];   
 
-                 $this->load->model('Domaine_theme_ip_model');          
-                 $t_domaine_theme = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_by_param($element->id);
-                 if(isset($t_domaine_theme)){
+				$this->load->model('Domaine_theme_ip_model');          
+				$t_domaine_theme = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_by_param($element->id);
+				
+				if(isset($t_domaine_theme)){
                     foreach($t_domaine_theme as $theme){
                         $id_theme = $theme["id_theme"];
                         $params_ip = array(
@@ -731,13 +731,20 @@ class Domaine extends CI_Controller{
                             'id_ip' =>  $id_ip,
                             'id_theme' => $id_theme,
                         );
-        
                         if(!empty( $param["ip"]) )
                         {
-                            $this->Domaine_theme_ip_model->update_t_domaine_theme_ip($theme["id"],$params_ip);    
-                        }                   
+                            $this->Domaine_theme_ip_model->update_t_domaine_theme_ip($theme["id"],$params_ip);							
+                        }  
+											
                     }
-                 }
+				}				
+				if(count($t_domaine_theme) == 0){
+					$params_ip = array(
+						'id_domaine' => $element->id,
+						'id_ip' =>  $id_ip                          
+					);
+					$t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);					
+				}	
                 echo "index";
                 die; 
         }
