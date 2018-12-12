@@ -32,19 +32,20 @@
 
 		<div class="field">
 			<label for="">Thématique :</label>
-			<div class="content-chips plug-list">
+			<!--<div class="content-chips plug-list">
 				
 						<ul id="techno_result">	
-						<?php if( isset($all_theme) ) { ?>				
-							<?php	foreach($all_theme as $theme){	?>
+						<?php /* if( isset($all_theme) ) { ?>				
+							<?php foreach($all_theme as $theme){	?>
 								<li><?php echo  $theme["name"]; ?> </li>
-							<?php	} ?>	
+							<?php /} ?>	
 							
-						<?php }?>				
+						<?php }*/?>				
 						</ul> 
-			</div>
+			</div>-->
+			
 			<div class="content-chips theme_tags">
-					<input class="typeahead" name="theme_tags" type="text" data-role="materialtags" placeholder="Saisir thème" >						
+				<input class="typeahead" name="theme_tags" type="text" id="techno_result" data-role="materialtags" placeholder="Saisir thème" <?php  if( isset($all_theme) ) { foreach($all_theme as $theme){ $themeName[] = $theme["name"]; } ?> value="<?php echo implode(',', $themeName);?>" <?php } ?> >
 			</div>	
 		</div>		
 				
@@ -68,7 +69,7 @@
 			<label for="is_www" class="col-md-6"><input type="checkbox"  name="is_www" id="is_www" value="<?php echo ($this->input->post('is_www') ? $this->input->post('is_www') : $t_domaine['is_www']); ?>" /><small>Repertoire WWW</small> </label>				
 		</div>
 	
-		<input type="submit" class="btn submit primary-action" value="Enregistrer">
+		<input type="submit" class="btn submit primary-action" value="Enregistrer" id="saveEdit">
 		<a href="<?php echo site_url('domaine'); ?>" class="submit">Annuler</a>
 </div>
 <?php echo form_close(); ?>
@@ -109,17 +110,14 @@
 			}
         });
 
-
-		$('.btn').click(function(e){ 			
+		$('#saveEdit').click(function(e){ 			
+			var theme_tags = [];
 			
-			var theme_tags = [];		
-			$('.content-chips.theme_tags .materialize-tags .materialize-tags').find('span.chip').each(function() {               
-				var theme_value = $(this).text();					
+			$('#techno_result').each(function() {               
+				var theme_value = $(this).val();				
 				var theme_res = theme_value.replace("close", "");			
-				theme_tags.push(theme_res); 				           
-			});
-
-			
+				theme_tags.push(theme_res); 				
+			});			
 			
 			setCookie('theme_tags',theme_tags,1);				
 		});
