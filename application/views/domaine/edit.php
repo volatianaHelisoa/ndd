@@ -32,17 +32,6 @@
 
 		<div class="field">
 			<label for="">Thématique :</label>
-			<!--<div class="content-chips plug-list">
-				
-						<ul id="techno_result">	
-						<?php /* if( isset($all_theme) ) { ?>				
-							<?php foreach($all_theme as $theme){	?>
-								<li><?php echo  $theme["name"]; ?> </li>
-							<?php /} ?>	
-							
-						<?php }*/?>				
-						</ul> 
-			</div>-->
 			
 			<div class="content-chips theme_tags">
 				<input class="typeahead" name="theme_tags" type="text" id="techno_result" data-role="materialtags" placeholder="Saisir thème" <?php  if( isset($all_theme) ) { foreach($all_theme as $theme){ $themeName[] = $theme["name"]; } ?> value="<?php echo implode(',', $themeName);?>" <?php } ?> >
@@ -109,17 +98,25 @@
 					
 			}
         });
+		
+		function getAllthemes(data){
+			
+		}
 
-		$('#saveEdit').click(function(e){ 			
-			var theme_tags = [];
+		$('#saveEdit').click(function(e){
+			e.preventDefault();
+			var theme_tags = [],
+			test_output = $('.content-chips.theme_tags').find('span.chip').each(function(){
+				var text = $(this).text(),
+				themeTxt = text.replace("close", "");
+				theme_tags.push(themeTxt);
+			});
+			var themes_val = theme_tags.join(",");
 			
-			$('#techno_result').each(function() {               
-				var theme_value = $(this).val();				
-				var theme_res = theme_value.replace("close", "");			
-				theme_tags.push(theme_res); 				
-			});			
+			var input = $('input#techno_result').val(themes_val);
+			console.log(input);
 			
-			setCookie('theme_tags',theme_tags,1);				
+			//setCookie('theme_tags',themes_val,1);
 		});
 
 	function setCookie(name,value,days) {

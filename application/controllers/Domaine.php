@@ -114,22 +114,19 @@ class Domaine extends CI_Controller{
                     
                     /**IP */               
                     $this->load->model('Domaine_theme_ip_model');
-                    $domaine_theme_ip = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_by_domaine($row['id']);   
-                
+                    $domaine_theme_ip = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_by_domaine($row['id']);
                     if($domaine_theme_ip != null)
                     {
                         $ipid = $domaine_theme_ip["id_ip"];
                         $this->load->model('Ip_model');
                         $domaine_ip = $this->Ip_model->get_t_ip($ipid);
-                        $element->ip = $domaine_ip;  
-                    
+                        $element->ip = $domaine_ip;                    
                     }
                     					
                     $this->load->model('Domaine_theme_ip_model');
                     $domaine_theme = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_theme_by_domaine($row['id']); 
-					
                     if($domaine_theme != null )                
-                        $element->theme =  $domaine_theme;  
+                        $element->theme =  $domaine_theme;
                         
                 }            
                 
@@ -591,7 +588,6 @@ class Domaine extends CI_Controller{
                        
                 
                 $theme_tags = isset($_COOKIE['theme_tags']) ? $_COOKIE['theme_tags'] : NULL;  
-              
                 $theme_tags_array = null;     
                 if (isset($theme_tags))
                 {			
@@ -603,10 +599,9 @@ class Domaine extends CI_Controller{
                       } else { 
                         $theme_tags_array =  $theme_tags ;
                       } 
-                }
-                           
-                if($theme_tags_array != null )     
-                {    
+                }         
+                if($theme_tags_array != null )
+                {				
                     if(count($theme_tags_array) > 1 )  { 
                         foreach($theme_tags_array as $key){  
                             
@@ -639,7 +634,7 @@ class Domaine extends CI_Controller{
                     else{
                         $this->load->model('Theme_model');
                         $theme_obj = $this->Theme_model->get_t_theme_by_name($theme_tags_array);   
-
+						
                         if(isset($theme_obj)){                                      
                             $id_theme  = $theme_obj['id'];   
                             $this->load->model('Domaine_theme_ip_model');
@@ -657,7 +652,7 @@ class Domaine extends CI_Controller{
                             if(isset( $t_domaine_theme) )                            
                                 $this->Domaine_theme_ip_model->delete_t_domaine_theme_ip_by_domaine($id); 
                                 
-                            $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);                                      
+                            $t_domaine_theme_ip_id = $this->Domaine_theme_ip_model->add_t_domaine_theme_ip($params_ip);                                  
                         } 
                     }     
                 }      
@@ -1062,7 +1057,8 @@ class Domaine extends CI_Controller{
             $current_ip =  $this->Ip_model->get_t_ip_by_adresse($ip_addresse);
             if($current_ip){
                 $this->load->model('Domaine_theme_ip_model');
-                $domaine_theme["themes"]  = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_theme_by_ip($current_ip['id']);   
+                $domaine_theme["themes"]  = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_theme_by_ip($current_ip['id']);  
+				var_dump($domaine_theme["themes"]);die;				
                
                 $domaine_ip = $this->Domaine_theme_ip_model->get_t_domaine_theme_ip_by_ip($current_ip['id']);   
              
