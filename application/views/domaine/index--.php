@@ -736,22 +736,22 @@
 			
 			var ndd_obj = {"ndd_id": nddId,"registrar":registrar,"heberg":heberg, "ip":ip,"theme":theme};      
 			console.log(ndd_obj);
-			 $.ajax({
+			$.ajax({
 				type: "POST",
 				url:  "<?=site_url('domaine/edit_ip')?>",
 				data: ndd_obj,
 				dataType: "text",  
 				cache:false,
 				success: 
-					function(response){
-						if ( myTrim(response) == "index"  ){
-							console.log(response);  
-							reinit_ip();
-							$('#ipModal').modal('hide');
-							location.reload();
-						}
+				function(response){
+					if ( myTrim(response) == "index"  ){
+						console.log(response);  
+						reinit_ip();
+						$('#ipModal').modal('hide');
+						//location.reload();
 					}
-				});		
+				}
+			});		
 
 		});  		
 

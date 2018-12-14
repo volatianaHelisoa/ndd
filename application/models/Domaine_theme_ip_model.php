@@ -78,7 +78,6 @@ class Domaine_theme_ip_model extends CI_Model
         $this->db->distinct();
         $query = $this->db->get();        
         $domaine_ip = $query->row_array();
-       
         return $domaine_ip;
     }
 
