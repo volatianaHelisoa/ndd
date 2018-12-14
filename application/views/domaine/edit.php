@@ -104,7 +104,6 @@
 		}
 
 		$('#saveEdit').click(function(e){
-			e.preventDefault();
 			var theme_tags = [],
 			test_output = $('.content-chips.theme_tags').find('span.chip').each(function(){
 				var text = $(this).text(),
@@ -112,11 +111,7 @@
 				theme_tags.push(themeTxt);
 			});
 			var themes_val = theme_tags.join(",");
-			
-			var input = $('input#techno_result').val(themes_val);
-			console.log(input);
-			
-			//setCookie('theme_tags',themes_val,1);
+			setCookie('theme_tags',theme_tags,1);
 		});
 
 	function setCookie(name,value,days) {
